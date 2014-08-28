@@ -17,6 +17,7 @@
 		322AD55E19AF017D00364A33 /* crow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 322AD55D19AF017D00364A33 /* crow.cpp */; };
 		322AD56019AF0C6000364A33 /* libtbb.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 322AD55F19AF0C6000364A33 /* libtbb.dylib */; };
 		322ADA5319AF0EEE00364A33 /* libtbb.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 322AD55F19AF0C6000364A33 /* libtbb.dylib */; };
+		322ADA5519AF1D2700364A33 /* http_response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 322ADA5419AF1D2700364A33 /* http_response.cpp */; };
 		324D86B519A9FBA4003D786C /* RunLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324D86B319A9FBA4003D786C /* RunLoop.cpp */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,7 @@
 		322AD97B19AF0CEC00364A33 /* tbb_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tbb_thread.h; sourceTree = "<group>"; };
 		322AD97C19AF0CEC00364A33 /* tbbmalloc_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tbbmalloc_proxy.h; sourceTree = "<group>"; };
 		322AD97D19AF0CEC00364A33 /* tick_count.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tick_count.h; sourceTree = "<group>"; };
+		322ADA5419AF1D2700364A33 /* http_response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_response.cpp; sourceTree = "<group>"; };
 		324D86B319A9FBA4003D786C /* RunLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunLoop.cpp; sourceTree = "<group>"; };
 		324D86B419A9FBA4003D786C /* RunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunLoop.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -241,6 +243,7 @@
 				322AD54D19AEFB6600364A33 /* http_parser_merged.h */,
 				322AD54E19AEFB6600364A33 /* http_request.h */,
 				322AD54F19AEFB6600364A33 /* http_response.h */,
+				322ADA5419AF1D2700364A33 /* http_response.cpp */,
 				322AD55019AEFB6600364A33 /* http_server.h */,
 				322AD55B19AF00C200364A33 /* http_server.cpp */,
 				322AD55119AEFB6600364A33 /* json.h */,
@@ -501,6 +504,7 @@
 				3220D42E19A9A46A006645D8 /* NodeHandle.cpp in Sources */,
 				322AD55E19AF017D00364A33 /* crow.cpp in Sources */,
 				3220D43719A9F850006645D8 /* Key.cpp in Sources */,
+				322ADA5519AF1D2700364A33 /* http_response.cpp in Sources */,
 				322AD55A19AEFFD400364A33 /* http_connection.cpp in Sources */,
 				324D86B519A9FBA4003D786C /* RunLoop.cpp in Sources */,
 				3220D43219A9F785006645D8 /* NodeItr.cpp in Sources */,

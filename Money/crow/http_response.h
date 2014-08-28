@@ -9,76 +9,32 @@ namespace crow
     {
         friend class crow::Connection;
 
-        std::string body;
-        json::wvalue json_value;
+        istring body_;
+//        json::wvalue json_value;
         int code{200};
-        std::unordered_map<std::string, std::string> headers;
+        std::unordered_map<istring, istring> headers;
 
         response() {}
         explicit response(int code) : code(code) {}
-        response(std::string body) : body(std::move(body)) {}
-        response(json::wvalue&& json_value) : json_value(std::move(json_value)) {}
-        response(const json::wvalue& json_value) : body(json::dump(json_value)) {}
-        response(int code, std::string body) : body(std::move(body)), code(code) {}
+//        response(std::string body) : body(std::move(body)) {}
+//        response(json::wvalue&& json_value) : json_value(std::move(json_value)) {}
+//        response(const json::wvalue& json_value) : body(json::dump(json_value)) {}
+//        response(int code, std::string body) : body(std::move(body)), code(code) {}
 
-        response(response&& r)
-        {
-            *this = std::move(r);
-        }
+        response& operator=(const response& r) = delete;
 
-        response& operator = (const response& r) = delete;
+        response(response&& r);
+        response& operator=(response&& r);
 
-        response& operator = (response&& r)
-        {
-            body = std::move(r.body);
-            json_value = std::move(r.json_value);
-            code = r.code;
-            headers = std::move(r.headers);
-			completed_ = r.completed_;
-            return *this;
-        }
+        void clear();
+//        void write(const std::string& body_part);
 
-        void clear()
-        {
-            body.clear();
-            json_value.clear();
-            code = 200;
-            headers.clear();
-            completed_ = false;
-        }
-
-        void write(const std::string& body_part)
-        {
-            body += body_part;
-        }
-
-        void end()
-        {
-            if (!completed_)
-            {
-                if (complete_request_handler_)
-                {
-                    complete_request_handler_();
-                }
-				completed_ = true;
-            }
-        }
-
-        void end(const std::string& body_part)
-        {
-            body += body_part;
-            end();
-        }
+        void end();
+		/// Set this->body_ and call this->end()
+        void end(const istring& body);
 		
-		bool is_completed()
-		{
-			return completed_;
-		}
-
-        bool is_alive()
-        {
-            return is_alive_helper_ && is_alive_helper_();
-        }
+		bool is_completed() const { return completed_; }
+        bool is_alive() const { return is_alive_helper_ && is_alive_helper_(); }
 
         private:
             bool completed_{};

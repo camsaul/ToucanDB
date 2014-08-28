@@ -86,13 +86,8 @@ namespace crow {
 		//auto self = this->shared_from_this();
 		res.complete_request_handler_ = nullptr;
 		
-		if (!socket_.is_open())
-		{
-			//CROW_LOG_DEBUG << this << " delete (socket is closed) " << is_reading << ' ' << is_writing;
-			//delete this;
-			return;
-		}
-		
+		if (!socket_.is_open()) return;
+
 		static std::unordered_map<int, std::string> statusCodes = {
 			{200, "HTTP/1.1 200 OK\r\n"},
 			{201, "HTTP/1.1 201 Created\r\n"},
@@ -121,10 +116,10 @@ namespace crow {
 		buffers_.clear();
 		buffers_.reserve(4*(res.headers.size()+4)+3);
 		
-		if (res.body.empty() && res.json_value.t() == json::type::Object)
-		{
-			res.body = json::dump(res.json_value);
-		}
+//		if (res.body.empty() && res.json_value.t() == json::type::Object)
+//		{
+//			res.body = json::dump(res.json_value);
+//		}
 		
 		if (!statusCodes.count(res.code))
 			res.code = 500;
@@ -133,8 +128,8 @@ namespace crow {
 			buffers_.emplace_back(status.data(), status.size());
 		}
 		
-		if (res.code >= 400 && res.body.empty())
-			res.body = statusCodes[res.code].substr(9);
+		if (res.code >= 400 && res.body_.empty())
+			res.body_ = statusCodes[res.code].substr(9);
 		
 		bool has_content_length = false;
 		
@@ -151,7 +146,7 @@ namespace crow {
 		
 		if (!has_content_length)
 		{
-			content_length_ = std::to_string(res.body.size());
+			content_length_ = std::to_string(res.body_.size());
 			static std::string content_length_tag = "Content-Length: ";
 			buffers_.emplace_back(content_length_tag.data(), content_length_tag.size());
 			buffers_.emplace_back(content_length_.data(), content_length_.size());
@@ -159,7 +154,7 @@ namespace crow {
 		}
 		
 		buffers_.emplace_back(crlf.data(), crlf.size());
-		buffers_.emplace_back(res.body.data(), res.body.size());
+		buffers_.emplace_back(res.body_.data(), res.body_.size());
 		
 		close_connection_ = true;
 		do_write();

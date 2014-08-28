@@ -7,8 +7,8 @@
 //
 
 #include "crow.h"
-#define USE_C_STRS 1
-#define USE_NATIVE_STRS 0
+#define USE_C_STRS 0
+#define USE_NATIVE_STRS 1
 #define USE_STD_STRS 0
 
 // 123x/158x
@@ -49,10 +49,17 @@ public:
 	class Accessor {
 	public:
 		static inline void Set(StringType key, StringType val) {
-			storage_.insert({key, val});
+//			cout << hex << &storage_ << dec << " SET: " << key << " -> " << val << endl;
+			
+			Storage::accessor a;
+			storage_.insert(a, key);
+			a->second = val;
+			a.release();
 		}
+		
 		static inline StringType Get(StringType key, bool* found) {
 			Storage::const_accessor a_;
+//			cout << hex << &storage_ << dec << " GET: " << key << endl;
 			
 			*found = storage_.find(a_, key);
 			return *found ? a_->second : "";
@@ -78,23 +85,20 @@ int main(int argc, const char * argv[])
 	crow::Crow app;
 	
 	CROW_ROUTE(app, "/<string>").name("hello")
-    ([](const crow::request& req, crow::response& res, const string& key){
+    ([](const crow::request& req, crow::response& res, const istring& key){
 		switch (req.method) {
 			case crow::HTTPMethod::GET: {
-				cout << "GET: " << key << endl;
 				bool found;
+				res.body_ = MyStorage::Accessor::Get(key, &found);
 				if (!found) res.code = 404;
-				res.end(MyStorage::Accessor::Get(key.c_str(), &found));
-				cout << "FOUND? " << found << endl;
+				res.end();
 				return;
 			} break;
 			case crow::HTTPMethod::PUT:
 			case crow::HTTPMethod::POST: {
-				cout << "SET: " << key << " -> " << req.body.c_str() << endl;
 				MyStorage::Accessor::Set(key.c_str(), req.body.c_str());
 				res.code = 201;
-				res.body = "ok";
-				res.end();
+				res.end(istring::literal("ok"));
 				return;
 			} break;
 			case crow::HTTPMethod::DELETE: {
@@ -110,7 +114,7 @@ int main(int argc, const char * argv[])
 		return;
     });
 	
-	crow::logger::setLogLevel(crow::LogLevel::DEBUG);
+	crow::logger::setLogLevel(crow::LogLevel::WARNING);
 	
 	app.run();
 }

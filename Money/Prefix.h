@@ -50,3 +50,4 @@
 
 using namespace std;
 using boost::lexical_cast;
+using native::istring;

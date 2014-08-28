@@ -8,12 +8,8 @@ namespace crow
     {
         DELETE,
         GET,
-        HEAD,
         POST,
         PUT,
-        CONNECT,
-        OPTIONS,
-        TRACE,
     };
 
     inline std::string method_name(HTTPMethod method)
@@ -24,18 +20,10 @@ namespace crow
                 return "DELETE";
             case HTTPMethod::GET:
                 return "GET";
-            case HTTPMethod::HEAD:
-                return "HEAD";
             case HTTPMethod::POST:
                 return "POST";
             case HTTPMethod::PUT:
                 return "PUT";
-            case HTTPMethod::CONNECT:
-                return "CONNECT";
-            case HTTPMethod::OPTIONS:
-                return "OPTIONS";
-            case HTTPMethod::TRACE:
-                return "TRACE";
         }
         return "invalid";
     }
@@ -108,14 +96,10 @@ namespace crow
 constexpr crow::HTTPMethod operator "" _method(const char* str, size_t len)
 {
     return
-        crow::black_magic::is_equ_p(str, "GET", 3) ? crow::HTTPMethod::GET :
-        crow::black_magic::is_equ_p(str, "DELETE", 6) ? crow::HTTPMethod::DELETE :
-        crow::black_magic::is_equ_p(str, "HEAD", 4) ? crow::HTTPMethod::HEAD :
-        crow::black_magic::is_equ_p(str, "POST", 4) ? crow::HTTPMethod::POST :
-        crow::black_magic::is_equ_p(str, "PUT", 3) ? crow::HTTPMethod::PUT :
-        crow::black_magic::is_equ_p(str, "OPTIONS", 7) ? crow::HTTPMethod::OPTIONS :
-        crow::black_magic::is_equ_p(str, "CONNECT", 7) ? crow::HTTPMethod::CONNECT :
-        crow::black_magic::is_equ_p(str, "TRACE", 5) ? crow::HTTPMethod::TRACE :
+        crow::black_magic::is_equ_p(str, "GET", 3)		? crow::HTTPMethod::GET		:
+        crow::black_magic::is_equ_p(str, "DELETE", 6)	? crow::HTTPMethod::DELETE	:
+        crow::black_magic::is_equ_p(str, "POST", 4)		? crow::HTTPMethod::POST	:
+        crow::black_magic::is_equ_p(str, "PUT", 3)		? crow::HTTPMethod::PUT		:
         throw std::runtime_error("invalid http method");
 };
 

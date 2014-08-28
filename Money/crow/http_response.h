@@ -4,11 +4,9 @@
 
 namespace crow
 {
-    template <typename T>
     class Connection;
     struct response
     {
-        template <typename T> 
         friend class crow::Connection;
 
         std::string body;

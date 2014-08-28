@@ -8,6 +8,7 @@
 #include "logging.h"
 #include "settings.h"
 #include "dumb_timer_queue.h"
+#include "crow.h"
 
 namespace crow
 {
@@ -16,11 +17,10 @@ namespace crow
 #ifdef CROW_ENABLE_DEBUG
     static int connectionCount;
 #endif
-    template <typename Handler>
     class Connection
     {
     public:
-        Connection(boost::asio::io_service& io_service, Handler* handler, const std::string& server_name) 
+        Connection(boost::asio::io_service& io_service, Crow* handler, const std::string& server_name) 
             : socket_(io_service), 
             handler_(handler), 
             parser_(this), 
@@ -322,7 +322,7 @@ namespace crow
 
     private:
         tcp::socket socket_;
-        Handler* handler_;
+        Crow* handler_;
 
         std::array<char, 4096> buffer_;
 

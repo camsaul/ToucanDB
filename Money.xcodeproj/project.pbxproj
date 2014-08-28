@@ -13,6 +13,9 @@
 		3220D43219A9F785006645D8 /* NodeItr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D43019A9F785006645D8 /* NodeItr.cpp */; };
 		3220D43419A9F83F006645D8 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D42F19A9F76C006645D8 /* Node.cpp */; };
 		3220D43719A9F850006645D8 /* Key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D43519A9F850006645D8 /* Key.cpp */; };
+		322AD55A19AEFFD400364A33 /* http_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 322AD55919AEFFD400364A33 /* http_connection.cpp */; };
+		322AD55C19AF00C200364A33 /* http_server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 322AD55B19AF00C200364A33 /* http_server.cpp */; };
+		322AD55E19AF017D00364A33 /* crow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 322AD55D19AF017D00364A33 /* crow.cpp */; };
 		324D86B519A9FBA4003D786C /* RunLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324D86B319A9FBA4003D786C /* RunLoop.cpp */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,9 @@
 		322AD55519AEFB6600364A33 /* routing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = routing.h; sourceTree = "<group>"; };
 		322AD55619AEFB6600364A33 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		322AD55719AEFB6600364A33 /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
+		322AD55919AEFFD400364A33 /* http_connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_connection.cpp; sourceTree = "<group>"; };
+		322AD55B19AF00C200364A33 /* http_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_server.cpp; sourceTree = "<group>"; };
+		322AD55D19AF017D00364A33 /* crow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = crow.cpp; sourceTree = "<group>"; };
 		324D86B319A9FBA4003D786C /* RunLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunLoop.cpp; sourceTree = "<group>"; };
 		324D86B419A9FBA4003D786C /* RunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunLoop.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,13 +120,16 @@
 			children = (
 				322AD54819AEFB6600364A33 /* common.h */,
 				322AD54919AEFB6600364A33 /* crow.h */,
+				322AD55D19AF017D00364A33 /* crow.cpp */,
 				322AD54A19AEFB6600364A33 /* datetime.h */,
 				322AD54B19AEFB6600364A33 /* dumb_timer_queue.h */,
 				322AD54C19AEFB6600364A33 /* http_connection.h */,
+				322AD55919AEFFD400364A33 /* http_connection.cpp */,
 				322AD54D19AEFB6600364A33 /* http_parser_merged.h */,
 				322AD54E19AEFB6600364A33 /* http_request.h */,
 				322AD54F19AEFB6600364A33 /* http_response.h */,
 				322AD55019AEFB6600364A33 /* http_server.h */,
+				322AD55B19AF00C200364A33 /* http_server.cpp */,
 				322AD55119AEFB6600364A33 /* json.h */,
 				322AD55219AEFB6600364A33 /* logging.h */,
 				322AD55419AEFB6600364A33 /* parser.h */,
@@ -184,9 +193,12 @@
 			files = (
 				3220D42319A97D83006645D8 /* main.cpp in Sources */,
 				3220D42E19A9A46A006645D8 /* NodeHandle.cpp in Sources */,
+				322AD55E19AF017D00364A33 /* crow.cpp in Sources */,
 				3220D43719A9F850006645D8 /* Key.cpp in Sources */,
+				322AD55A19AEFFD400364A33 /* http_connection.cpp in Sources */,
 				324D86B519A9FBA4003D786C /* RunLoop.cpp in Sources */,
 				3220D43219A9F785006645D8 /* NodeItr.cpp in Sources */,
+				322AD55C19AF00C200364A33 /* http_server.cpp in Sources */,
 				3220D43419A9F83F006645D8 /* Node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,7 +230,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -272,7 +284,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;

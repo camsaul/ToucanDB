@@ -123,25 +123,25 @@ namespace crow
             }
         };
     public:
-        using self_t = TaggedRule<Args...>;
+        using Crow = TaggedRule<Args...>;
         TaggedRule(std::string rule)
             : rule_(std::move(rule))
         {
         }
         
-        self_t& name(std::string name) noexcept
+        Crow& name(std::string name) noexcept
         {
             name_ = std::move(name);
             return *this;
         }
 
-        self_t& methods(HTTPMethod method)
+        Crow& methods(HTTPMethod method)
         {
             methods_ = 1<<(int)method;
         }
 
         template <typename ... MethodArgs>
-        self_t& methods(HTTPMethod method, MethodArgs ... args_method)
+        Crow& methods(HTTPMethod method, MethodArgs ... args_method)
         {
             methods(args_method...);
             methods_ |= 1<<(int)method;
@@ -455,7 +455,7 @@ public:
         {
             unsigned idx{0};
 
-            for(unsigned i = 0; i < url.size(); i ++)
+            for(size_t i = 0; i < url.size(); i ++)
             {
                 char c = url[i];
                 if (c == '<')

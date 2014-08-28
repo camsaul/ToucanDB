@@ -55,8 +55,9 @@ namespace crow {
 	void Server::stop()
 	{
 		io_service_.stop();
-		for(auto& io_service:io_service_pool_)
+		for(auto& io_service:io_service_pool_) {
 			io_service->stop();
+		}
 	}
 	
 	asio::io_service& Server::pick_io_service()
@@ -65,6 +66,7 @@ namespace crow {
 		roundrobin_index_++;
 		if (roundrobin_index_ >= io_service_pool_.size())
 			roundrobin_index_ = 0;
+		cout << "INDEX -> " << roundrobin_index_ << endl;
 		return *io_service_pool_[roundrobin_index_];
 	}
 	

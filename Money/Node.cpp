@@ -89,11 +89,14 @@ void Node::SetChild(Key key, NodeHandle node) {
 	SetChild(key, Type::NODE, val);
 }
 
-void Node::SetChild(Key key, SharedCStrPtr strPtr) {
+void Node::SetChild(Key key, const string& str) {
 	NodeVal val;
+	cout << "STR: " << str << endl;
 	val.strPtr_ = new SharedCStrPtr;
-	*val.strPtr_ = strPtr;
+	*val.strPtr_ = make_shared<const char *>(str.c_str());
 	SetChild(key, Type::STRING, val);
+	
+	cout << "VAL: " << *GetChildString(key) << endl;
 }
 
 void Node::SetChild(Key key, int64_t num) {

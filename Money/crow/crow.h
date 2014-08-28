@@ -6,12 +6,16 @@
 
 namespace crow
 {
-	class Server;
+	#define CROW_ROUTE(app, url) app.route<crow::black_magic::get_parameter_tag(url)>(url)
 	
+	class Server;
     class Crow
     {
     public:
-        Crow() = default;
+        Crow(uint16_t port = 1337):
+			port_(port),
+			concurrency_(std::thread::hardware_concurrency())
+		{}
 
         void handle(const request& req, response& res);
 
@@ -22,32 +26,12 @@ namespace crow
             return router_.new_rule_tagged<Tag>(std::move(rule));
         }
 
-        Crow& port(std::uint16_t port)
-        {
-            port_ = port;
-            return *this;
-        }
-
-        Crow& multithreaded()
-        {
-            return concurrency(std::thread::hardware_concurrency());
-        }
-
-        Crow& concurrency(std::uint16_t concurrency)
-        {
-            if (concurrency < 1)
-                concurrency = 1;
-            concurrency_ = concurrency;
-            return *this;
-        }
-
         void run();
-
         void debug_print();
 
     private:
-        uint16_t port_ = 80;
-        uint16_t concurrency_ = 1;
+        uint16_t port_;
+        uint16_t concurrency_;
 
         Router router_;
     };

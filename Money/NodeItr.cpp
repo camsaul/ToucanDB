@@ -29,12 +29,11 @@ inline Node::Type NodeItr::CurrentChildType() {
 }
 
 /// return true if we reached the end and it was null (e.g. can insert)
-void NodeItr::GetValue() {
+string NodeItr::GetValue() {
 //	cout << "* GetValue(): '" << RemainingPath() << "'" << endl;
 	
 	if (!CurrentChar()) {
-		cout << "[null] reached end of path." << endl;
-		return;
+		return "[null] reached end of path.";
 	}
 	
 	//		if (!NextChar()) {
@@ -44,31 +43,33 @@ void NodeItr::GetValue() {
 	
 	switch (CurrentChildType()) {
 		case Node::Type::EMPTY: {
-			cout << "node is empty -----> [null]" << endl;
+			return "[null]";
 		} break;
 		case Node::Type::INT: {
 			auto val = node_->GetChildInt(CurrentChar());
-			cout << "-----> [int] " << val << endl;
+			return "[int] " + lexical_cast<string>(val);
 		} break;
 		case Node::Type::FLOAT: {
 			auto val = node_->GetChildDouble(CurrentChar());
-			cout << "-----> [float] " << val << endl;
+			return "[float] " + lexical_cast<string>(val);
 		} break;
 		case Node::Type::STRING: {
 			auto val = node_->GetChildString(CurrentChar());
-			cout << "-----> [string] " << *val << endl;
+			return string("[string] ") + *val;
 		} break;
 		case Node::Type::NODE: {
 			if (NextChar()) {
 				node_ = node_->GetChildNode(CurrentChar());
 				path_++;
-				GetValue();
+				return GetValue();
 			}
 		} break;
 		default: {
 			throw runtime_error("Invalid node type!");
 		}
 	}
+	
+	return "";
 }
 
 void NodeItr::CreateTo() {
@@ -84,7 +85,7 @@ void NodeItr::CreateTo() {
 	if (NextChar()) CreateTo();
 }
 
-void NodeItr::SetString(SharedCStrPtr str) {
+void NodeItr::SetString(const string& str) {
 	CreateTo();
 	node_->SetChild(CurrentChar(), str);
 }

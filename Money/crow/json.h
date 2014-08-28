@@ -2,10 +2,6 @@
 
 //#define CROW_JSON_NO_ERROR_CHECK
 
-#include <string>
-#include <unordered_map>
-#include <iostream>
-
 #if defined(__GNUG__) || defined(__clang__)
 	#define crow_json_likely(x) __builtin_expect(x, 1)
 	#define crow_json_unlikely(x) __builtin_expect(x, 0)

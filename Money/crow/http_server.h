@@ -39,7 +39,6 @@ namespace crow
 
         Crow* handler_;
         uint16_t concurrency_{1};
-        std::string server_name_ = "Crow/0.1";
         uint16_t port_;
         unsigned int roundrobin_index_{};
     };

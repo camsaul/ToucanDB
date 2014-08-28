@@ -8,12 +8,6 @@
 
 #pragma once
 
-#include <cstring>
-#include <map>
-//#include <map>
-//#include <functional>
-//#include <vector>
-
 class Command {
 public:
 	static void Get(const char* key);

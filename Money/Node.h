@@ -52,7 +52,7 @@ struct Node {
 	Node* InsertChildNode(Key key);
 	
 	void SetChild(Key key, NodeHandle node);
-	void SetChild(Key key, SharedCStrPtr strPtr);
+	void SetChild(Key key, const string& str);
 	void SetChild(Key key, int64_t num);
 	void SetChild(Key key, double num);
 	void UnsetChild(Key key);

@@ -28,12 +28,12 @@ namespace crow {
 				timer.async_wait(handler);
 				io_service_pool_[i]->run();
 			}));
-		CROW_LOG_INFO << server_name_ << " server is running, local port " << port_;
+		CROW_LOG_INFO << "Server is running, local port " << port_;
 		
 		signals_.async_wait(
-							[&](const boost::system::error_code& error, int signal_number){
-								stop();
-							});
+			[&](const boost::system::error_code& error, int signal_number){
+				stop();
+			});
 		
 		do_accept();
 		
@@ -61,15 +61,15 @@ namespace crow {
 	
 	void Server::do_accept()
 	{
-		auto p = new Connection(pick_io_service(), handler_, server_name_);
+		auto p = new Connection(pick_io_service(), handler_);
 		acceptor_.async_accept(p->socket(),
-							   [this, p](boost::system::error_code ec)
-							   {
-								   if (!ec)
-								   {
-									   p->start();
-								   }
-								   do_accept();
-							   });
+		   [this, p](boost::system::error_code ec)
+		   {
+			   if (!ec)
+			   {
+				   p->start();
+			   }
+			   do_accept();
+		   });
 	}
 }

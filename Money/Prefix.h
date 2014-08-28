@@ -14,11 +14,13 @@
 #include <cstdio>
 #include <cstdint>
 #include <cstdlib>
+#include <cstring>
 #include <ctime>
 #include <deque>
 #include <functional>
 #include <future>
 #include <iostream>
+#include <map>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -29,6 +31,8 @@
 #include <utility>
 #include <unordered_map>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconditional-uninitialized"
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio.hpp>
@@ -37,6 +41,12 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/operators.hpp>
+#pragma clang diagnostic pop
+
+#include <tbb/concurrent_hash_map.h>
+#include <tbb/parallel_for.h>
+
+#include <native/istring.h>
 
 using namespace std;
 using boost::lexical_cast;

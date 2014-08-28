@@ -36,7 +36,7 @@ void Command::SetDouble(const char* key, double val) {
 }
 
 void Command::SetString(const char* key, const char* val) {
-	NodeItr(key).SetString(make_shared<const char *>(val));
+	NodeItr(key).SetString(val);
 }
 
 void Command::Delete(const char* key) {

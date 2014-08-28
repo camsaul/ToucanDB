@@ -27,10 +27,10 @@ public:
 	Node::Type CurrentChildType();
 	
 	/// return true if we reached the end and it was null (e.g. can insert)
-	void GetValue();
+	string GetValue();
 	
 	/// travel to one step before end
 	void CreateTo();
 	
-	void SetString(SharedCStrPtr str);
+	void SetString(const string& str);
 };

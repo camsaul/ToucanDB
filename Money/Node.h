@@ -8,13 +8,7 @@
 
 #pragma once
 
-#include <cassert>
-#include <atomic>
-#include <iostream>
-#include <stdexcept>
-#include <string>
-#include <memory>
-#include <unordered_map>
+#include "Key.h"
 
 struct NodeHandle;
 struct Node;
@@ -25,7 +19,7 @@ using SharedCStrPtr = std::shared_ptr<const char *>;
 union NodeVal {
 	SharedCStrPtr* strPtr_;
 	Node* nodePtr_;
-	int intVal_;
+	int64_t intVal_;
 	double doubleVal_;
 };
 
@@ -42,9 +36,9 @@ struct Node {
 	
 	friend class NodeHandle;
 	friend class RootNode;
-	
-	// construct a new node
-	static NodeHandle New();
+		
+	static NodeHandle New();		///< construct a new node
+	static NodeHandle& GetRoot();	///< get a reference to the root node
 	
 	inline size_t RefCount() const { return refCount_; }
 	
@@ -53,13 +47,13 @@ struct Node {
 	Node*			GetChildNode(Key key) const;
 	SharedCStrPtr	GetChildString(Key key) const;
 	double			GetChildDouble(Key key) const;
-	int				GetChildInt(Key key) const;
+	int64_t			GetChildInt(Key key) const;
 	
 	Node* InsertChildNode(Key key);
 	
 	void SetChild(Key key, NodeHandle node);
 	void SetChild(Key key, SharedCStrPtr strPtr);
-	void SetChild(Key key, int num);
+	void SetChild(Key key, int64_t num);
 	void SetChild(Key key, double num);
 	void UnsetChild(Key key);
 	

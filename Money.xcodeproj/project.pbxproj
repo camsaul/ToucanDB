@@ -10,6 +10,10 @@
 		3220D42319A97D83006645D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D42219A97D83006645D8 /* main.cpp */; };
 		3220D42519A97D83006645D8 /* Money.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3220D42419A97D83006645D8 /* Money.1 */; };
 		3220D42E19A9A46A006645D8 /* NodeHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D42D19A99C43006645D8 /* NodeHandle.cpp */; };
+		3220D43219A9F785006645D8 /* NodeItr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D43019A9F785006645D8 /* NodeItr.cpp */; };
+		3220D43419A9F83F006645D8 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D42F19A9F76C006645D8 /* Node.cpp */; };
+		3220D43719A9F850006645D8 /* Key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3220D43519A9F850006645D8 /* Key.cpp */; };
+		324D86B519A9FBA4003D786C /* RunLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324D86B319A9FBA4003D786C /* RunLoop.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +36,30 @@
 		3220D42B19A99A95006645D8 /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		3220D42C19A99C0F006645D8 /* NodeHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeHandle.h; sourceTree = "<group>"; };
 		3220D42D19A99C43006645D8 /* NodeHandle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NodeHandle.cpp; sourceTree = "<group>"; };
+		3220D42F19A9F76C006645D8 /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
+		3220D43019A9F785006645D8 /* NodeItr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeItr.cpp; sourceTree = "<group>"; };
+		3220D43119A9F785006645D8 /* NodeItr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeItr.h; sourceTree = "<group>"; };
+		3220D43319A9F7AA006645D8 /* Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.h; sourceTree = "<group>"; };
+		3220D43519A9F850006645D8 /* Key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Key.cpp; sourceTree = "<group>"; };
+		3220D43619A9F850006645D8 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
+		322AD54819AEFB6600364A33 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		322AD54919AEFB6600364A33 /* crow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = crow.h; sourceTree = "<group>"; };
+		322AD54A19AEFB6600364A33 /* datetime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = datetime.h; sourceTree = "<group>"; };
+		322AD54B19AEFB6600364A33 /* dumb_timer_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dumb_timer_queue.h; sourceTree = "<group>"; };
+		322AD54C19AEFB6600364A33 /* http_connection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_connection.h; sourceTree = "<group>"; };
+		322AD54D19AEFB6600364A33 /* http_parser_merged.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_parser_merged.h; sourceTree = "<group>"; };
+		322AD54E19AEFB6600364A33 /* http_request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_request.h; sourceTree = "<group>"; };
+		322AD54F19AEFB6600364A33 /* http_response.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_response.h; sourceTree = "<group>"; };
+		322AD55019AEFB6600364A33 /* http_server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_server.h; sourceTree = "<group>"; };
+		322AD55119AEFB6600364A33 /* json.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		322AD55219AEFB6600364A33 /* logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = logging.h; sourceTree = "<group>"; };
+		322AD55319AEFB6600364A33 /* mustache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mustache.h; sourceTree = "<group>"; };
+		322AD55419AEFB6600364A33 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		322AD55519AEFB6600364A33 /* routing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = routing.h; sourceTree = "<group>"; };
+		322AD55619AEFB6600364A33 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
+		322AD55719AEFB6600364A33 /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
+		324D86B319A9FBA4003D786C /* RunLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunLoop.cpp; sourceTree = "<group>"; };
+		324D86B419A9FBA4003D786C /* RunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunLoop.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,13 +92,45 @@
 		3220D42119A97D83006645D8 /* Money */ = {
 			isa = PBXGroup;
 			children = (
-				3220D42B19A99A95006645D8 /* Node.h */,
-				3220D42219A97D83006645D8 /* main.cpp */,
+				322AD54719AEFB5B00364A33 /* crow */,
 				3220D42419A97D83006645D8 /* Money.1 */,
+				3220D43319A9F7AA006645D8 /* Prefix.h */,
+				3220D42219A97D83006645D8 /* main.cpp */,
 				3220D42C19A99C0F006645D8 /* NodeHandle.h */,
 				3220D42D19A99C43006645D8 /* NodeHandle.cpp */,
+				3220D42B19A99A95006645D8 /* Node.h */,
+				3220D42F19A9F76C006645D8 /* Node.cpp */,
+				3220D43119A9F785006645D8 /* NodeItr.h */,
+				3220D43019A9F785006645D8 /* NodeItr.cpp */,
+				3220D43619A9F850006645D8 /* Key.h */,
+				3220D43519A9F850006645D8 /* Key.cpp */,
+				324D86B419A9FBA4003D786C /* RunLoop.h */,
+				324D86B319A9FBA4003D786C /* RunLoop.cpp */,
 			);
 			path = Money;
+			sourceTree = "<group>";
+		};
+		322AD54719AEFB5B00364A33 /* crow */ = {
+			isa = PBXGroup;
+			children = (
+				322AD54819AEFB6600364A33 /* common.h */,
+				322AD54919AEFB6600364A33 /* crow.h */,
+				322AD54A19AEFB6600364A33 /* datetime.h */,
+				322AD54B19AEFB6600364A33 /* dumb_timer_queue.h */,
+				322AD54C19AEFB6600364A33 /* http_connection.h */,
+				322AD54D19AEFB6600364A33 /* http_parser_merged.h */,
+				322AD54E19AEFB6600364A33 /* http_request.h */,
+				322AD54F19AEFB6600364A33 /* http_response.h */,
+				322AD55019AEFB6600364A33 /* http_server.h */,
+				322AD55119AEFB6600364A33 /* json.h */,
+				322AD55219AEFB6600364A33 /* logging.h */,
+				322AD55319AEFB6600364A33 /* mustache.h */,
+				322AD55419AEFB6600364A33 /* parser.h */,
+				322AD55519AEFB6600364A33 /* routing.h */,
+				322AD55619AEFB6600364A33 /* settings.h */,
+				322AD55719AEFB6600364A33 /* utility.h */,
+			);
+			path = crow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +186,10 @@
 			files = (
 				3220D42319A97D83006645D8 /* main.cpp in Sources */,
 				3220D42E19A9A46A006645D8 /* NodeHandle.cpp in Sources */,
+				3220D43719A9F850006645D8 /* Key.cpp in Sources */,
+				324D86B519A9FBA4003D786C /* RunLoop.cpp in Sources */,
+				3220D43219A9F785006645D8 /* NodeItr.cpp in Sources */,
+				3220D43419A9F83F006645D8 /* Node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,11 +216,9 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -164,11 +226,26 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/crow",
+					/usr/local/Cellar/boost/1.55.0_2/include,
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-std=c++1y",
+				);
+				OTHER_LDFLAGS = (
+					"/usr/local/lib/libboost_date_time-mt.dylib",
+					"/usr/local/lib/libboost_filesystem-mt.dylib",
+					"/usr/local/lib/libboost_system-mt.dylib",
+					"/usr/local/lib/libboost_thread-mt.dylib",
+					/usr/local/lib/libtcmalloc_minimal.dylib,
+					"
+",
 				);
 				SDKROOT = macosx;
 			};
@@ -195,16 +272,33 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/crow",
+					/usr/local/Cellar/boost/1.55.0_2/include,
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-std=c++1y",
+				);
+				OTHER_LDFLAGS = (
+					"/usr/local/lib/libboost_date_time-mt.dylib",
+					"/usr/local/lib/libboost_filesystem-mt.dylib",
+					"/usr/local/lib/libboost_system-mt.dylib",
+					"/usr/local/lib/libboost_thread-mt.dylib",
+					/usr/local/lib/libtcmalloc_minimal.dylib,
+					"
+",
 				);
 				SDKROOT = macosx;
 			};
@@ -243,6 +337,7 @@
 				3220D42A19A97D83006645D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

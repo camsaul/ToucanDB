@@ -53,7 +53,6 @@
 		322AD55019AEFB6600364A33 /* http_server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_server.h; sourceTree = "<group>"; };
 		322AD55119AEFB6600364A33 /* json.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
 		322AD55219AEFB6600364A33 /* logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = logging.h; sourceTree = "<group>"; };
-		322AD55319AEFB6600364A33 /* mustache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mustache.h; sourceTree = "<group>"; };
 		322AD55419AEFB6600364A33 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
 		322AD55519AEFB6600364A33 /* routing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = routing.h; sourceTree = "<group>"; };
 		322AD55619AEFB6600364A33 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
@@ -124,7 +123,6 @@
 				322AD55019AEFB6600364A33 /* http_server.h */,
 				322AD55119AEFB6600364A33 /* json.h */,
 				322AD55219AEFB6600364A33 /* logging.h */,
-				322AD55319AEFB6600364A33 /* mustache.h */,
 				322AD55419AEFB6600364A33 /* parser.h */,
 				322AD55519AEFB6600364A33 /* routing.h */,
 				322AD55619AEFB6600364A33 /* settings.h */,

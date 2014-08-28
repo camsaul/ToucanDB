@@ -1,13 +1,5 @@
 #pragma once
 
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/asio.hpp>
-#include <cstdint>
-#include <atomic>
-#include <future>
-
-#include <memory>
-
 #include "http_connection.h"
 #include "datetime.h"
 #include "logging.h"

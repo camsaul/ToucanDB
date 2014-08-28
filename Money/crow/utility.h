@@ -1,8 +1,5 @@
 #pragma once
 
-#include <cstdint>
-#include <stdexcept>
-
 namespace crow
 {
 	namespace black_magic

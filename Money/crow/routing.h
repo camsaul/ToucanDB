@@ -15,8 +15,6 @@ namespace crow
         {
         }
         
-        virtual void validate() = 0;
-
         virtual void handle(const request&, response&, const routing_params&) = 0;
 
     protected:
@@ -147,14 +145,6 @@ namespace crow
         {
             methods(args_method...);
             methods_ |= 1<<(int)method;
-        }
-
-        void validate()
-        {
-            if (!handler_ && !handler_with_req_ && !handler_with_req_res_)
-            {
-                throw std::runtime_error(name_ + (!name_.empty() ? ": " : "") + "no handler for url " + rule_);
-            }
         }
 
         template <typename Func>
@@ -338,13 +328,6 @@ private:
         }
 
 public:
-        void validate()
-        {
-            if (!head()->IsSimpleNode())
-                throw std::runtime_error("Internal error: Trie header should be simple!");
-            optimize();
-        }
-
         std::pair<unsigned, routing_params> find(const request& req, const Node* node = nullptr, unsigned pos = 0, routing_params* params = nullptr) const
         {
             routing_params empty;
@@ -602,16 +585,6 @@ public:
             rules_.emplace_back(ruleObject);
             trie_.add(rule, rules_.size() - 1);
             return *ruleObject;
-        }
-
-        void validate()
-        {
-            trie_.validate();
-            for(auto& rule:rules_)
-            {
-                if (rule)
-                    rule->validate();
-            }
         }
 
         void handle(const request& req, response& res)

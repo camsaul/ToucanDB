@@ -6,8 +6,6 @@
 #include "utility.h"
 #include "routing.h"
 
-#define CROW_ROUTE(app, url) app.route<crow::black_magic::get_parameter_tag(url)>(url)
-
 namespace crow
 {
     class Crow
@@ -49,14 +47,8 @@ namespace crow
             return *this;
         }
 
-        void validate()
-        {
-            router_.validate();
-        }
-
         void run()
         {
-            validate();
             Server<self_t> server(this, port_, concurrency_);
             server.run();
         }

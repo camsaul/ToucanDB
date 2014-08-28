@@ -16,7 +16,7 @@ int main(int argc, const char * argv[])
 	
 	crow::Crow app;
 	
-	CROW_ROUTE(app, "/").name("hello")
+	app.route<crow::black_magic::get_parameter_tag("/")>("/").name("hello")
     ([]{
         return "Hello World!";
     });

@@ -4,7 +4,7 @@
 
 #include "parser.h"
 #include "http_response.h"
-#include "DumbTimerQueue.h"
+//#include "DumbTimerQueue.h"
 
 #include "Handler.h"
 
@@ -31,8 +31,8 @@ namespace crow
         void do_read();
         void do_write();
         void check_destroy();
-        void cancel_deadline_timer();
-        void start_deadline(int timeout = 1);
+        inline void cancel_deadline_timer() const {}
+        inline void start_deadline(int timeout = 1) const {}
 
         tcp::socket socket_;
         Handler* handler_;
@@ -46,7 +46,7 @@ namespace crow
 
         std::vector<boost::asio::const_buffer> buffers_;
 
-        detail::DumbTimerQueue::Key timer_cancel_key_;
+//        detail::DumbTimerQueue::Key timer_cancel_key_;
 
         bool is_reading = false;
         bool is_writing = false;

@@ -14,6 +14,7 @@ namespace crow {
 	}
 	
 	void Connection::start() {
+		cout << "Connection::start()" << endl;
 		start_deadline();
 		
 		do_read();
@@ -31,6 +32,7 @@ namespace crow {
 	
 	void Connection::handle()
 	{
+		cout << "Connection::handle()" << endl;
 		cancel_deadline_timer();
 		
 		request req = parser_.to_request();
@@ -43,6 +45,7 @@ namespace crow {
 	
 	void Connection::complete_request()
 	{
+		cout << "Connection::complete_request()" << endl;
 		res.complete_request_handler_ = nullptr;
 		
 		if (!socket_.is_open()) return;
@@ -103,11 +106,14 @@ namespace crow {
 		close_connection_ = true;
 		do_write();
 		res.clear();
+		
+		socket_.close();
 	}
 	
 	void Connection::do_read()
 	{
-		//auto self = this->shared_from_this();
+		cout << "Connection::do_read()" << endl;
+		
 		is_reading = true;
 		socket_.async_read_some(boost::asio::buffer(buffer_),
 			[this](const boost::system::error_code& ec, std::size_t bytes_transferred)
@@ -140,6 +146,8 @@ namespace crow {
 	
 	void Connection::do_write()
 	{
+		cout << "Connection::do_write()" << endl;
+		
 		is_writing = true;
 		boost::asio::async_write(socket_, buffers_,
 			 [&](const boost::system::error_code& ec, std::size_t bytes_transferred)
@@ -170,22 +178,23 @@ namespace crow {
 		}
 	}
 	
-	void Connection::cancel_deadline_timer()
-	{
-		timer_cancel_key_.Cancel();
-	}
+//	void Connection::cancel_deadline_timer()
+//	{
+//		cout << "Connection::cancel_deadline_timer()" << endl;
+//		timer_cancel_key_.Cancel();
+//	}
 	
-	void Connection::start_deadline(int timeout)
-	{
-		auto& timer_queue = detail::DumbTimerQueue::Current();
-		cancel_deadline_timer();
-		
-		timer_cancel_key_ = timer_queue.Add([this]{
-			if (!socket_.is_open())
-			{
-				return;
-			}
-			socket_.close();
-		});
-	}
+//	void Connection::start_deadline(int timeout)
+//	{
+//		auto& timer_queue = detail::DumbTimerQueue::Current();
+//		cancel_deadline_timer();
+//		
+//		timer_cancel_key_ = timer_queue.Add([this]{
+//			if (!socket_.is_open())
+//			{
+//				return;
+//			}
+//			socket_.close();
+//		});
+//	}
 }

@@ -25,6 +25,7 @@ namespace crow {
 		
 	void response::end()
 	{
+		cout << "response::end()" << endl;
 		if (!completed_)
 		{
 			if (complete_request_handler_)

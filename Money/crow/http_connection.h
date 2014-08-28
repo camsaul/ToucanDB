@@ -8,7 +8,8 @@
 #include "logging.h"
 #include "settings.h"
 #include "dumb_timer_queue.h"
-#include "crow.h"
+
+#include "Handler.h"
 
 namespace crow
 {
@@ -20,7 +21,7 @@ namespace crow
     class Connection
     {
     public:
-        Connection(boost::asio::io_service& io_service, Crow* handler);
+        Connection(boost::asio::io_service& io_service, Handler* handler);
         ~Connection();
 
         tcp::socket& socket() { return socket_; }
@@ -39,7 +40,7 @@ namespace crow
 
     private:
         tcp::socket socket_;
-        Crow* handler_;
+        Handler* handler_;
 
         std::array<char, 4096> buffer_;
 

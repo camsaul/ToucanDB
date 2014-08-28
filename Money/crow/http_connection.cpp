@@ -1,7 +1,7 @@
 #include "http_connection.h"
 
 namespace crow {
-	Connection::Connection(boost::asio::io_service& io_service, Crow* handler):
+	Connection::Connection(boost::asio::io_service& io_service, Handler* handler):
 		socket_(io_service),
 		handler_(handler),
 		parser_(this)
@@ -45,33 +45,35 @@ namespace crow {
 		bool is_invalid_request = false;
 		
 		request req = parser_.to_request();
-		if (parser_.check_version(1, 0))
-		{
-			// HTTP/1.0
-			if (!(req.headers.count("connection") && boost::iequals(req.headers["connection"],"Keep-Alive")))
-				close_connection_ = true;
-		}
-		else if (parser_.check_version(1, 1))
-		{
-			// HTTP/1.1
-			if (req.headers.count("connection") && req.headers["connection"] == "close")
-				close_connection_ = true;
-			if (!req.headers.count("host"))
-			{
-				is_invalid_request = true;
-				res = response(400);
-			}
-		}
+		close_connection_ = true;
 		
-		CROW_LOG_INFO << "Request: " << boost::lexical_cast<std::string>(socket_.remote_endpoint()) << " " << this << " HTTP/" << parser_.http_major << "." << parser_.http_minor << ' '
-		<< method_name(req.method) << " " << req.url;
+//		if (parser_.check_version(1, 0))
+//		{
+//			// HTTP/1.0
+//			if (!(req.headers.count("connection") && boost::iequals(req.headers["connection"],"Keep-Alive")))
+//				close_connection_ = true;
+//		}
+//		else if (parser_.check_version(1, 1))
+//		{
+//			// HTTP/1.1
+//			if (req.headers.count("connection") && req.headers["connection"] == "close")
+//				close_connection_ = true;
+//			if (!req.headers.count("host"))
+//			{
+//				is_invalid_request = true;
+//				res = response(400);
+//			}
+//		}
+		
+		CROW_LOG_INFO << "Request: " << boost::lexical_cast<std::string>(socket_.remote_endpoint()) << " " << this
+			<< " HTTP/" << parser_.http_major << "." << parser_.http_minor << ' ' << method_name(req.method) << " " << req.url;
 		
 		
 		if (!is_invalid_request)
 		{
 			res.complete_request_handler_ = [this]{ this->complete_request(); };
 			res.is_alive_helper_ = [this]()->bool{ return socket_.is_open(); };
-			handler_->handle(req, res);
+			handler_->Handle(req, res);
 		}
 		else
 		{

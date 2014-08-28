@@ -15,7 +15,7 @@ namespace crow
     class Server
     {
     public:
-        Server(Crow* handler, uint16_t port, uint16_t concurrency = 1):
+        Server(Handler* handler, uint16_t port, uint16_t concurrency = 1):
 			acceptor_(io_service_, tcp::endpoint(asio::ip::address(), port)),
             signals_(io_service_, SIGINT, SIGTERM),
             handler_(handler), 
@@ -37,7 +37,7 @@ namespace crow
         tcp::acceptor acceptor_;
         boost::asio::signal_set signals_;
 
-        Crow* handler_;
+        Handler* handler_;
         uint16_t concurrency_{1};
         uint16_t port_;
         unsigned int roundrobin_index_{};

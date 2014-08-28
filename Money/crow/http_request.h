@@ -7,8 +7,8 @@ namespace crow
     struct request
     {
         HTTPMethod method;
-        std::string url;
-        std::unordered_map<std::string, std::string> headers;
-        std::string body;
+        istring url;
+//        std::unordered_map<std::string, std::string> headers;
+        istring body;
     };
 }

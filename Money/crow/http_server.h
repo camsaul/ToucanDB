@@ -1,7 +1,6 @@
 #pragma once
 
 #include "http_connection.h"
-#include "datetime.h"
 #include "logging.h"
 #include "dumb_timer_queue.h"
 
@@ -15,13 +14,7 @@ namespace crow
     class Server
     {
     public:
-        Server(Handler* handler, uint16_t port, uint16_t concurrency = 1):
-			acceptor_(io_service_, tcp::endpoint(asio::ip::address(), port)),
-            signals_(io_service_, SIGINT, SIGTERM),
-            handler_(handler), 
-            concurrency_(concurrency),
-            port_(port)
-        {}
+        Server(Handler* handler, uint16_t port, uint16_t concurrency);
 
         void run();
         void stop();
@@ -33,7 +26,7 @@ namespace crow
 
     private:
         asio::io_service io_service_;
-        std::vector<std::unique_ptr<asio::io_service>> io_service_pool_;
+        vector<unique_ptr<asio::io_service>> io_service_pool_;
         tcp::acceptor acceptor_;
         boost::asio::signal_set signals_;
 

@@ -18,23 +18,50 @@ struct istring_hash {
     }
 };
 
-using StorageT = tbb::concurrent_hash_map<istring, istring, istring_hash>;
+#define USE_CONCURRENT_HASH_MAP 1
+
+#if USE_CONCURRENT_HASH_MAP
+	using StorageT = tbb::concurrent_hash_map<istring, istring, istring_hash>;
+#else
+	using StorageT = unordered_map<istring, istring>;
+#endif
 
 static StorageT s_storage {};
 
-istring Storage::Get(istring key, bool* found) {
-	StorageT::const_accessor a;
-	*found = s_storage.find(a, key);
-//	cout << hex << &s_storage << dec << " " << key << "? " << *found << endl;
-	return *found ? a->second : istring::literal("");
-}
+#if USE_CONCURRENT_HASH_MAP
+	istring Storage::Get(istring key, bool* found) {
+		StorageT::const_accessor a;
+		return std::move((*found = s_storage.find(a, key)) ? a->second : istring::literal(""));
+	}
 
-void Storage::Set(istring key, istring val) {
-	cout << hex << &s_storage << dec << " " << key << " -> " << val << endl;
-	s_storage.insert({key, val});
-}
+	void Storage::Set(istring key, istring val) {
+//		cout << hex << &s_storage << dec << " " << key << " -> " << val << endl;
+		s_storage.insert({key, val});
+	}
 
 
-void Storage::Delete(istring key) {
-	s_storage.erase(key);
-}
+	void Storage::Delete(istring key) {
+		s_storage.erase(key);
+	}
+#else
+	istring Storage::Get(istring key, bool* found) {
+		const auto itr = s_storage.find(key);
+		if (itr == s_storage.end()) {
+			*found = false;
+			return istring::literal("");
+		} else {
+			*found = true;
+			return itr->second;
+		}
+	}
+
+	void Storage::Set(istring key, istring val) {
+//		cout << hex << &s_storage << dec << " " << key << " -> " << val << endl;
+		s_storage[key] = val;
+	}
+
+
+	void Storage::Delete(istring key) {
+		s_storage.erase(key);
+	}
+#endif

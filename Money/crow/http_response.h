@@ -9,7 +9,7 @@ namespace crow
 
         istring body_;
         int code{200};
-        std::unordered_map<istring, istring> headers;
+        unordered_map<istring, istring> headers;
 
         response() {}
         explicit response(int code) : code(code) {}
@@ -24,11 +24,11 @@ namespace crow
         void end(const istring& body); ///< Set this->body_ and call this->end()
 		
 		bool is_completed() const { return completed_; }
-        bool is_alive() const { return is_alive_helper_ && is_alive_helper_(); }
+        bool is_alive()		const { return is_alive_helper_ && is_alive_helper_(); }
 
         private:
             bool completed_{};
-            std::function<void()> complete_request_handler_;
-            std::function<bool()> is_alive_helper_;
+            function<void()> complete_request_handler_;
+            function<bool()> is_alive_helper_;
     };
 }

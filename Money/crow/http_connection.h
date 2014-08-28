@@ -2,7 +2,6 @@
 
 #include "http_parser_merged.h"
 
-#include "datetime.h"
 #include "parser.h"
 #include "http_response.h"
 #include "logging.h"
@@ -15,9 +14,6 @@ namespace crow
 {
     using namespace boost;
     using tcp = asio::ip::tcp;
-#ifdef CROW_ENABLE_DEBUG
-    static int connectionCount;
-#endif
     class Connection
     {
     public:
@@ -27,9 +23,11 @@ namespace crow
         tcp::socket& socket() { return socket_; }
 
         void start();
-        void handle_header();
         void handle();
         void complete_request();
+		
+		/// HTTP 1.1 Expect: 100-continue
+		void HandleExpect100Continue();
 
     private:
         void do_read();
@@ -38,21 +36,17 @@ namespace crow
         void cancel_deadline_timer();
         void start_deadline(int timeout = 1);
 
-    private:
         tcp::socket socket_;
         Handler* handler_;
 
         std::array<char, 4096> buffer_;
 
-        HTTPParser<Connection> parser_;
+        HTTPParser parser_;
         response res;
 
         bool close_connection_ = false;
 
         std::vector<boost::asio::const_buffer> buffers_;
-
-        std::string content_length_;
-        std::string date_str_;
 
         detail::dumb_timer_queue::key timer_cancel_key_;
 

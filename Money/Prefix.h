@@ -48,6 +48,7 @@
 
 #include <native/istring.h>
 
+
 using namespace std;
 using boost::lexical_cast;
 using native::istring;

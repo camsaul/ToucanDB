@@ -1,33 +1,42 @@
 #include "http_server.h"
 
 namespace crow {
+	Server::Server(Handler* handler, uint16_t port, uint16_t concurrency):
+		acceptor_	(io_service_, tcp::endpoint(asio::ip::address(), port)),
+		signals_	(io_service_, SIGINT, SIGTERM),
+		handler_	(handler),
+		concurrency_(concurrency),
+		port_		(port)
+	{}
+	
 	void Server::run()
 	{
-		if (concurrency_ < 0)
-			concurrency_ = 1;
+		assert(concurrency_ > 0);
 		
-		for(int i = 0; i < concurrency_;  i++)
+		for(int i = 0; i < concurrency_;  i++) {
 			io_service_pool_.emplace_back(new boost::asio::io_service());
+		}
 		
-		std::vector<std::future<void>> v;
+		vector<future<void>> v;
 		for(uint16_t i = 0; i < concurrency_; i ++)
 			v.push_back(
-                        std::async(std::launch::async, [this, i]{
-				auto& timer_queue = detail::dumb_timer_queue::get_current_dumb_timer_queue();
-				timer_queue.set_io_service(*io_service_pool_[i]);
-				boost::asio::deadline_timer timer(*io_service_pool_[i]);
-				timer.expires_from_now(boost::posix_time::seconds(1));
-				std::function<void(const boost::system::error_code& ec)> handler;
-				handler = [&](const boost::system::error_code& ec){
-					if (ec)
-						return;
-					timer_queue.process();
+				async(launch::async, [this, i]{
+					auto& timer_queue = detail::dumb_timer_queue::get_current_dumb_timer_queue();
+					timer_queue.set_io_service(*io_service_pool_[i]);
+					boost::asio::deadline_timer timer(*io_service_pool_[i]);
 					timer.expires_from_now(boost::posix_time::seconds(1));
+					std::function<void(const boost::system::error_code& ec)> handler;
+					handler = [&](const boost::system::error_code& ec){
+						if (ec)
+							return;
+						timer_queue.process();
+						timer.expires_from_now(boost::posix_time::seconds(1));
+						timer.async_wait(handler);
+					};
 					timer.async_wait(handler);
-				};
-				timer.async_wait(handler);
-				io_service_pool_[i]->run();
-			}));
+					io_service_pool_[i]->run();
+				}
+			));
 		CROW_LOG_INFO << "Server is running, local port " << port_;
 		
 		signals_.async_wait(
@@ -37,7 +46,7 @@ namespace crow {
 		
 		do_accept();
 		
-		v.push_back(std::async(std::launch::async, [this]{
+		v.push_back(async(launch::async, [this]{
 			io_service_.run();
 			CROW_LOG_INFO << "Exiting.";
 		}));

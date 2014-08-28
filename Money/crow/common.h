@@ -7,19 +7,20 @@ namespace crow
         DELETE,
         GET,
         POST,
-        PUT,
+        PUT
     };
-
-    inline std::string method_name(HTTPMethod method)
+	
+	static const istring kHTTPMethodStrs[] {
+		istring::literal("DELETE"),
+		istring::literal("GET"),
+		istring::literal("POST"),
+		istring::literal("PUT")
+	};
+	static const istring kHTTPMethodInvalidStr = istring::literal("invalid");
+    inline const istring& method_name(HTTPMethod method)
     {
-        switch(method)
-        {
-            case HTTPMethod::DELETE:	return "DELETE";
-            case HTTPMethod::GET:		return "GET";
-            case HTTPMethod::POST:		return "POST";
-            case HTTPMethod::PUT:		return "PUT";
-        }
-        return "invalid";
+		if ((int)method > (int)HTTPMethod::PUT) return kHTTPMethodInvalidStr;
+		return kHTTPMethodStrs[(int)method];
     }
 	
 	namespace black_magic {

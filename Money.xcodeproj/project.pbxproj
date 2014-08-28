@@ -15,6 +15,7 @@
 		322ADA5519AF1D2700364A33 /* http_response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 322ADA5419AF1D2700364A33 /* http_response.cpp */; };
 		323140DB19AF441100C341FF /* Handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140D919AF441000C341FF /* Handler.cpp */; };
 		323140DE19AF447600C341FF /* Storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140DC19AF447600C341FF /* Storage.cpp */; };
+		323140E019AF631900C341FF /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140DF19AF631900C341FF /* parser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,17 +35,8 @@
 		3220D41F19A97D83006645D8 /* Money */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Money; sourceTree = BUILT_PRODUCTS_DIR; };
 		3220D42219A97D83006645D8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3220D42419A97D83006645D8 /* Money.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Money.1; sourceTree = "<group>"; };
-		3220D42B19A99A95006645D8 /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
-		3220D42C19A99C0F006645D8 /* NodeHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeHandle.h; sourceTree = "<group>"; };
-		3220D42D19A99C43006645D8 /* NodeHandle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NodeHandle.cpp; sourceTree = "<group>"; };
-		3220D42F19A9F76C006645D8 /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
-		3220D43019A9F785006645D8 /* NodeItr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeItr.cpp; sourceTree = "<group>"; };
-		3220D43119A9F785006645D8 /* NodeItr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeItr.h; sourceTree = "<group>"; };
 		3220D43319A9F7AA006645D8 /* Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.h; sourceTree = "<group>"; };
-		3220D43519A9F850006645D8 /* Key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Key.cpp; sourceTree = "<group>"; };
-		3220D43619A9F850006645D8 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
 		322AD54819AEFB6600364A33 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		322AD54A19AEFB6600364A33 /* datetime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = datetime.h; sourceTree = "<group>"; };
 		322AD54B19AEFB6600364A33 /* dumb_timer_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dumb_timer_queue.h; sourceTree = "<group>"; };
 		322AD54C19AEFB6600364A33 /* http_connection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_connection.h; sourceTree = "<group>"; };
 		322AD54D19AEFB6600364A33 /* http_parser_merged.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_parser_merged.h; sourceTree = "<group>"; };
@@ -169,8 +161,7 @@
 		323140DA19AF441000C341FF /* Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Handler.h; sourceTree = "<group>"; };
 		323140DC19AF447600C341FF /* Storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Storage.cpp; sourceTree = "<group>"; };
 		323140DD19AF447600C341FF /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
-		324D86B319A9FBA4003D786C /* RunLoop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunLoop.cpp; sourceTree = "<group>"; };
-		324D86B419A9FBA4003D786C /* RunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunLoop.h; sourceTree = "<group>"; };
+		323140DF19AF631900C341FF /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,16 +206,6 @@
 				323140DC19AF447600C341FF /* Storage.cpp */,
 				323140DA19AF441000C341FF /* Handler.h */,
 				323140D919AF441000C341FF /* Handler.cpp */,
-				3220D42C19A99C0F006645D8 /* NodeHandle.h */,
-				3220D42D19A99C43006645D8 /* NodeHandle.cpp */,
-				3220D42B19A99A95006645D8 /* Node.h */,
-				3220D42F19A9F76C006645D8 /* Node.cpp */,
-				3220D43119A9F785006645D8 /* NodeItr.h */,
-				3220D43019A9F785006645D8 /* NodeItr.cpp */,
-				3220D43619A9F850006645D8 /* Key.h */,
-				3220D43519A9F850006645D8 /* Key.cpp */,
-				324D86B419A9FBA4003D786C /* RunLoop.h */,
-				324D86B319A9FBA4003D786C /* RunLoop.cpp */,
 			);
 			path = Money;
 			sourceTree = "<group>";
@@ -233,7 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				322AD54819AEFB6600364A33 /* common.h */,
-				322AD54A19AEFB6600364A33 /* datetime.h */,
 				322AD54B19AEFB6600364A33 /* dumb_timer_queue.h */,
 				322AD54C19AEFB6600364A33 /* http_connection.h */,
 				322AD55919AEFFD400364A33 /* http_connection.cpp */,
@@ -245,6 +225,7 @@
 				322AD55B19AF00C200364A33 /* http_server.cpp */,
 				322AD55219AEFB6600364A33 /* logging.h */,
 				322AD55419AEFB6600364A33 /* parser.h */,
+				323140DF19AF631900C341FF /* parser.cpp */,
 				322AD55619AEFB6600364A33 /* settings.h */,
 			);
 			path = crow;
@@ -494,6 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323140E019AF631900C341FF /* parser.cpp in Sources */,
 				3220D42319A97D83006645D8 /* main.cpp in Sources */,
 				323140DE19AF447600C341FF /* Storage.cpp in Sources */,
 				322ADA5519AF1D2700364A33 /* http_response.cpp in Sources */,

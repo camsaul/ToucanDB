@@ -9,7 +9,6 @@ namespace crow {
 	response& response::operator=(response&& r)
 	{
 		body_ = std::move(r.body_);
-//		json_value = std::move(r.json_value);
 		code = r.code;
 		headers = std::move(r.headers);
 		completed_ = r.completed_;
@@ -18,18 +17,12 @@ namespace crow {
 	
 	void response::clear()
 	{
-		body_ = "";
-//		json_value.clear();
+		body_ = istring::literal("");
 		code = 200;
 		headers.clear();
 		completed_ = false;
 	}
-	
-//	void response::write(const std::string& body_part)
-//	{
-//		body += body_part;
-//	}
-	
+		
 	void response::end()
 	{
 		if (!completed_)

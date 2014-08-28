@@ -16,6 +16,7 @@
 		323140DB19AF441100C341FF /* Handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140D919AF441000C341FF /* Handler.cpp */; };
 		323140DE19AF447600C341FF /* Storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140DC19AF447600C341FF /* Storage.cpp */; };
 		323140E019AF631900C341FF /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140DF19AF631900C341FF /* parser.cpp */; };
+		323140E319AF78B600C341FF /* DumbTimerQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140E219AF78B600C341FF /* DumbTimerQueue.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,15 +38,13 @@
 		3220D42419A97D83006645D8 /* Money.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Money.1; sourceTree = "<group>"; };
 		3220D43319A9F7AA006645D8 /* Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.h; sourceTree = "<group>"; };
 		322AD54819AEFB6600364A33 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		322AD54B19AEFB6600364A33 /* dumb_timer_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dumb_timer_queue.h; sourceTree = "<group>"; };
+		322AD54B19AEFB6600364A33 /* DumbTimerQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DumbTimerQueue.h; sourceTree = "<group>"; };
 		322AD54C19AEFB6600364A33 /* http_connection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_connection.h; sourceTree = "<group>"; };
 		322AD54D19AEFB6600364A33 /* http_parser_merged.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_parser_merged.h; sourceTree = "<group>"; };
 		322AD54E19AEFB6600364A33 /* http_request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_request.h; sourceTree = "<group>"; };
 		322AD54F19AEFB6600364A33 /* http_response.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_response.h; sourceTree = "<group>"; };
 		322AD55019AEFB6600364A33 /* http_server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_server.h; sourceTree = "<group>"; };
-		322AD55219AEFB6600364A33 /* logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = logging.h; sourceTree = "<group>"; };
 		322AD55419AEFB6600364A33 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
-		322AD55619AEFB6600364A33 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		322AD55919AEFFD400364A33 /* http_connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_connection.cpp; sourceTree = "<group>"; };
 		322AD55B19AF00C200364A33 /* http_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_server.cpp; sourceTree = "<group>"; };
 		322AD55F19AF0C6000364A33 /* libtbb.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbb.dylib; sourceTree = "<group>"; };
@@ -157,11 +156,17 @@
 		322AD97C19AF0CEC00364A33 /* tbbmalloc_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tbbmalloc_proxy.h; sourceTree = "<group>"; };
 		322AD97D19AF0CEC00364A33 /* tick_count.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tick_count.h; sourceTree = "<group>"; };
 		322ADA5419AF1D2700364A33 /* http_response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_response.cpp; sourceTree = "<group>"; };
-		323140D919AF441000C341FF /* Handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Handler.cpp; sourceTree = "<group>"; };
-		323140DA19AF441000C341FF /* Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Handler.h; sourceTree = "<group>"; };
+		323140D919AF441000C341FF /* Handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Handler.cpp; path = ../Handler.cpp; sourceTree = "<group>"; };
+		323140DA19AF441000C341FF /* Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Handler.h; path = ../Handler.h; sourceTree = "<group>"; };
 		323140DC19AF447600C341FF /* Storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Storage.cpp; sourceTree = "<group>"; };
 		323140DD19AF447600C341FF /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		323140DF19AF631900C341FF /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		323140E219AF78B600C341FF /* DumbTimerQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DumbTimerQueue.cpp; sourceTree = "<group>"; };
+		3231413019AF871B00C341FF /* lc-addrlabels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lc-addrlabels.h"; sourceTree = "<group>"; };
+		3231413119AF871B00C341FF /* lc-switch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lc-switch.h"; sourceTree = "<group>"; };
+		3231413219AF871B00C341FF /* lc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lc.h; sourceTree = "<group>"; };
+		3231413319AF871B00C341FF /* pt-sem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pt-sem.h"; sourceTree = "<group>"; };
+		3231413419AF871B00C341FF /* pt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pt.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +201,7 @@
 		3220D42119A97D83006645D8 /* Money */ = {
 			isa = PBXGroup;
 			children = (
+				3231412F19AF871B00C341FF /* pt-1.4 */,
 				322AD58019AF0CE900364A33 /* tbb43_20140724oss */,
 				322AD56119AF0C7200364A33 /* native */,
 				322AD54719AEFB5B00364A33 /* crow */,
@@ -204,8 +210,6 @@
 				3220D42219A97D83006645D8 /* main.cpp */,
 				323140DD19AF447600C341FF /* Storage.h */,
 				323140DC19AF447600C341FF /* Storage.cpp */,
-				323140DA19AF441000C341FF /* Handler.h */,
-				323140D919AF441000C341FF /* Handler.cpp */,
 			);
 			path = Money;
 			sourceTree = "<group>";
@@ -213,20 +217,21 @@
 		322AD54719AEFB5B00364A33 /* crow */ = {
 			isa = PBXGroup;
 			children = (
+				323140E119AF788F00C341FF /* http_parser_merged */,
 				322AD54819AEFB6600364A33 /* common.h */,
-				322AD54B19AEFB6600364A33 /* dumb_timer_queue.h */,
+				322AD54B19AEFB6600364A33 /* DumbTimerQueue.h */,
+				323140E219AF78B600C341FF /* DumbTimerQueue.cpp */,
 				322AD54C19AEFB6600364A33 /* http_connection.h */,
 				322AD55919AEFFD400364A33 /* http_connection.cpp */,
-				322AD54D19AEFB6600364A33 /* http_parser_merged.h */,
 				322AD54E19AEFB6600364A33 /* http_request.h */,
 				322AD54F19AEFB6600364A33 /* http_response.h */,
 				322ADA5419AF1D2700364A33 /* http_response.cpp */,
 				322AD55019AEFB6600364A33 /* http_server.h */,
 				322AD55B19AF00C200364A33 /* http_server.cpp */,
-				322AD55219AEFB6600364A33 /* logging.h */,
 				322AD55419AEFB6600364A33 /* parser.h */,
 				323140DF19AF631900C341FF /* parser.cpp */,
-				322AD55619AEFB6600364A33 /* settings.h */,
+				323140DA19AF441000C341FF /* Handler.h */,
+				323140D919AF441000C341FF /* Handler.cpp */,
 			);
 			path = crow;
 			sourceTree = "<group>";
@@ -424,6 +429,26 @@
 			path = machine;
 			sourceTree = "<group>";
 		};
+		323140E119AF788F00C341FF /* http_parser_merged */ = {
+			isa = PBXGroup;
+			children = (
+				322AD54D19AEFB6600364A33 /* http_parser_merged.h */,
+			);
+			name = http_parser_merged;
+			sourceTree = "<group>";
+		};
+		3231412F19AF871B00C341FF /* pt-1.4 */ = {
+			isa = PBXGroup;
+			children = (
+				3231413019AF871B00C341FF /* lc-addrlabels.h */,
+				3231413119AF871B00C341FF /* lc-switch.h */,
+				3231413219AF871B00C341FF /* lc.h */,
+				3231413319AF871B00C341FF /* pt-sem.h */,
+				3231413419AF871B00C341FF /* pt.h */,
+			);
+			path = "pt-1.4";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -476,6 +501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				323140E019AF631900C341FF /* parser.cpp in Sources */,
+				323140E319AF78B600C341FF /* DumbTimerQueue.cpp in Sources */,
 				3220D42319A97D83006645D8 /* main.cpp in Sources */,
 				323140DE19AF447600C341FF /* Storage.cpp in Sources */,
 				322ADA5519AF1D2700364A33 /* http_response.cpp in Sources */,
@@ -605,6 +631,15 @@
 				GCC_FAST_MATH = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Money/",
+					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money/native/include/",
+					"$(SRCROOT)/Money/crow",
+					/usr/local/Cellar/boost/1.55.0_2/include,
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -623,6 +658,15 @@
 				GCC_FAST_MATH = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_UNROLL_LOOPS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Money/",
+					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money/native/include/",
+					"$(SRCROOT)/Money/crow",
+					/usr/local/Cellar/boost/1.55.0_2/include,
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

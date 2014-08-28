@@ -1,12 +1,10 @@
 #pragma once
 
-#include "http_parser_merged.h"
+#include <queue>
 
 #include "parser.h"
 #include "http_response.h"
-#include "logging.h"
-#include "settings.h"
-#include "dumb_timer_queue.h"
+#include "DumbTimerQueue.h"
 
 #include "Handler.h"
 
@@ -17,7 +15,7 @@ namespace crow
     class Connection
     {
     public:
-        Connection(boost::asio::io_service& io_service, Handler* handler);
+		Connection(boost::asio::io_service& io_service, Handler* handler);
         ~Connection();
 
         tcp::socket& socket() { return socket_; }
@@ -48,10 +46,10 @@ namespace crow
 
         std::vector<boost::asio::const_buffer> buffers_;
 
-        detail::dumb_timer_queue::key timer_cancel_key_;
+        detail::DumbTimerQueue::Key timer_cancel_key_;
 
-        bool is_reading{};
-        bool is_writing{};
+        bool is_reading = false;
+        bool is_writing = false;
     };
 
 }

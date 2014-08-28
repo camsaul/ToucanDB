@@ -90,6 +90,7 @@ namespace crow {
 	
 	bool HTTPParser::done()
 	{
+		cout << "HTTPParser::done()" << endl;
 		return feed(nullptr, 0);
 	}
 	

@@ -48,6 +48,8 @@
 
 #include <native/istring.h>
 
+#include "http_parser_merged.h"
+
 
 using namespace std;
 using boost::lexical_cast;

@@ -7,7 +7,6 @@
 //
 
 #include "Handler.h"
-#include "logging.h"
 
 #include "Storage.h"
 
@@ -42,7 +41,6 @@ int main(int argc, const char * argv[])
 	double itrsPerSecond = chrono::microseconds::period::den / avgTimePerIteration;
 	cout << "itrsPerSecond: " << itrsPerSecond/1e+6  << " million" << endl;
 
-	crow::logger::setLogLevel(crow::LogLevel::WARNING);
 	Handler();
 }
 

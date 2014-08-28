@@ -43,8 +43,6 @@ namespace crow {
 	
 	void Connection::complete_request()
 	{
-//		CROW_LOG_INFO << "Response: " << this << ' ' << res.code << ' ' << close_connection_;
-		
 		res.complete_request_handler_ = nullptr;
 		
 		if (!socket_.is_open()) return;
@@ -130,7 +128,6 @@ namespace crow {
 					parser_.done();
 					socket_.close();
 					is_reading = false;
-					CROW_LOG_DEBUG << this << " from read(1)";
 					check_destroy();
 				}
 				else
@@ -167,21 +164,23 @@ namespace crow {
 	{
 		if (!is_reading && !is_writing)
 		{
+			res.complete_request_handler_ = nullptr;
+			cancel_deadline_timer();
 			delete this;
 		}
 	}
 	
 	void Connection::cancel_deadline_timer()
 	{
-		detail::dumb_timer_queue::get_current_dumb_timer_queue().cancel(timer_cancel_key_);
+		timer_cancel_key_.Cancel();
 	}
 	
 	void Connection::start_deadline(int timeout)
 	{
-		auto& timer_queue = detail::dumb_timer_queue::get_current_dumb_timer_queue();
+		auto& timer_queue = detail::DumbTimerQueue::Current();
 		cancel_deadline_timer();
 		
-		timer_cancel_key_ = timer_queue.add([this]{
+		timer_cancel_key_ = timer_queue.Add([this]{
 			if (!socket_.is_open())
 			{
 				return;

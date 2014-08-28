@@ -1,8 +1,7 @@
 #pragma once
 
 #include "http_connection.h"
-#include "logging.h"
-#include "dumb_timer_queue.h"
+#include "DumbTimerQueue.h"
 
 namespace crow
 {
@@ -33,6 +32,6 @@ namespace crow
         Handler* handler_;
         uint16_t concurrency_{1};
         uint16_t port_;
-        unsigned int roundrobin_index_{};
+        std::atomic<unsigned> roundrobin_index_ {0};
     };
 }

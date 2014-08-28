@@ -21,7 +21,7 @@ namespace crow {
 		for(uint16_t i = 0; i < concurrency_; i ++)
 			v.push_back(
 				async(launch::async, [this, i]{
-					auto& timer_queue = detail::dumb_timer_queue::get_current_dumb_timer_queue();
+					auto& timer_queue = detail::DumbTimerQueue::Current();
 					timer_queue.set_io_service(*io_service_pool_[i]);
 					boost::asio::deadline_timer timer(*io_service_pool_[i]);
 					timer.expires_from_now(boost::posix_time::seconds(1));
@@ -29,7 +29,7 @@ namespace crow {
 					handler = [&](const boost::system::error_code& ec){
 						if (ec)
 							return;
-						timer_queue.process();
+						timer_queue.Process();
 						timer.expires_from_now(boost::posix_time::seconds(1));
 						timer.async_wait(handler);
 					};
@@ -37,7 +37,6 @@ namespace crow {
 					io_service_pool_[i]->run();
 				}
 			));
-		CROW_LOG_INFO << "Server is running, local port " << port_;
 		
 		signals_.async_wait(
 			[&](const boost::system::error_code& error, int signal_number){
@@ -48,7 +47,6 @@ namespace crow {
 		
 		v.push_back(async(launch::async, [this]{
 			io_service_.run();
-			CROW_LOG_INFO << "Exiting.";
 		}));
 	}
 	
@@ -63,22 +61,20 @@ namespace crow {
 	asio::io_service& Server::pick_io_service()
 	{
 		// TODO load balancing
-		roundrobin_index_++;
-		if (roundrobin_index_ >= io_service_pool_.size())
-			roundrobin_index_ = 0;
-		cout << "INDEX -> " << roundrobin_index_ << endl;
-		return *io_service_pool_[roundrobin_index_];
+		return *io_service_pool_[roundrobin_index_++ % concurrency_];
 	}
 	
 	void Server::do_accept()
 	{
-		auto p = new Connection(pick_io_service(), handler_);
-		acceptor_.async_accept(p->socket(),
-		   [this, p](boost::system::error_code ec)
+		cout << "do_accept()" << endl;
+		auto connection = new Connection(pick_io_service(), handler_);
+//		auto connection = new Connection(pick_io_service(), handler_);
+		acceptor_.async_accept(connection->socket(),
+		   [this, connection](boost::system::error_code ec)
 		   {
 			   if (!ec)
 			   {
-				   p->start();
+				   connection->start();
 			   }
 			   do_accept();
 		   });

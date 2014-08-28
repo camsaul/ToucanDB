@@ -1,7 +1,6 @@
 #pragma once
 
 #include "http_request.h"
-#include "http_parser_merged.h"
 
 namespace crow
 {

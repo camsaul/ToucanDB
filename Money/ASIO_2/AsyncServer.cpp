@@ -30,8 +30,8 @@ namespace toucan_db {
 			}
 		}
 		
-		AsyncServer::AsyncServer(boost::asio::io_service& io_service):
-			acceptor_(io_service, tcp::endpoint(tcp::v4(), 1337))
+		AsyncServer::AsyncServer(boost::asio::io_service& io_service, u_int16t port):
+			acceptor_(io_service, tcp::endpoint(tcp::v4(), port))
 		{
 			StartAccept();
 		}

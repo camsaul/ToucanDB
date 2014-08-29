@@ -498,8 +498,8 @@
 			children = (
 				3289A5CE19B006B600478798 /* main.cpp */,
 				3289A5D019B006B600478798 /* CLI.1 */,
-				328CBEB019B0096800A200DF /* Client.cpp */,
 				328CBEB119B0096800A200DF /* Client.h */,
+				328CBEB019B0096800A200DF /* Client.cpp */,
 			);
 			path = CLI;
 			sourceTree = "<group>";

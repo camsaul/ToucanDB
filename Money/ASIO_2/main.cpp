@@ -9,10 +9,10 @@
 using namespace toucan_db::logging;
 
 static const size_t kNumIterations = 10000;
-static const size_t kNumClients = 8;
+static const size_t kNumClients = 1;
 static const size_t kNumRuns = 1;
 static const size_t kNumIterationsPerThread = (kNumIterations / kNumRuns) / kNumClients;
-static const size_t kNumServers = 16;
+static const size_t kNumServers = 1;
 
 // set up separate stacks, clients will use one or the other
 static const size_t kNumVirtualStacks = 1;
@@ -22,10 +22,14 @@ using Clock = chrono::system_clock;
 
 static vector<toucan_db::Client> sClients;
 
-void DoRequests(size_t i) {
-	toucan_db::Client& client = sClients[i % kNumClients];
-	client.Connect(kNumIterationsPerThread);
-}
+//void DoRequests(size_t numToDo) {
+//	Logger(RED) << "DoRequests: " << i;
+//	toucan_db::Client& client = sClients[i % kNumClients];
+//	for (int i = 0; i < numToDo; i++) {
+//		client.Connect(1);
+//	}
+//	client.Connect(kNumIterationsPerThread);
+//}
 
 int main(int argc, const char * argv[])
 {
@@ -35,10 +39,10 @@ int main(int argc, const char * argv[])
 		toucan_db::server::AsyncServer::Start().Headless(true).NumberOfThreads(kNumServers).Port(kPorts[i]);
 	}
 	
-	for (int i = 0; i < kNumClients; i++) {
-		sClients.emplace_back("172.20.10.3", kPorts[i % kNumVirtualStacks]);
-	}
-	
+//	for (int i = 0; i < kNumClients; i++) {
+//		sClients.emplace_back("172.20.10.3", kPorts[i % kNumVirtualStacks]);
+//	}
+//	
 	{
 		Logger(ORANGE) << "Wait for 2 seconds for CPU to cool down...";
 	}
@@ -46,8 +50,19 @@ int main(int argc, const char * argv[])
 	
 	cout << "START" << endl;
 	auto start = Clock::now();
-	for (size_t i = 0; i < kNumRuns; i++) {
-		tbb::parallel_for(size_t(0), kNumClients, DoRequests);
+	
+	toucan_db::Client::sRequestsCount = kNumIterations;
+	vector<thread> threads;
+	for (int i = 0; i < kNumClients; i++) {
+		auto clientFn = []{
+			auto c = make_shared<toucan_db::Client>();
+			c->Connect();
+		};
+		thread t { clientFn };
+		t.detach();
+	}
+	while (toucan_db::Client::sRequestsCount > 0) {
+		this_thread::sleep_for(chrono::milliseconds(1));
 	}
 	auto time = Clock::now() - start;
 	

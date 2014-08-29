@@ -16,6 +16,10 @@ namespace crow
         static int on_message_complete(http_parser* self_);
 		
         HTTPParser(Connection* handler);
+		
+		~HTTPParser() {
+			cout << "~HTTPParser()" << endl;
+		}
 
         // return false on error
         bool feed(const char* buffer, int length);

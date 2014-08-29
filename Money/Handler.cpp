@@ -23,13 +23,15 @@ Handler::Handler():
 }
 
 void Handler::Handle(const crow::request& req, crow::response& res) {
+	cout << "Handler::Handle()" << endl;
 	HandleRequest(req, res, istring::literal("toucan")); // TODO
 }
 
 void Handler::HandleRequest(const crow::request& req, crow::response& res, const istring& key) {
+	cout << "Handler::HandleRequest()" << endl;
 	switch (req.method) {
 		case crow::HTTPMethod::GET: {
-			//				cout << key << endl;
+			cout << key << endl;
 			bool found;
 			res.body_ = Storage::Get(key, &found);
 			if (!found) res.code = 404;
@@ -38,6 +40,7 @@ void Handler::HandleRequest(const crow::request& req, crow::response& res, const
 		} break;
 		case crow::HTTPMethod::PUT:
 		case crow::HTTPMethod::POST: {
+			cout << key << " -> " << req.body << endl;
 			Storage::Set(key, req.body);
 			res.code = 201;
 			res.end(istring::literal("ok"));

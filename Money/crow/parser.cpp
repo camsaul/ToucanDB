@@ -68,11 +68,13 @@ namespace crow {
 	HTTPParser::HTTPParser(Connection* handler):
 		connection_(handler) {
 		http_parser_init(this, HTTP_REQUEST);
+		cout << "HTTPParser()" << endl;
 	}
 	
 	// return false on error
 	bool HTTPParser::feed(const char* buffer, int length)
 	{
+		cout << "HTTPParser::feed()" << endl;
 		const http_parser_settings settings_{
 			on_message_begin,
 			on_url,
@@ -96,17 +98,20 @@ namespace crow {
 	
 	void HTTPParser::clear()
 	{
+		cout << "HTTPParser::clear()" << endl;
 		url.clear();
 		body.clear();
 	}
 		
 	void HTTPParser::process_message()
 	{
+		cout << "HTTPParser::process_message()" << endl;
 		connection_->handle();
 	}
 	
 	request HTTPParser::to_request() const
 	{
+		cout << "HTTPParser::to_request()" << endl;
 		return request{(HTTPMethod)method, std::move(url), std::move(body)};
 	}
 	

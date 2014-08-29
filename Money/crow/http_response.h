@@ -11,8 +11,16 @@ namespace crow
         int code{200};
         unordered_map<istring, istring> headers;
 
-        response() {}
-        explicit response(int code) : code(code) {}
+        response() {
+			cout << "response()" << endl;
+		}
+        explicit response(int code) : code(code) {
+			cout << "response(code)" << endl;
+		}
+		
+		~response() {
+			cout << "~response()" << endl;
+		}
 
         response& operator=(const response& r) = delete;
 

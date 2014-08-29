@@ -37,10 +37,11 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio.hpp>
 #include <boost/date_time/local_time/local_time.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/operators.hpp>
+#include <boost/noncopyable.hpp>
 #pragma clang diagnostic pop
 
 #include <tbb/concurrent_hash_map.h>

@@ -5,22 +5,29 @@ namespace crow {
 		socket_	  (io_service),
 		handler_  (handler),
 		parser_	  (this)
-	{}
+	{
+		cout << "new Connection(): " << hex << this << dec << endl;
+//		io_service.run();
+	}
 	
 	Connection::~Connection() {
-		cout << '~' << endl;
+		cout << "~Connection(): " << hex << this << dec << endl;
+//		cout << '~' << endl;
 		res.complete_request_handler_ = nullptr;
 		cancel_deadline_timer();
 	}
 	
 	void Connection::start() {
-		cout << "Connection::start()" << endl;
+		cout << "\n--------------------" << endl;
+		cout << "Connection::start(): " << hex << this << dec << endl;
 		start_deadline();
 		
 		do_read();
 	}
 	
 	void Connection::HandleExpect100Continue() {
+		cout << "Connection::HandleExpect100Continue(): " << hex << this << dec << endl;
+	
 		buffers_.clear();
 		static const char * const kExpect100Continue = "HTTP/1.1 100 Continue\r\n\r\n";
 		static const size_t kExpect100ContinueLength = strlen(kExpect100Continue);
@@ -32,7 +39,7 @@ namespace crow {
 	
 	void Connection::handle()
 	{
-		cout << "Connection::handle()" << endl;
+		cout << "Connection::handle(): " << hex << this << dec << endl;
 		cancel_deadline_timer();
 		
 		request req = parser_.to_request();
@@ -45,7 +52,7 @@ namespace crow {
 	
 	void Connection::complete_request()
 	{
-		cout << "Connection::complete_request()" << endl;
+		cout << "Connection::complete_request(): " << hex << this << dec << endl;
 		res.complete_request_handler_ = nullptr;
 		
 		if (!socket_.is_open()) return;
@@ -107,69 +114,98 @@ namespace crow {
 		do_write();
 		res.clear();
 		
+		cout << "socket_.close()" << endl;
 		socket_.close();
 	}
 	
 	void Connection::do_read()
 	{
-		cout << "Connection::do_read()" << endl;
+		cout << "Connection::do_read(): " << hex << this << dec << endl;
 		
 		is_reading = true;
-		socket_.async_read_some(boost::asio::buffer(buffer_),
-			[this](const boost::system::error_code& ec, std::size_t bytes_transferred)
-			{
-				bool error_while_reading = true;
-				if (!ec)
-				{
-					bool ret = parser_.feed(buffer_.data(), bytes_transferred);
-					if (ret && socket_.is_open() && !close_connection_)
-					{
-						error_while_reading = false;
-					}
-				}
-				
-				if (error_while_reading)
-				{
-					cancel_deadline_timer();
-					parser_.done();
-					socket_.close();
-					is_reading = false;
-					check_destroy();
-				}
-				else
-				{
-					start_deadline();
-					do_read();
-				}
-			});
+		boost::system::error_code ec;
+		ec.clear();
+		
+		while (!ec) {
+			std::vector<boost::asio::mutable_buffers_1> bufs;
+//			array<boost::asio::buffer, bufs>;
+//			auto buf = boost::asio::buffer();
+			socket_.read_some(bufs, ec);
+			for (auto& buf : bufs) {
+				bool ret = parser_.feed(buf.data(), buf.size());
+				if (!ret || !socket_.is_open() || close_connection_) break;
+			}
+		}
+		parser_.done();
+		socket_.close();
+		check_destroy();
+		
+//		while (!ec)
+//		socket_.async_read_some(boost::asio::buffer(buffer_),
+//			[this](const boost::system::error_code& ec, std::size_t bytes_transferred)
+//			{
+//				cout << "Connection::async_read_some callback.: " << hex << this << dec << endl;
+//
+//				bool error_while_reading = true;
+//				if (!ec)
+//				{
+//					bool ret = parser_.feed(buffer_.data(), bytes_transferred);
+//					if (ret && socket_.is_open() && !close_connection_)
+//					{
+//						error_while_reading = false;
+//					}
+//				}
+//				
+//				if (error_while_reading)
+//				{
+//					cancel_deadline_timer();
+//					parser_.done();
+//					cout << "socket_.close()" << endl;
+//					socket_.close();
+//					is_reading = false;
+//					check_destroy();
+//				}
+//				else
+//				{
+//					do_read();
+//				}
+//			});
 	}
 	
 	void Connection::do_write()
 	{
-		cout << "Connection::do_write()" << endl;
+		cout << "Connection::do_write(): " << hex << this << dec << endl;
 		
-		is_writing = true;
-		boost::asio::async_write(socket_, buffers_,
-			 [&](const boost::system::error_code& ec, std::size_t bytes_transferred)
-			 {
-				 is_writing = false;
-				 if (!ec)
-				 {
-					 if (close_connection_)
-					 {
-						 socket_.close();
-						 check_destroy();
-					 }
-				 }
-				 else
-				 {
-					 check_destroy();
-				 }
-			 });
+		boost::asio::write(socket_, buffers_);
+		cout << "socket_.close()" << endl;
+		socket_.close();
+		check_destroy();
+		
+//		is_writing = true;
+//		boost::asio::async_write(socket_, buffers_,
+//			 [&](const boost::system::error_code& ec, std::size_t bytes_transferred)
+//			 {
+//				 cout << "Connection::async_write callback.: " << hex << this << dec << endl;
+//				 is_writing = false;
+//				 if (!ec)
+//				 {
+//					 if (close_connection_)
+//					 {
+//						 cout << "socket_.close()" << endl;
+//						 socket_.close();
+//						 check_destroy();
+//					 }
+//				 }
+//				 else
+//				 {
+//					 check_destroy();
+//				 }
+//			 });
 	}
 	
 	void Connection::check_destroy()
 	{
+		cout << "Connection::check_destroy()" << endl;
 		if (!is_reading && !is_writing)
 		{
 			res.complete_request_handler_ = nullptr;
@@ -180,7 +216,7 @@ namespace crow {
 	
 //	void Connection::cancel_deadline_timer()
 //	{
-//		cout << "Connection::cancel_deadline_timer()" << endl;
+//		cout << "Connection::cancel_deadline_timer(): " << hex << this << dec << endl;
 //		timer_cancel_key_.Cancel();
 //	}
 	

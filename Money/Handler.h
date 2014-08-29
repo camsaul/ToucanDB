@@ -17,6 +17,10 @@ class Handler {
 public:
 	Handler();
 	
+	~Handler() {
+		cout << "~Handler()" << endl;
+	}
+	
 	static void Handle(const crow::request& req, crow::response& res);
 	
 	/// TODO - How to get key?

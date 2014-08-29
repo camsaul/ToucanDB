@@ -9,5 +9,13 @@ namespace crow
         HTTPMethod method;
 		istring url;
         istring body;
+		
+//		request() {
+//			cout << "request()" << endl;
+//		}
+		
+		~request() {
+			cout << "~request()" << endl;
+		}
     };
 }

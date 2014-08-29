@@ -21,19 +21,21 @@ namespace crow {
 		for(uint16_t i = 0; i < concurrency_; i ++)
 			v.push_back(
 				async(launch::async, [this, i]{
+					cout << "Server::run() - lambda" << endl;
 					auto& io_service = *io_service_pool_[i];
 //					auto& timer_queue = detail::DumbTimerQueue::Current();
 //					timer_queue.set_io_service(*io_service_pool_[i]);
 					
 					boost::asio::deadline_timer timer(io_service);
-					timer.expires_from_now(boost::posix_time::seconds(1));
+					timer.expires_from_now(boost::posix_time::milliseconds(10));
 					
 					std::function<void(const boost::system::error_code& ec)> handler;
 					handler = [&](const boost::system::error_code& ec){
+//						cout << "Server::run() - lambda expires_from_now" << endl;
 						if (ec)
 							return;
 //						timer_queue.Process();
-						timer.expires_from_now(boost::posix_time::seconds(1));
+						timer.expires_from_now(boost::posix_time::milliseconds(10));
 						timer.async_wait(handler);
 					};
 					timer.async_wait(handler);
@@ -49,6 +51,7 @@ namespace crow {
 		do_accept();
 		
 		v.push_back(async(launch::async, [this]{
+			cout << "Server::run() - lambda io_service_.run()" << endl;
 			io_service_.run();
 		}));
 	}

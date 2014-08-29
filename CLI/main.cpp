@@ -16,7 +16,7 @@ int main(int argc, const char * argv[])
 {
 	Logger(BLUE) << "HERE!";
 	
-	auto client = Client("172.20.10.3", 1337);
+	auto client = Client();
 	while (true) {
 		client.Connect();
 	}

@@ -12,10 +12,10 @@ namespace toucan_db {
 	using boost::asio::ip::tcp;
 	class Client : private boost::noncopyable {
 	public:
-		Client(string host, int16_t port = 1337);
+		Client(string host = "172.20.10.3", int16_t port = 1337);
 		Client(Client&&);
 		
-		void Connect();
+		void Connect(size_t iterations);
 		
 		
 	private:

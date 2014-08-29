@@ -8,15 +8,19 @@
 
 #pragma once
 
+#define ENABLE_LOGGING 1
+
 namespace toucan_db {
 	namespace logging {
 		class Color : public string {
 		public:
 			Color(const char* val);
+			Color(uint8_t r, uint8_t g, uint8_t b);
 		};
 		extern const Color RED;
 		extern const Color GREEN;
 		extern const Color BLUE;
+		extern const Color ORANGE;
 		extern const Color CLEAR_ALL;
 		
 		class Logger {
@@ -27,6 +31,7 @@ namespace toucan_db {
 			Logger(const Color& color, ostream& os = std::cout);
 			Logger(Logger&& rhs);
 			
+		#if ENABLE_LOGGING
 			~Logger();
 			
 		private:
@@ -35,11 +40,14 @@ namespace toucan_db {
 			unique_lock<mutex> lock_;
 			ostream& os_ = std::cout;
 			bool isLast_ = true;
+		#endif
 		};
 		
 		template <typename T>
 		Logger operator<<(Logger&& logger, T rhs) {
-			logger.os_ << rhs;
+			#if ENABLE_LOGGING
+				logger.os_ << rhs;
+			#endif
 			return std::move(logger);
 		}
 

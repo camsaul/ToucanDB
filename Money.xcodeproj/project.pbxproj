@@ -19,6 +19,7 @@
 		328CBEB519B00FFE00A200DF /* AsyncServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB319B00FFE00A200DF /* AsyncServer.cpp */; };
 		328CBEB819B0100800A200DF /* TCPConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB619B0100800A200DF /* TCPConnection.cpp */; };
 		328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */; };
+		328CBEBC19B014A500A200DF /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB019B0096800A200DF /* Client.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		3220D41F19A97D83006645D8 /* Money */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Money; sourceTree = BUILT_PRODUCTS_DIR; };
-		3220D42219A97D83006645D8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3220D42419A97D83006645D8 /* Money.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Money.1; sourceTree = "<group>"; };
 		3220D43319A9F7AA006645D8 /* Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Prefix.h; path = ../Money/Prefix.h; sourceTree = "<group>"; };
 		322AD54819AEFB6600364A33 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -482,12 +482,12 @@
 			isa = PBXGroup;
 			children = (
 				3231413719AFD43C00C341FF /* main.cpp */,
-				328CBEB319B00FFE00A200DF /* AsyncServer.cpp */,
 				328CBEB419B00FFE00A200DF /* AsyncServer.h */,
-				328CBEB619B0100800A200DF /* TCPConnection.cpp */,
+				328CBEB319B00FFE00A200DF /* AsyncServer.cpp */,
 				328CBEB719B0100800A200DF /* TCPConnection.h */,
-				328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */,
+				328CBEB619B0100800A200DF /* TCPConnection.cpp */,
 				328CBEBA19B0101900A200DF /* SingleThreadedServer.h */,
+				328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */,
 			);
 			name = Server;
 			path = ASIO_2;
@@ -512,7 +512,6 @@
 				322AD56119AF0C7200364A33 /* native */,
 				322AD54719AEFB5B00364A33 /* crow */,
 				3220D42419A97D83006645D8 /* Money.1 */,
-				3220D42219A97D83006645D8 /* main.cpp */,
 				323140DD19AF447600C341FF /* Storage.h */,
 				323140DC19AF447600C341FF /* Storage.cpp */,
 			);
@@ -603,6 +602,7 @@
 				328CBEB519B00FFE00A200DF /* AsyncServer.cpp in Sources */,
 				3289A5DA19B0073600478798 /* Logging.cpp in Sources */,
 				3231413819AFD43C00C341FF /* main.cpp in Sources */,
+				328CBEBC19B014A500A200DF /* Client.cpp in Sources */,
 				328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

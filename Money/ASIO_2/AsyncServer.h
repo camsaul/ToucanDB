@@ -18,15 +18,35 @@ namespace toucan_db {
 		
 		class AsyncServer {
 		public:
-			static void Start(bool headless=false);
+			class ConfigurationBuilder : boost::noncopyable {
+			public:
+				friend class AsyncServer;
+				ConfigurationBuilder(ConfigurationBuilder&&);
+				~ConfigurationBuilder(); ///< start the server when the builder gets dealloced
+				
+				ConfigurationBuilder& Headless			(bool makeHeadless);
+				ConfigurationBuilder& NumberOfThreads	(uint16_t numThreads);
+				ConfigurationBuilder& Port				(uint16_T port);
+			private:
+				ConfigurationBuilder() = default;
+				
+				bool startsServerUponDestruction_ = true; ///< Only one builder should do it 
+				bool headless_ = false;
+				uint16_t numThreads_ = 1;
+				uint16_t port_ = kDefaultPort;
+			};
+			
+			static AsyncServer::ConfigurationBuilder Start();
 		
-			AsyncServer(boost::asio::io_service& io_service, u_int16t port = kDefaultPort);
+			AsyncServer(boost::asio::io_service& ioService, uint16_t port = kDefaultPort);
 			
 			void StartAccept();
 			void HandleAccept(shared_ptr<TCPConnection> newConnection, const boost::system::error_code& error);
 			
 		private:
+			static boost::asio::io_service* const sIOService;
 			tcp::acceptor acceptor_;
+			std::vector<std::thread> childThreads_;
 		};
 
 	}

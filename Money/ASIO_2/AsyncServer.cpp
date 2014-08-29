@@ -12,26 +12,72 @@
 
 using namespace toucan_db::logging;
 
+
 namespace toucan_db {
 	namespace server {
-		void AsyncServer::Start(bool headless) {
-			if (headless) {
-				auto t = thread(AsyncServer::Start, false); // detach thread which will call this fn again
-				t.detach();
-				return;
+	
+		boost::asio::io_service* const AsyncServer::sIOService = new boost::asio::io_service();
+	
+		using Builder = toucan_db::server::AsyncServer::ConfigurationBuilder;
+	
+		Builder::ConfigurationBuilder(Builder&& rhs):
+			headless_ (rhs.headless_)
+		{
+			if (&rhs != this) {
+				rhs.startsServerUponDestruction_ = false;
 			}
-			try {
-				Logger(BLUE) << "Starting async server...";
-				boost::asio::io_service io_service;
-				AsyncServer server(io_service);
-				io_service.run();
-			} catch (exception& e) {
-				Logger(BLUE) << "Caught exception: " << e.what();
+		}
+
+		Builder& Builder::Headless(bool headless) {
+			Logger(BLUE) << "headless -> " << headless;
+			headless_ = headless;
+			return *this;
+		}
+		
+		Builder& Builder::NumberOfThreads(uint16_t numThreads) {
+			numThreads_ = numThreads;
+			return *this;
+		}
+
+		Builder::~ConfigurationBuilder() {
+			if (!startsServerUponDestruction_) return;
+			
+			
+			auto startServerFn = [numThreads = numThreads_, port = port_]{
+				try {
+					Logger(BLUE) << "Starting async server...";
+
+					AsyncServer server(*sIOService, port);
+					
+					// start an extra io_service thread for every thread > 1
+					for (int i = 1; i < numThreads; i++) {
+						Logger(BLUE) << "Starting additional io_service thread #" << i;
+						server.childThreads_.emplace_back([]{
+							sIOService->run();
+						});
+					}
+					
+					
+					sIOService->run();
+				} catch (exception& e) {
+					Logger(BLUE) << "Caught exception: " << e.what();
+				}
+			};
+			
+			if (headless_) {
+				auto t = thread(startServerFn);
+				t.detach();
+			} else {
+				startServerFn();
 			}
 		}
 		
-		AsyncServer::AsyncServer(boost::asio::io_service& io_service, u_int16t port):
-			acceptor_(io_service, tcp::endpoint(tcp::v4(), port))
+		Builder AsyncServer::Start() {
+			return std::move(Builder());
+		}
+		
+		AsyncServer::AsyncServer(boost::asio::io_service& ioService, uint16_t port):
+			acceptor_(ioService, tcp::endpoint(tcp::v4(), port))
 		{
 			StartAccept();
 		}

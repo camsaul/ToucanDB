@@ -22,6 +22,6 @@ namespace toucan_db {
 		TCPConnection(boost::asio::io_service& io_service);
 		
 		tcp::socket socket_;
-		std::string message_;
+		istring message_;
 	};
 }

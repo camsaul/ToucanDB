@@ -29,37 +29,41 @@ namespace toucan_db {
 		query_		(std::move(rhs.query_))
 	{}
 	
-	void Client::Connect() {
+	void Client::Connect(size_t iterations) {
 		try {
 			tcp::resolver::iterator endpoint_iterator = resolver_->resolve(query_);
-			
-			Logger(RED) << "Connecting to " << host_ << ", port " << port_ << "...";
+						
+//			Logger(GREEN) << "Connecting to " << host_ << ", port " << port_ << "...";
 			tcp::socket socket(*ioService_);
-			boost::asio::connect(socket, endpoint_iterator);
 			
-			Logger(RED) << "Connected.";
 			
-			while (true) {
-				boost::array<char, 128> buf;
-				boost::system::error_code error;
-				
-				socket.read_some(boost::asio::buffer(buf), error);
-				
-				Logger(RED) << "Reading from server...";
-				
-				if (error == boost::asio::error::eof) {
-					Logger(RED) << "Connection closed.";
-					break; // Connection closed cleanly by peer.
+			for (int i = 0; i < iterations; i++ ) {
+				boost::asio::connect(socket, endpoint_iterator);
+			
+//				Logger(GREEN) << "Connected.";
+			
+				while (true) {
+					boost::array<char, 128> buf;
+					boost::system::error_code error;
+					
+					socket.read_some(boost::asio::buffer(buf), error);
+					
+	//				Logger(GREEN) << "Reading from server...";
+					
+					if (error == boost::asio::error::eof) {
+//						Logger(GREEN) << "Connection closed.";
+						break; // Connection closed cleanly by peer.
+					}
+//					else if (error) {
+//						throw boost::system::system_error(error); // Some other error.
+//					}
+					
+//					Logger(RED) << "Read message from server: '" << buf.data() << "'";
 				}
-				else if (error) {
-					throw boost::system::system_error(error); // Some other error.
-				}
-				
-				Logger(RED) << "Read message from server: '" << buf.data() << '\'';
 			}
 			
 		} catch (std::exception& e) {
-			Logger(RED, cerr) << e.what();
+			Logger(GREEN, cerr) << e.what();
 		}
 	}
 }

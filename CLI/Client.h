@@ -19,11 +19,15 @@ namespace toucan_db {
 		
 		
 	private:
-		string host_;
+		string  host_;
 		int16_t port_;
 		
+		boost::array<char, 256> buffer_;
+		
 		unique_ptr<boost::asio::io_service> ioService_;
-		unique_ptr<tcp::resolver> resolver_;
-		tcp::resolver::query query_;
+		unique_ptr<tcp::resolver>			resolver_;
+		tcp::resolver::query				query_;
+		tcp::resolver::iterator				endpoint_iterator_;
+		tcp::socket							socket_;
 	};
 }

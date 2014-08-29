@@ -26,7 +26,7 @@ namespace toucan_db {
 				
 				ConfigurationBuilder& Headless			(bool makeHeadless);
 				ConfigurationBuilder& NumberOfThreads	(uint16_t numThreads);
-				ConfigurationBuilder& Port				(uint16_T port);
+				ConfigurationBuilder& Port				(uint16_t port);
 			private:
 				ConfigurationBuilder() = default;
 				
@@ -38,15 +38,15 @@ namespace toucan_db {
 			
 			static AsyncServer::ConfigurationBuilder Start();
 		
-			AsyncServer(boost::asio::io_service& ioService, uint16_t port = kDefaultPort);
+			AsyncServer(uint16_t port = kDefaultPort);
 			
 			void StartAccept();
 			void HandleAccept(shared_ptr<TCPConnection> newConnection, const boost::system::error_code& error);
 			
 		private:
-			static boost::asio::io_service* const sIOService;
+			unique_ptr<boost::asio::io_service> ioService_;
 			tcp::acceptor acceptor_;
-			std::vector<std::thread> childThreads_;
+//			std::vector<std::thread> childThreads_;
 		};
 
 	}

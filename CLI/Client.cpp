@@ -14,41 +14,36 @@ using namespace toucan_db::logging;
 
 namespace toucan_db {
 	Client::Client(string host, int16_t port):
-		host_		(host),
-		port_		(port),
-		ioService_	(make_unique<boost::asio::io_service>()),
-		resolver_	(make_unique<tcp::resolver>(*ioService_)),
-		query_		(host_, lexical_cast<string>(port_))
+		host_				(host),
+		port_				(port),
+		ioService_			(make_unique<boost::asio::io_service>()),
+		resolver_			(make_unique<tcp::resolver>(*ioService_)),
+		query_				(host_, lexical_cast<string>(port_)),
+		endpoint_iterator_	(resolver_->resolve(query_)),
+		socket_				(*ioService_)
 	{}
 	
 	Client::Client(Client&& rhs):
-		host_		(std::move(rhs.host_)),
-		port_		(rhs.port_),
-		ioService_	(std::move(rhs.ioService_)),
-		resolver_	(std::move(rhs.resolver_)),
-		query_		(std::move(rhs.query_))
+		host_				(std::move(rhs.host_)),
+		port_				(rhs.port_),
+		ioService_			(std::move(rhs.ioService_)),
+		resolver_			(std::move(rhs.resolver_)),
+		query_				(std::move(rhs.query_)),
+		endpoint_iterator_	(std::move(rhs.endpoint_iterator_)),
+		socket_				(std::move(rhs.socket_))
 	{}
 	
 	void Client::Connect(size_t iterations) {
 		try {
-			tcp::resolver::iterator endpoint_iterator = resolver_->resolve(query_);
-						
-//			Logger(GREEN) << "Connecting to " << host_ << ", port " << port_ << "...";
-			tcp::socket socket(*ioService_);
-			
+			Logger(GREEN) << "Connected to " << host_ << ":" << port_ << "...";
 			
 			for (int i = 0; i < iterations; i++ ) {
-				boost::asio::connect(socket, endpoint_iterator);
-			
-//				Logger(GREEN) << "Connected.";
+				boost::asio::connect(socket_, endpoint_iterator_);
 			
 				while (true) {
-					boost::array<char, 128> buf;
 					boost::system::error_code error;
 					
-					socket.read_some(boost::asio::buffer(buf), error);
-					
-	//				Logger(GREEN) << "Reading from server...";
+					socket_.read_some(boost::asio::buffer(buffer_), error);
 					
 					if (error == boost::asio::error::eof) {
 //						Logger(GREEN) << "Connection closed.";

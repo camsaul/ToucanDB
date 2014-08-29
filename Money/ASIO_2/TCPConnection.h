@@ -9,6 +9,8 @@
 namespace toucan_db {
 	using boost::asio::ip::tcp;
 	
+	void SetTheCans();
+	
 	class TCPConnection : public enable_shared_from_this<TCPConnection> {
 	public:
 		static shared_ptr<TCPConnection> Create(boost::asio::io_service& io_service);
@@ -23,5 +25,6 @@ namespace toucan_db {
 		
 		tcp::socket socket_;
 		istring message_;
+		istring key_;
 	};
 }

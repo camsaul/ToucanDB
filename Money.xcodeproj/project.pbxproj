@@ -11,6 +11,12 @@
 		322ADA5319AF0EEE00364A33 /* libtbb.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 322AD55F19AF0C6000364A33 /* libtbb.dylib */; };
 		323140DE19AF447600C341FF /* Storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140DC19AF447600C341FF /* Storage.cpp */; };
 		3231413819AFD43C00C341FF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3231413719AFD43C00C341FF /* main.cpp */; };
+		32383F8F19B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */; };
+		32383F9019B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */; };
+		32383F9119B04A48007A29C4 /* libtbbmalloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */; };
+		32383F9219B04A48007A29C4 /* libtbbmalloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */; };
+		32383F9319B04A5D007A29C4 /* libtbbmalloc_proxy.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */; };
+		32383F9419B04A5D007A29C4 /* libtbbmalloc.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */; };
 		3289A5CF19B006B600478798 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3289A5CE19B006B600478798 /* main.cpp */; };
 		3289A5D119B006B600478798 /* CLI.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3289A5D019B006B600478798 /* CLI.1 */; };
 		3289A5DA19B0073600478798 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3289A5D819B0073600478798 /* Logging.cpp */; };
@@ -29,6 +35,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				32383F9319B04A5D007A29C4 /* libtbbmalloc_proxy.dylib in CopyFiles */,
+				32383F9419B04A5D007A29C4 /* libtbbmalloc.dylib in CopyFiles */,
 				322ADA5319AF0EEE00364A33 /* libtbb.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +188,8 @@
 		3231413319AF871B00C341FF /* pt-sem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pt-sem.h"; sourceTree = "<group>"; };
 		3231413419AF871B00C341FF /* pt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pt.h; sourceTree = "<group>"; };
 		3231413719AFD43C00C341FF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbbmalloc_proxy.dylib; sourceTree = "<group>"; };
+		32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbbmalloc.dylib; sourceTree = "<group>"; };
 		3289A5CC19B006B600478798 /* CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		3289A5CE19B006B600478798 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3289A5D019B006B600478798 /* CLI.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = CLI.1; sourceTree = "<group>"; };
@@ -200,6 +210,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32383F8F19B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */,
+				32383F9119B04A48007A29C4 /* libtbbmalloc.dylib in Frameworks */,
 				322AD56019AF0C6000364A33 /* libtbb.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,6 +220,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32383F9019B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */,
+				32383F9219B04A48007A29C4 /* libtbbmalloc.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +232,8 @@
 			isa = PBXGroup;
 			children = (
 				322AD55F19AF0C6000364A33 /* libtbb.dylib */,
+				32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */,
+				32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */,
 				3289A5D719B0072300478798 /* Common */,
 				3220D42119A97D83006645D8 /* Money */,
 				3289A5CD19B006B600478798 /* CLI */,
@@ -531,9 +547,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3220D41E19A97D83006645D8 /* Money */ = {
+		3220D41E19A97D83006645D8 /* Server */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3220D42819A97D83006645D8 /* Build configuration list for PBXNativeTarget "Money" */;
+			buildConfigurationList = 3220D42819A97D83006645D8 /* Build configuration list for PBXNativeTarget "Server" */;
 			buildPhases = (
 				3220D41B19A97D83006645D8 /* Sources */,
 				3220D41C19A97D83006645D8 /* Frameworks */,
@@ -543,7 +559,7 @@
 			);
 			dependencies = (
 			);
-			name = Money;
+			name = Server;
 			productName = Money;
 			productReference = 3220D41F19A97D83006645D8 /* Money */;
 			productType = "com.apple.product-type.tool";
@@ -586,7 +602,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3220D41E19A97D83006645D8 /* Money */,
+				3220D41E19A97D83006645D8 /* Server */,
 				3289A5CB19B006B600478798 /* CLI */,
 			);
 		};
@@ -679,8 +695,6 @@
 					"/usr/local/lib/libboost_system-mt.dylib",
 					"/usr/local/lib/libboost_thread-mt.dylib",
 					/usr/local/lib/libtcmalloc_minimal.dylib,
-					"
-",
 				);
 				SDKROOT = macosx;
 			};
@@ -744,8 +758,6 @@
 					"/usr/local/lib/libboost_system-mt.dylib",
 					"/usr/local/lib/libboost_thread-mt.dylib",
 					/usr/local/lib/libtcmalloc_minimal.dylib,
-					"
-",
 				);
 				SDKROOT = macosx;
 			};
@@ -754,6 +766,10 @@
 		3220D42919A97D83006645D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -761,6 +777,10 @@
 		3220D42A19A97D83006645D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -768,6 +788,10 @@
 		3289A5D319B006B600478798 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -775,6 +799,10 @@
 		3289A5D419B006B600478798 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -791,7 +819,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3220D42819A97D83006645D8 /* Build configuration list for PBXNativeTarget "Money" */ = {
+		3220D42819A97D83006645D8 /* Build configuration list for PBXNativeTarget "Server" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3220D42919A97D83006645D8 /* Debug */,

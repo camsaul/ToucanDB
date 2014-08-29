@@ -16,6 +16,9 @@
 		3289A5DA19B0073600478798 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3289A5D819B0073600478798 /* Logging.cpp */; };
 		3289A5DB19B0077E00478798 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3289A5D819B0073600478798 /* Logging.cpp */; };
 		328CBEB219B0096800A200DF /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB019B0096800A200DF /* Client.cpp */; };
+		328CBEB519B00FFE00A200DF /* AsyncServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB319B00FFE00A200DF /* AsyncServer.cpp */; };
+		328CBEB819B0100800A200DF /* TCPConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB619B0100800A200DF /* TCPConnection.cpp */; };
+		328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -184,6 +187,12 @@
 		3289A5D919B0073600478798 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		328CBEB019B0096800A200DF /* Client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Client.cpp; sourceTree = "<group>"; };
 		328CBEB119B0096800A200DF /* Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client.h; sourceTree = "<group>"; };
+		328CBEB319B00FFE00A200DF /* AsyncServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AsyncServer.cpp; sourceTree = "<group>"; };
+		328CBEB419B00FFE00A200DF /* AsyncServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncServer.h; sourceTree = "<group>"; };
+		328CBEB619B0100800A200DF /* TCPConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPConnection.cpp; sourceTree = "<group>"; };
+		328CBEB719B0100800A200DF /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
+		328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleThreadedServer.cpp; sourceTree = "<group>"; };
+		328CBEBA19B0101900A200DF /* SingleThreadedServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleThreadedServer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -473,6 +482,12 @@
 			isa = PBXGroup;
 			children = (
 				3231413719AFD43C00C341FF /* main.cpp */,
+				328CBEB319B00FFE00A200DF /* AsyncServer.cpp */,
+				328CBEB419B00FFE00A200DF /* AsyncServer.h */,
+				328CBEB619B0100800A200DF /* TCPConnection.cpp */,
+				328CBEB719B0100800A200DF /* TCPConnection.h */,
+				328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */,
+				328CBEBA19B0101900A200DF /* SingleThreadedServer.h */,
 			);
 			name = Server;
 			path = ASIO_2;
@@ -584,8 +599,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				323140DE19AF447600C341FF /* Storage.cpp in Sources */,
+				328CBEB819B0100800A200DF /* TCPConnection.cpp in Sources */,
+				328CBEB519B00FFE00A200DF /* AsyncServer.cpp in Sources */,
 				3289A5DA19B0073600478798 /* Logging.cpp in Sources */,
 				3231413819AFD43C00C341FF /* main.cpp in Sources */,
+				328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

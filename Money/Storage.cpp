@@ -11,7 +11,7 @@
 namespace toucan_db {
 	template <typename KeyType>
 	struct KeyTraits {
-		using StorageT = tbb::concurrent_hash_map<KeyType, Storage::ValueType>;
+		using StorageT = std::unordered_map<KeyType, Storage::ValueType>;
 	};
 	
 	template<>
@@ -26,7 +26,22 @@ namespace toucan_db {
 			}
 		};
 		
-		using StorageT = tbb::concurrent_hash_map<istring, Storage::ValueType, Hasher>;
+		using StorageT = std::map<istring, Storage::ValueType>;
+	};
+	
+	template<>
+	struct KeyTraits<CamStr> {
+		struct Hasher {
+			inline static constexpr int64_t hash(const CamStr& x ) {
+				return x.hash();
+			}
+			
+			inline static bool equal(const CamStr& x, const CamStr& y ) {
+				return x == y;
+			}
+		};
+		
+		using StorageT = tbb::concurrent_hash_map<CamStr, Storage::ValueType, Hasher>;
 	};
 	
 	using StorageT = KeyTraits<Storage::KeyType>::StorageT;
@@ -35,16 +50,14 @@ namespace toucan_db {
 	Storage::ValueType Storage::Get(KeyType key) {
 		StorageT::const_accessor a;
 		return sStorage.find(a, key) ? a->second : "";
-	}
-	
-	Storage::ValueType Storage::Get(KeyType key, bool* found) {
-		StorageT::const_accessor a;
-		return (*found = sStorage.find(a, key)) ? a->second : "";
+//		static StorageT::const_iterator itr;
+//		return (itr = sStorage.find(key)) == sStorage.end() ? "" : itr->second;
 	}
 	
 	void Storage::Set(KeyType key, ValueType val) {
 		sStorage.insert({key, val});
-		cout << hex << &sStorage << ": " << dec << "SET '" << key << "' -> " << val << endl;
+		assert(!strcmp(Get(key), val));
+//		cout << hex << &sStorage << ": " << dec << "SET '" << key << "' -> " << val << endl;
 	}
 	
 	void Storage::Delete(KeyType key) {

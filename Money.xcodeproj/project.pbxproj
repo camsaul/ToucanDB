@@ -11,6 +11,8 @@
 		322ADA5319AF0EEE00364A33 /* libtbb.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 322AD55F19AF0C6000364A33 /* libtbb.dylib */; };
 		323140DE19AF447600C341FF /* Storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 323140DC19AF447600C341FF /* Storage.cpp */; };
 		3231413819AFD43C00C341FF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3231413719AFD43C00C341FF /* main.cpp */; };
+		3232CB7719B3EC18008D9AF4 /* city.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3232CB7419B3EC18008D9AF4 /* city.cc */; };
+		3232CB7819B3EC18008D9AF4 /* city.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3232CB7419B3EC18008D9AF4 /* city.cc */; };
 		32383F8F19B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */; };
 		32383F9019B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */; };
 		32383F9119B04A48007A29C4 /* libtbbmalloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */; };
@@ -170,6 +172,9 @@
 		323140DC19AF447600C341FF /* Storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Storage.cpp; sourceTree = "<group>"; };
 		323140DD19AF447600C341FF /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
 		3231413719AFD43C00C341FF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3232CB7419B3EC18008D9AF4 /* city.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = city.cc; sourceTree = "<group>"; };
+		3232CB7519B3EC18008D9AF4 /* city.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = city.h; sourceTree = "<group>"; };
+		3232CB7619B3EC18008D9AF4 /* citycrc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = citycrc.h; sourceTree = "<group>"; };
 		32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbbmalloc_proxy.dylib; sourceTree = "<group>"; };
 		32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbbmalloc.dylib; sourceTree = "<group>"; };
 		3289A5CC19B006B600478798 /* CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CLI; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -467,6 +472,9 @@
 		3289A5D619B006F600478798 /* external */ = {
 			isa = PBXGroup;
 			children = (
+				3232CB7419B3EC18008D9AF4 /* city.cc */,
+				3232CB7519B3EC18008D9AF4 /* city.h */,
+				3232CB7619B3EC18008D9AF4 /* citycrc.h */,
 				322AD58019AF0CE900364A33 /* tbb43_20140724oss */,
 				322AD56119AF0C7200364A33 /* native */,
 				3220D42419A97D83006645D8 /* Money.1 */,
@@ -561,6 +569,7 @@
 				3289A5DA19B0073600478798 /* Logging.cpp in Sources */,
 				3231413819AFD43C00C341FF /* main.cpp in Sources */,
 				328CBEBC19B014A500A200DF /* Client.cpp in Sources */,
+				3232CB7719B3EC18008D9AF4 /* city.cc in Sources */,
 				32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
 				328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */,
 			);
@@ -574,6 +583,7 @@
 				3289A5DB19B0077E00478798 /* Logging.cpp in Sources */,
 				32B3269C19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
 				328CBEB219B0096800A200DF /* Client.cpp in Sources */,
+				3232CB7819B3EC18008D9AF4 /* city.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

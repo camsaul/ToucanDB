@@ -8,14 +8,58 @@
 
 #pragma once
 
+#include "city.h"
+
 namespace toucan_db {
+	class CamStr {
+	public:
+		CamStr(const char* s = nullptr) noexcept:
+			str(s)
+		{}
+		
+		CamStr(const CamStr& rhs) noexcept:
+			str(rhs.str)
+		{}
+		
+		CamStr& operator=(const CamStr& rhs) noexcept {
+			str = rhs.str;
+			return *this;
+		}
+		
+		CamStr(CamStr&& rhs) noexcept :
+			str(rhs.str)
+		{}
+		
+		CamStr& operator=(CamStr&& rhs) noexcept {
+			str = rhs.str;
+			return *this;
+		}
+		
+		inline bool operator==(const CamStr& rhs) const noexcept {
+			return !strcmp(str, rhs.str);
+		}
+		
+		inline bool operator<(const CamStr& rhs) const noexcept {
+			return strcmp(str, rhs.str) < 0;
+		}
+		
+		inline uint64 hash() const noexcept {
+			return CityHash64(str, strlen(str));
+		}
+		
+	private:
+		const char *str = nullptr;
+	};
+	
+	
+	
 	class Storage {
 	public:
-		using KeyType = istring;
+		using KeyType = CamStr;
 		using ValueType = const char *;
 		
 		static	ValueType	Get		(KeyType key);
-		static	ValueType	Get		(KeyType key, bool* found);
+//		static	ValueType	Get		(KeyType key, bool* found);
 		static	void		Set		(KeyType key, ValueType val);
 		static	void		Delete	(KeyType key);
 	};
@@ -53,5 +97,15 @@ namespace toucan_db {
 		"toucan_29",
 		"toucan_30",
 		"toucan_31",
+	};
+}
+
+namespace std {
+	template <>
+	struct hash<toucan_db::CamStr> {
+		inline uint64 operator()(const toucan_db::CamStr& s) const noexcept
+		{
+			return s.hash();
+		}
 	};
 }

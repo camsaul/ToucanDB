@@ -80,8 +80,7 @@ namespace toucan_db {
 	void Client::Start() {
 		while (++sRequestsCount < kNumIterations) {
 			WriteSync(GetANewKey());
-//			auto response = Read();
-			assert(!strcmp(Read(), "rasta"));
+			Read();
 		}
 		Disconnect();
 	}

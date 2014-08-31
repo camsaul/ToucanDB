@@ -92,15 +92,14 @@ namespace toucan_db {
 		}
 		
 		void AsyncServer::HandleAccept(shared_ptr<TCPConnection> newConnection, const boost::system::error_code& error) {
-			if (newConnection && !error) {
-				newConnection->Start();
-			} else if (error) {
+			if (error) {
 				auto e = boost::system::system_error(error);
 				Logger(RED) << "AsyncServer::HandleAccept() error: " << e.what();
 				throw e;
 			}
 			
-			StartAccept();
+			if (newConnection) thread(bind(&TCPConnection::Start, newConnection)).detach();
+			thread(bind(&AsyncServer::StartAccept, this)).detach();
 		}
 	}
 }

@@ -26,6 +26,7 @@ namespace toucan_db {
 		const Color GREEN	  = Color(0, 160, 0);
 		const Color BLUE	  = Color(0, 0, 160);
 		const Color ORANGE	  = Color(204, 102, 0);
+		const Color YELLOW	  = Color(128, 128, 0);
 		const Color CLEAR_ALL = "\033[fg;";
 		
 #pragma mark - Logger

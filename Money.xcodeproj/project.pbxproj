@@ -26,6 +26,8 @@
 		328CBEB819B0100800A200DF /* TCPConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB619B0100800A200DF /* TCPConnection.cpp */; };
 		328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */; };
 		328CBEBC19B014A500A200DF /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB019B0096800A200DF /* Client.cpp */; };
+		32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
+		32B3269C19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,7 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3220D41F19A97D83006645D8 /* Money */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Money; sourceTree = BUILT_PRODUCTS_DIR; };
+		3220D41F19A97D83006645D8 /* Money */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = Money; path = Server; sourceTree = BUILT_PRODUCTS_DIR; };
 		3220D42419A97D83006645D8 /* Money.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Money.1; sourceTree = "<group>"; };
 		3220D43319A9F7AA006645D8 /* Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Prefix.h; path = ../Money/Prefix.h; sourceTree = "<group>"; };
 		322AD54819AEFB6600364A33 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -203,6 +205,8 @@
 		328CBEB719B0100800A200DF /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
 		328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleThreadedServer.cpp; sourceTree = "<group>"; };
 		328CBEBA19B0101900A200DF /* SingleThreadedServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleThreadedServer.h; sourceTree = "<group>"; };
+		32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicConnection.cpp; sourceTree = "<group>"; };
+		32B3269A19B2FAE200E9CD7A /* BasicConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicConnection.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -497,6 +501,8 @@
 		3231413619AFD43100C341FF /* Server */ = {
 			isa = PBXGroup;
 			children = (
+				32B3269A19B2FAE200E9CD7A /* BasicConnection.h */,
+				32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */,
 				3231413719AFD43C00C341FF /* main.cpp */,
 				328CBEB419B00FFE00A200DF /* AsyncServer.h */,
 				328CBEB319B00FFE00A200DF /* AsyncServer.cpp */,
@@ -619,6 +625,7 @@
 				3289A5DA19B0073600478798 /* Logging.cpp in Sources */,
 				3231413819AFD43C00C341FF /* main.cpp in Sources */,
 				328CBEBC19B014A500A200DF /* Client.cpp in Sources */,
+				32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
 				328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,6 +636,7 @@
 			files = (
 				3289A5CF19B006B600478798 /* main.cpp in Sources */,
 				3289A5DB19B0077E00478798 /* Logging.cpp in Sources */,
+				32B3269C19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
 				328CBEB219B0096800A200DF /* Client.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

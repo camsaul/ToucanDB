@@ -13,83 +13,43 @@
 using namespace toucan_db::logging;
 
 static vector<istring> sKeys {
-	istring::literal("toucan_0"),
-	istring::literal("toucan_1"),
-	istring::literal("toucan_2"),
-	istring::literal("toucan_3"),
-	istring::literal("toucan_4"),
-	istring::literal("toucan_5"),
-	istring::literal("toucan_6"),
-	istring::literal("toucan_7"),
-	istring::literal("toucan_8"),
-	istring::literal("toucan_9"),
-	istring::literal("toucan_10"),
-	istring::literal("toucan_11"),
-	istring::literal("toucan_12"),
-	istring::literal("toucan_13"),
-	istring::literal("toucan_14"),
-	istring::literal("toucan_15"),
-	istring::literal("toucan_16"),
-	istring::literal("toucan_17"),
-	istring::literal("toucan_18"),
-	istring::literal("toucan_19"),
-	istring::literal("toucan_20"),
-	istring::literal("toucan_21"),
-	istring::literal("toucan_22"),
-	istring::literal("toucan_23"),
-	istring::literal("toucan_24"),
-	istring::literal("toucan_25"),
-	istring::literal("toucan_26"),
-	istring::literal("toucan_27"),
-	istring::literal("toucan_28"),
-	istring::literal("toucan_29"),
-	istring::literal("toucan_30"),
-	istring::literal("toucan_31"),
+	istring::literal("toucan"),
 };
 
 void toucan_db::SetTheCans() {
 	for (auto k : sKeys) {
-		Storage::Set(k, "rasta");
+		Storage::Set(k.c_str(), "rasta");
 	}
 }
 
-inline istring GetANewKey() {
-	static int sCounter = 0;
-//	static atomic<int> sCounter { 0 };
-	return std::move(sKeys[++sCounter % 32]);
-}
-
 namespace toucan_db {
-	atomic<int> TCPConnection::sNumWrites { 0 };
-	atomic<int> TCPConnection::sNumDestroyed { 0 };
-	
 	shared_ptr<TCPConnection> TCPConnection::Create(boost::asio::io_service& io_service) {
 		return shared_ptr<TCPConnection>(new TCPConnection(io_service));
 	}
 	
-	TCPConnection::~TCPConnection() {
-		sNumDestroyed++;
+	TCPConnection::TCPConnection(boost::asio::io_service& io_service) {
+		SetSocket(io_service);
 	}
 	
 	void TCPConnection::Start() {
-		auto getFn = std::bind(&TCPConnection::GetValue, shared_from_this());
-//		getFn();
-		thread(getFn).detach();
+		WriteAsync("OK.", [](shared_ptr<BasicConnection> self_){
+			auto self = dynamic_cast<TCPConnection*>(self_.get());
+			if (!self) return;
+			
+			auto request = self->Read();
+			if (!request) return;
+			self->HandleRequest(request);
+		});
 	}
 	
-	void TCPConnection::GetValue() {
-		bool found;
-		message_ = Storage::Get(key_, &found);
-		boost::asio::async_write(socket_, boost::asio::buffer(message_.std_str()), boost::bind(&TCPConnection::HandleWrite, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
-	}
-	
-	void TCPConnection::HandleWrite(const boost::system::error_code& error, size_t bytesTransferred) {
-		sNumWrites++;
-	}
-	
-	TCPConnection::TCPConnection(boost::asio::io_service& io_service):
-		socket_ (io_service)
-	{
-		key_ = GetANewKey();
+	void TCPConnection::HandleRequest(const char* request) {
+		bool found = false;
+		auto value = Storage::Get(request, &found);
+		
+		WriteAsync(value, [](shared_ptr<BasicConnection> self_){
+			auto self = dynamic_cast<TCPConnection*>(self_.get());
+			if (!self) return;
+			self->Start();
+		});
 	}
 }

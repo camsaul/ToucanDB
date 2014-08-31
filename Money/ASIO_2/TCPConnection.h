@@ -6,30 +6,21 @@
 //  Copyright (c) 2014 Cam Saul. All rights reserved.
 //
 
+#include "BasicConnection.h"
+
 namespace toucan_db {
-	using boost::asio::ip::tcp;
-	
 	void SetTheCans();
 	
-	class TCPConnection : public enable_shared_from_this<TCPConnection> {
+	class TCPConnection : public BasicConnection {
 	public:
-		static atomic<int> sNumWrites;
-		static atomic<int> sNumDestroyed;
-		
 		static shared_ptr<TCPConnection> Create(boost::asio::io_service& io_service);
-		~TCPConnection();
 		
-		tcp::socket& Socket() { return socket_; }
-		
+		/// Send go-ahead, recieve request
 		void Start();
-		void GetValue();
-		void HandleWrite(const boost::system::error_code& error, size_t bytesTransferred);
+		
+		void HandleRequest(const char* request);
 		
 	private:
 		TCPConnection(boost::asio::io_service& io_service);
-		
-		tcp::socket socket_;
-		istring message_;
-		istring key_;
 	};
 }

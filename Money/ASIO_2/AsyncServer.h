@@ -19,8 +19,6 @@ namespace toucan_db {
 		
 		class AsyncServer {
 		public:
-			static atomic<int> sNumberOfConnectionsAccepted;
-			
 			class ConfigurationBuilder : boost::noncopyable {
 			public:
 				friend class AsyncServer;
@@ -49,7 +47,6 @@ namespace toucan_db {
 		private:
 			unique_ptr<boost::asio::io_service> ioService_;
 			tcp::acceptor acceptor_;
-//			std::vector<std::thread> childThreads_;
 		};
 
 	}

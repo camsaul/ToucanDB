@@ -9,21 +9,40 @@
 #include "Storage.h"
 
 namespace toucan_db {
-	Storage::StorageT Storage::sStorage {};
+	template <typename KeyType>
+	struct KeyTraits {
+		using StorageT = tbb::concurrent_hash_map<KeyType, Storage::ValueType>;
+	};
 	
-	atomic<int> Storage::sNumGets { 0 };
+	template<>
+	struct KeyTraits<istring> {
+		struct Hasher {
+			inline static constexpr size_t hash(const istring& x ) {
+				return x.hash();
+			}
+			
+			inline static bool equal(const istring& x, const istring& y ) {
+				return x == y;
+			}
+		};
+		
+		using StorageT = tbb::concurrent_hash_map<istring, Storage::ValueType, Hasher>;
+	};
 	
-	istring Storage::Get(istring key, bool* found) {
-		sNumGets++;
+	using StorageT = KeyTraits<Storage::KeyType>::StorageT;
+	static StorageT sStorage {};
+	
+	Storage::ValueType Storage::Get(KeyType key, bool* found) {
 		StorageT::const_accessor a;
-		return std::move((*found = sStorage.find(a, key)) ? a->second : istring::literal(""));
+		return (*found = sStorage.find(a, key)) ? a->second : "";
 	}
 	
-	void Storage::Set(istring key, istring val) {
+	void Storage::Set(KeyType key, ValueType val) {
 		sStorage.insert({key, val});
+		cout << hex << &sStorage << ": " << dec << "SET '" << key << "' -> " << val << endl;
 	}
 	
-	void Storage::Delete(istring key) {
+	void Storage::Delete(KeyType key) {
 		sStorage.erase(key);
 	}
 }

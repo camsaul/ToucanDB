@@ -8,39 +8,24 @@
 
 #pragma once
 
+#include "BasicConnection.h"
+
 namespace toucan_db {
-	using boost::asio::ip::tcp;
-	class Client : public enable_shared_from_this<Client>, private boost::noncopyable {
+	class Client : public BasicConnection {
 	public:
 		static const size_t kNumIterations;
 		static atomic<int> sRequestsCount;
-		static atomic<int> sReadsCount;
 		
-		Client(string host = "172.20.10.3", int16_t port = 1337);
-		Client(Client&&);
+		static shared_ptr<Client> Create(string host = "172.20.10.3", int16_t port = 1337);
 		
-//		~Client() {
-//			cout << "~Client()" << endl;
-//		}
-		
-		void Connect(); ///< Connect repeatedly decrementing numIterations_ until it is 0
-//		void Connect(int iterations); ///< Set numIterations_, then call regular Connect()
-		void HandleConnect(const boost::system::error_code& error);
-		
-		void Read();
-		void HandleRead(const boost::system::error_code&);
+		void Connect();
+		void Start();
+		void SendRequest();
+		void ReadResponse();
 		
 	private:
+		Client(string host, int16_t port);
 		string  host_;
 		int16_t port_;
-		
-		boost::array<char, 256> buffer_;
-//		int numIterations_ = 1;
-		
-		unique_ptr<boost::asio::io_service> ioService_;
-		unique_ptr<tcp::resolver>			resolver_;
-		tcp::resolver::query				query_;
-		tcp::resolver::iterator				endpoint_iterator_;
-		tcp::socket							socket_;
 	};
 }

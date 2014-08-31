@@ -15,8 +15,6 @@ using namespace toucan_db::logging;
 
 namespace toucan_db {
 	namespace server {
-		atomic<int> AsyncServer::sNumberOfConnectionsAccepted { 0 };
-		
 		using Builder = toucan_db::server::AsyncServer::ConfigurationBuilder;
 	
 		Builder::ConfigurationBuilder(Builder&& rhs):
@@ -52,7 +50,7 @@ namespace toucan_db {
 
 					AsyncServer server(port);
 					boost::asio::io_service* ptr = server.ioService_.get();
-					Logger(RED) << "Created new io_service instance: " << hex << server.ioService_.get() << dec;
+					Logger(GREEN) << "Created new io_service instance: " << hex << server.ioService_.get() << dec;
 					
 					// start an extra io_service thread for every thread > 1
 					for (int i = 1; i < numThreads; i++) {
@@ -94,8 +92,7 @@ namespace toucan_db {
 		}
 		
 		void AsyncServer::HandleAccept(shared_ptr<TCPConnection> newConnection, const boost::system::error_code& error) {
-			if (!error) {
-				sNumberOfConnectionsAccepted++;
+			if (newConnection && !error) {
 				newConnection->Start();
 			} else if (error) {
 				auto e = boost::system::system_error(error);

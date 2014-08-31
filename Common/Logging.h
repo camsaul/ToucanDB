@@ -21,6 +21,7 @@ namespace toucan_db {
 		extern const Color GREEN;
 		extern const Color BLUE;
 		extern const Color ORANGE;
+		extern const Color YELLOW;
 		extern const Color CLEAR_ALL;
 		
 		class Logger {

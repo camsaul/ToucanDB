@@ -52,7 +52,7 @@ int main(int argc, const char * argv[])
 		}
 		
 		using namespace chrono_literals;
-		static const auto kLogInterval = 300ms;
+		static const auto kLogInterval = 100ms;
 		
 		Logger(ORANGE) << "Wait for 1 second for server(s) to start...";
 		this_thread::sleep_for(chrono::seconds(1));

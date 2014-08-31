@@ -33,8 +33,8 @@ namespace toucan_db {
 		void ReadAsync(AsyncReadCallback callback);
 	private:
 		unique_ptr<tcp::socket> socket_ = nullptr;
-		boost::array<char, 256> readBuffer_;
-		boost::array<char, 128> writeBuffer_;
+		array<char, 128> readBuffer_;
+		array<char, 64>  writeBuffer_;
 		AsyncWriteCallback asyncWriteCallback_;
 		AsyncReadCallback asyncReadCallback_;
 		

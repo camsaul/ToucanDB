@@ -70,15 +70,18 @@ namespace toucan_db {
 		tcp::resolver::query	query				{ host_, lexical_cast<string>(port_) };
 		auto					endpointIterator	= resolver.resolve(query);
 		auto					socket				= make_unique<tcp::socket>(ioService);
+
+//		boost::asio::async_connect(Socket(), endpointIterator, boost::bind(&Client::Start, this));
+			
 		boost::asio::connect(Socket(), endpointIterator);
-		
 		Start();
 	}
 	
 	void Client::Start() {
 		while (++sRequestsCount < kNumIterations) {
 			WriteSync(GetANewKey());
-			auto response = Read();
+//			auto response = Read();
+			assert(!strcmp(Read(), "rasta"));
 		}
 		Disconnect();
 	}

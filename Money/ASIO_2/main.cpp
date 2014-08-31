@@ -10,11 +10,11 @@ using namespace toucan_db::logging;
 
 const size_t toucan_db::Client::kNumIterations = 75000;
 
-static const size_t kNumClients = 32;
-static const size_t kNumThreadsPerServer = 32;
+static const size_t kNumClients = 16;
+static const size_t kNumThreadsPerServer = 2;
 
 // set up separate stacks, clients will use one or the other
-static const size_t kNumServers = 1;
+static const size_t kNumServers = 8;
 static const uint16_t kPorts[] { 1337, 1338, 1339, 1340,
 								 1341, 1342, 1343, 1344,
 								 1345, 1346, 1347, 1348,
@@ -52,9 +52,9 @@ int main(int argc, const char * argv[])
 		}
 		
 		using namespace chrono_literals;
-		static const auto kLogInterval = 500ms;
+		static const auto kLogInterval = 300ms;
 		
-		Logger(ORANGE) << "Wait for 1 second for server to start...";
+		Logger(ORANGE) << "Wait for 1 second for server(s) to start...";
 		this_thread::sleep_for(chrono::seconds(1));
 		
 		Logger(ORANGE) << "Starting clock...";
@@ -103,7 +103,7 @@ int main(int argc, const char * argv[])
 		Logger(ORANGE) << "Shutting down...";
 	}
 	
-	this_thread::sleep_for(chrono::seconds(3));
+	this_thread::sleep_for(chrono::seconds(1));
 	return 0;
 }
 

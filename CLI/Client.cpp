@@ -12,6 +12,45 @@
 using boost::asio::ip::tcp;
 using namespace toucan_db::logging;
 
+static const char * const sKeys[] {
+	"toucan_0",
+	"toucan_1",
+	"toucan_2",
+	"toucan_3",
+	"toucan_4",
+	"toucan_5",
+	"toucan_6",
+	"toucan_7",
+	"toucan_8",
+	"toucan_9",
+	"toucan_10",
+	"toucan_11",
+	"toucan_12",
+	"toucan_13",
+	"toucan_14",
+	"toucan_15",
+	"toucan_16",
+	"toucan_17",
+	"toucan_18",
+	"toucan_19",
+	"toucan_20",
+	"toucan_21",
+	"toucan_22",
+	"toucan_23",
+	"toucan_24",
+	"toucan_25",
+	"toucan_26",
+	"toucan_27",
+	"toucan_28",
+	"toucan_29",
+	"toucan_30",
+	"toucan_31",
+};
+inline const char * GetANewKey() {
+	static int sCounter = 0;
+	return sKeys[++sCounter % 32];
+}
+
 namespace toucan_db {
 	atomic<int> Client::sRequestsCount { 0 };
 	
@@ -37,23 +76,20 @@ namespace toucan_db {
 	}
 	
 	void Client::Start() {
-		while (sRequestsCount < kNumIterations) {
-			auto msg = Read();
-			if (strcmp(msg, "OK.")) {
-				throw runtime_error(string("Expected go ahead message 'OK.' from server, got: '") + msg + "'");
-			}
-			SendRequest();
+		while (++sRequestsCount < kNumIterations) {
+			WriteSync(GetANewKey());
+			auto response = Read();
 		}
 		Disconnect();
 	}
-	
-	void Client::SendRequest() {
-		WriteSync("toucan");
-		ReadResponse();
-	}
-	
-	void Client::ReadResponse() {
-		auto response = Read();
-		sRequestsCount++;
-	}
+//	
+//	void Client::SendRequest() {
+//		WriteSync(GetANewKey());
+//		ReadResponse();
+//	}
+//	
+//	void Client::ReadResponse() {
+//		auto response = Read();
+//		sRequestsCount++;
+//	}
 }

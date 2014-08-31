@@ -32,6 +32,11 @@ namespace toucan_db {
 	using StorageT = KeyTraits<Storage::KeyType>::StorageT;
 	static StorageT sStorage {};
 	
+	Storage::ValueType Storage::Get(KeyType key) {
+		StorageT::const_accessor a;
+		return sStorage.find(a, key) ? a->second : "";
+	}
+	
 	Storage::ValueType Storage::Get(KeyType key, bool* found) {
 		StorageT::const_accessor a;
 		return (*found = sStorage.find(a, key)) ? a->second : "";

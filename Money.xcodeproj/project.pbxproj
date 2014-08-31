@@ -59,16 +59,6 @@
 		3220D41F19A97D83006645D8 /* Money */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = Money; path = Server; sourceTree = BUILT_PRODUCTS_DIR; };
 		3220D42419A97D83006645D8 /* Money.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Money.1; sourceTree = "<group>"; };
 		3220D43319A9F7AA006645D8 /* Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Prefix.h; path = ../Money/Prefix.h; sourceTree = "<group>"; };
-		322AD54819AEFB6600364A33 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		322AD54B19AEFB6600364A33 /* DumbTimerQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DumbTimerQueue.h; sourceTree = "<group>"; };
-		322AD54C19AEFB6600364A33 /* http_connection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_connection.h; sourceTree = "<group>"; };
-		322AD54D19AEFB6600364A33 /* http_parser_merged.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_parser_merged.h; sourceTree = "<group>"; };
-		322AD54E19AEFB6600364A33 /* http_request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_request.h; sourceTree = "<group>"; };
-		322AD54F19AEFB6600364A33 /* http_response.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_response.h; sourceTree = "<group>"; };
-		322AD55019AEFB6600364A33 /* http_server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_server.h; sourceTree = "<group>"; };
-		322AD55419AEFB6600364A33 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
-		322AD55919AEFFD400364A33 /* http_connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_connection.cpp; sourceTree = "<group>"; };
-		322AD55B19AF00C200364A33 /* http_server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_server.cpp; sourceTree = "<group>"; };
 		322AD55F19AF0C6000364A33 /* libtbb.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbb.dylib; sourceTree = "<group>"; };
 		322AD56519AF0C7200364A33 /* hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hash.h; sourceTree = "<group>"; };
 		322AD56619AF0C7200364A33 /* istring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = istring.h; sourceTree = "<group>"; };
@@ -177,18 +167,8 @@
 		322AD97B19AF0CEC00364A33 /* tbb_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tbb_thread.h; sourceTree = "<group>"; };
 		322AD97C19AF0CEC00364A33 /* tbbmalloc_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tbbmalloc_proxy.h; sourceTree = "<group>"; };
 		322AD97D19AF0CEC00364A33 /* tick_count.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tick_count.h; sourceTree = "<group>"; };
-		322ADA5419AF1D2700364A33 /* http_response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_response.cpp; sourceTree = "<group>"; };
-		323140D919AF441000C341FF /* Handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Handler.cpp; path = ../Handler.cpp; sourceTree = "<group>"; };
-		323140DA19AF441000C341FF /* Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Handler.h; path = ../Handler.h; sourceTree = "<group>"; };
 		323140DC19AF447600C341FF /* Storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Storage.cpp; sourceTree = "<group>"; };
 		323140DD19AF447600C341FF /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
-		323140DF19AF631900C341FF /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
-		323140E219AF78B600C341FF /* DumbTimerQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DumbTimerQueue.cpp; sourceTree = "<group>"; };
-		3231413019AF871B00C341FF /* lc-addrlabels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lc-addrlabels.h"; sourceTree = "<group>"; };
-		3231413119AF871B00C341FF /* lc-switch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lc-switch.h"; sourceTree = "<group>"; };
-		3231413219AF871B00C341FF /* lc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lc.h; sourceTree = "<group>"; };
-		3231413319AF871B00C341FF /* pt-sem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pt-sem.h"; sourceTree = "<group>"; };
-		3231413419AF871B00C341FF /* pt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pt.h; sourceTree = "<group>"; };
 		3231413719AFD43C00C341FF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbbmalloc_proxy.dylib; sourceTree = "<group>"; };
 		32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbbmalloc.dylib; sourceTree = "<group>"; };
@@ -261,28 +241,6 @@
 				3231413619AFD43100C341FF /* Server */,
 			);
 			path = Money;
-			sourceTree = "<group>";
-		};
-		322AD54719AEFB5B00364A33 /* crow */ = {
-			isa = PBXGroup;
-			children = (
-				323140E119AF788F00C341FF /* http_parser_merged */,
-				322AD54819AEFB6600364A33 /* common.h */,
-				322AD54B19AEFB6600364A33 /* DumbTimerQueue.h */,
-				323140E219AF78B600C341FF /* DumbTimerQueue.cpp */,
-				322AD54C19AEFB6600364A33 /* http_connection.h */,
-				322AD55919AEFFD400364A33 /* http_connection.cpp */,
-				322AD54E19AEFB6600364A33 /* http_request.h */,
-				322AD54F19AEFB6600364A33 /* http_response.h */,
-				322ADA5419AF1D2700364A33 /* http_response.cpp */,
-				322AD55019AEFB6600364A33 /* http_server.h */,
-				322AD55B19AF00C200364A33 /* http_server.cpp */,
-				322AD55419AEFB6600364A33 /* parser.h */,
-				323140DF19AF631900C341FF /* parser.cpp */,
-				323140DA19AF441000C341FF /* Handler.h */,
-				323140D919AF441000C341FF /* Handler.cpp */,
-			);
-			path = crow;
 			sourceTree = "<group>";
 		};
 		322AD56119AF0C7200364A33 /* native */ = {
@@ -478,26 +436,6 @@
 			path = machine;
 			sourceTree = "<group>";
 		};
-		323140E119AF788F00C341FF /* http_parser_merged */ = {
-			isa = PBXGroup;
-			children = (
-				322AD54D19AEFB6600364A33 /* http_parser_merged.h */,
-			);
-			name = http_parser_merged;
-			sourceTree = "<group>";
-		};
-		3231412F19AF871B00C341FF /* pt-1.4 */ = {
-			isa = PBXGroup;
-			children = (
-				3231413019AF871B00C341FF /* lc-addrlabels.h */,
-				3231413119AF871B00C341FF /* lc-switch.h */,
-				3231413219AF871B00C341FF /* lc.h */,
-				3231413319AF871B00C341FF /* pt-sem.h */,
-				3231413419AF871B00C341FF /* pt.h */,
-			);
-			path = "pt-1.4";
-			sourceTree = "<group>";
-		};
 		3231413619AFD43100C341FF /* Server */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,10 +467,8 @@
 		3289A5D619B006F600478798 /* external */ = {
 			isa = PBXGroup;
 			children = (
-				3231412F19AF871B00C341FF /* pt-1.4 */,
 				322AD58019AF0CE900364A33 /* tbb43_20140724oss */,
 				322AD56119AF0C7200364A33 /* native */,
-				322AD54719AEFB5B00364A33 /* crow */,
 				3220D42419A97D83006645D8 /* Money.1 */,
 				323140DD19AF447600C341FF /* Storage.h */,
 				323140DC19AF447600C341FF /* Storage.cpp */,
@@ -676,13 +612,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/Money/",
-					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
-					"$(SRCROOT)/Money/native/include/",
-					"$(SRCROOT)/Money/crow",
-					/usr/local/Cellar/boost/1.55.0_2/include,
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.55.0_2/include,
+					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money/native/include/",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -740,13 +674,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/Money/",
-					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
-					"$(SRCROOT)/Money/native/include/",
-					"$(SRCROOT)/Money/crow",
-					/usr/local/Cellar/boost/1.55.0_2/include,
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.55.0_2/include,
+					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money/native/include/",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

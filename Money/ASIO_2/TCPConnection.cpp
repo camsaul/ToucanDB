@@ -12,13 +12,9 @@
 
 using namespace toucan_db::logging;
 
-static vector<istring> sKeys {
-	istring::literal("toucan"),
-};
-
 void toucan_db::SetTheCans() {
-	for (auto k : sKeys) {
-		Storage::Set(k.c_str(), "rasta");
+	for (auto k : toucan_db::sKeys) {
+		Storage::Set(k, "rasta");
 	}
 }
 
@@ -32,24 +28,22 @@ namespace toucan_db {
 	}
 	
 	void TCPConnection::Start() {
-		WriteAsync("OK.", [](shared_ptr<BasicConnection> self_){
-			auto self = dynamic_cast<TCPConnection*>(self_.get());
-			if (!self) return;
-			
-			auto request = self->Read();
+		ReadAsync([self = shared_from_this()](const char* request){
 			if (!request) return;
-			self->HandleRequest(request);
+			self->WriteAsync(Storage::Get(request), [=](){
+				self->Start();
+			});
 		});
 	}
 	
-	void TCPConnection::HandleRequest(const char* request) {
-		bool found = false;
-		auto value = Storage::Get(request, &found);
-		
-		WriteAsync(value, [](shared_ptr<BasicConnection> self_){
-			auto self = dynamic_cast<TCPConnection*>(self_.get());
-			if (!self) return;
-			self->Start();
-		});
-	}
+//	
+//	void TCPConnection::HandleRequest(const char* request) {
+//		bool found = false;
+//		auto value = Storage::Get(request, &found);
+//		assert(found);
+//		
+//		WriteAsync(value, [self = shared_from_this()](){
+//			self->Start();
+//		});
+//	}
 }

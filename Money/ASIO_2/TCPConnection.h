@@ -11,14 +11,13 @@
 namespace toucan_db {
 	void SetTheCans();
 	
-	class TCPConnection : public BasicConnection {
+	class TCPConnection : public BasicConnection, public enable_shared_from_this<TCPConnection> {
 	public:
 		static shared_ptr<TCPConnection> Create(boost::asio::io_service& io_service);
 		
-		/// Send go-ahead, recieve request
 		void Start();
 		
-		void HandleRequest(const char* request);
+//		void HandleRequest(const char* request);
 		
 	private:
 		TCPConnection(boost::asio::io_service& io_service);

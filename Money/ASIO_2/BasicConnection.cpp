@@ -21,71 +21,66 @@ namespace toucan_db {
 	
 	void BasicConnection::WriteSync(const char* msg) {
 		if (!SocketIsOpen()) return;
+
+		strcpy(writeBuffer_.data(), msg);
+		Socket().write_some(boost::asio::buffer(writeBuffer_), error_);
+		if (!error_) return;
 		
-		strncpy(writeBuffer_.data(), msg, 256);
-		
-		boost::system::error_code error;
-		Socket().write_some(boost::asio::buffer(writeBuffer_), error);
-		
-		if (error) {
-			if (error == boost::asio::error::eof) {
-				Disconnect();
-				return;
-			} else {
-				Logger(RED) << "BasicConnection::WriteSync() Error: " << boost::system::system_error(error).what();
-			}
-		}
+		if (error_ == boost::asio::error::eof)	Disconnect();
+		else									Logger(RED) << "BasicConnection::WriteSync() Error: " << boost::system::system_error(error_).what();
 	}
 	
-	void BasicConnection::WriteAsync(const char* msg, AsyncCallback callback) {
-		auto shared = shared_from_this();
-		if (!shared) return;
-		
-		if (!SocketIsOpen()) return;
-		
-		strncpy(writeBuffer_.data(), msg, 256);
-		
+	void BasicConnection::WriteAsync(const char* msg, AsyncWriteCallback callback) {
 		asyncWriteCallback_ = callback;
-		
-		try {
-			socket_->async_write_some(boost::asio::buffer(writeBuffer_), boost::bind(&BasicConnection::HandleWriteAsync, shared, boost::asio::placeholders::error()));
-		} catch (exception& e) {
-			Logger(RED) << "Caught exception in async_write_some: " << e.what();
-		}
+		WriteAsync(msg);
+	}
+	
+	void BasicConnection::WriteAsync(const char* msg) {
+		if (!SocketIsOpen()) return;
+		strcpy(writeBuffer_.data(), msg);
+		Socket().async_write_some(boost::asio::buffer(writeBuffer_), boost::bind(&BasicConnection::HandleWriteAsync, this, boost::asio::placeholders::error()));
 	}
 	
 	void BasicConnection::HandleWriteAsync(const boost::system::error_code& error) {
-		auto shared = shared_from_this();
-		if (!shared) return;
-		
 		if (error) {
-			if (error == boost::asio::error::eof) {
-				Disconnect();
-				return;
-			} else {
-				Logger(RED) << "BasicConnection::HandleWriteAsync() Error: " << boost::system::system_error(error).what();
-				return;
-			}
+			if (error == boost::asio::error::eof)	Disconnect();
+			else									Logger(RED) << "BasicConnection::HandleWriteAsync() Error: " << boost::system::system_error(error).what();
+			return;
 		}
 		
-		asyncWriteCallback_(shared);
+		asyncWriteCallback_();
 	}
 	
 	const char* BasicConnection::Read() {
 		if (!SocketIsOpen()) return nullptr;
-	
-		boost::system::error_code error;
-		Socket().read_some(boost::asio::buffer(readBuffer_), error);
+
+		Socket().read_some(boost::asio::buffer(readBuffer_), error_);
+		if (!error_) return readBuffer_.data();
 		
+		if (error_ == boost::asio::error::eof)	Disconnect();
+		else									Logger(RED) << "BasicConnection::Read() Error: " << boost::system::system_error(error_).what();
+		return nullptr;
+	}
+	
+	void BasicConnection::ReadAsync(AsyncReadCallback callback) {
+		assert(callback);
+		if (!SocketIsOpen()) return;
+		
+		asyncReadCallback_ = callback;
+		
+		Socket().async_read_some(boost::asio::buffer(readBuffer_), boost::bind(&BasicConnection::HandleReadAsync, this, boost::asio::placeholders::error()));
+	}
+	
+	void BasicConnection::HandleReadAsync(const boost::system::error_code& error) {
 		if (error) {
 			if (error == boost::asio::error::eof) {
 				Disconnect();
 			} else {
-				Logger(RED) << "BasicConnection::Read() Error: " << boost::system::system_error(error).what();
+				Logger(RED) << "BasicConnection::HandleReadAsync() Error: " << boost::system::system_error(error).what();
 			}
-			return nullptr;
+			return;
 		}
 		
-		return readBuffer_.data();
+		asyncReadCallback_(readBuffer_.data());
 	}
 }

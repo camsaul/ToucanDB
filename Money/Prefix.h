@@ -46,11 +46,8 @@
 #pragma clang diagnostic pop
 
 #include <tbb/concurrent_hash_map.h>
-#include <tbb/parallel_for.h>
 
 #include <native/istring.h>
-
-#include "http_parser_merged.h"
 
 
 using namespace std;

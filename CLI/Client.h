@@ -20,8 +20,8 @@ namespace toucan_db {
 		
 		void Connect();
 		void Start();
-		void SendRequest();
-		void ReadResponse();
+//		void SendRequest();
+//		void ReadResponse();
 		
 	private:
 		Client(string host, int16_t port);

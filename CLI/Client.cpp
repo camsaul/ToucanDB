@@ -14,6 +14,7 @@ using namespace toucan_db::logging;
 
 namespace toucan_db {
 	atomic<int> Client::sRequestsCount { 0 };
+	atomic<int> Client::sReadsCount { 0 };
 	
 	Client::Client(string host, int16_t port):
 		host_				(host),
@@ -35,55 +36,36 @@ namespace toucan_db {
 		socket_				(std::move(rhs.socket_))
 	{}
 	
-//	void Client::Connect(int iterations) {
-//		numIterations_ = iterations;
-//		Connect();
-//	}
+	static const int kNumBatchedRequests = 5;
 
 	void Client::Connect() {
-		if (sRequestsCount == 0) return;
-//		if (numIterations_ <= 0) return;
-//		
-		Logger(GREEN) << "Connecting to " << host_ << ":" << port_ << "...";
-		try {
-			Logger(BLUE) << "1";
-			boost::asio::async_connect(socket_, endpoint_iterator_, bind(&Client::HandleConnect, shared_from_this(), boost::asio::placeholders::error));
-		} catch (std::exception& e) {
-			Logger(GREEN, cerr) << e.what();
+		while (sRequestsCount < kNumIterations) {
+			for (int i = 0; i < kNumBatchedRequests; i++) {
+				boost::asio::connect(socket_, endpoint_iterator_);
+				boost::system::error_code error;
+				while (true) {
+					socket_.read_some(boost::asio::buffer(buffer_), error);
+					sReadsCount++;
+					if (error == boost::asio::error::eof) {
+						sRequestsCount++;
+						break;
+					}
+					else if (error) {
+						auto e = boost::system::system_error(error);
+						Logger(RED) << "Client::Connect(): error: " << e.what();
+						throw e; // Some other error.
+					}
+				}
+			}
 		}
-		Logger(BLUE) << "2";
 	}
 	
 	void Client::HandleConnect(const boost::system::error_code& error) {
-		Logger(BLUE) << "Client::HandleConnect()";
-		
-		if (error) {
-			Logger(RED) << "ERROR: " << error;
-			return;
-		}
-		Read();
 	}
 	
 	void Client::Read() {
-		try {
-			socket_.async_read_some(boost::asio::buffer(buffer_), boost::bind(&Client::HandleRead, shared_from_this(), boost::asio::placeholders::error));
-		} catch (exception& e) {
-			Logger(RED) << "Caught exception in Client::Read(): " << e.what();
-		}
 	}
 	
 	void Client::HandleRead(const boost::system::error_code& error) {
-		if (error == boost::asio::error::eof) {
-			sRequestsCount--;
-			// connection closed, just go back to connecting
-			return Connect();
-		} else {
-			Logger(RED) << "ERROR: " << error;
-			return;
-		}
-		
-		Logger(ORANGE) << "Read message from server: '" << buffer_.data() << "'";
-		
-		Read();
 	}
 }

@@ -13,11 +13,16 @@ namespace toucan_db {
 	
 	class TCPConnection : public enable_shared_from_this<TCPConnection> {
 	public:
+		static atomic<int> sNumWrites;
+		static atomic<int> sNumDestroyed;
+		
 		static shared_ptr<TCPConnection> Create(boost::asio::io_service& io_service);
+		~TCPConnection();
 		
 		tcp::socket& Socket() { return socket_; }
 		
 		void Start();
+		void GetValue();
 		void HandleWrite(const boost::system::error_code& error, size_t bytesTransferred);
 		
 	private:

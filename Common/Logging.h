@@ -25,8 +25,17 @@ namespace toucan_db {
 		
 		class Logger {
 		public:
+//			template <typename T, typename, typename TRef>
+//			friend Logger operator<<(Logger&& logger, const TRef rhs);
+			
+//			template <typename T>
+//			friend Logger operator<<(Logger&& logger, T&&rhs);
+			
 			template <typename T>
-			friend Logger operator<<(Logger&& logger, T rhs);
+			friend Logger operator<<(Logger&& logger, const T& rhs);
+			
+			template <typename T>
+			friend Logger operator<<(Logger&& logger, const T* rhs);
 			
 			Logger(const Color& color, ostream& os = std::cout);
 			Logger(Logger&& rhs);
@@ -43,11 +52,35 @@ namespace toucan_db {
 		#endif
 		};
 		
+//		template <typename T, typename = typename enable_if<is_object<T>::value>::type, typename TRef = typename add_lvalue_reference<T>::type>
+//		Logger operator<<(Logger&& logger, const TRef rhs) {
+//			#if ENABLE_LOGGING
+//				logger.os_ << rhs;
+//			#endif
+//			return std::move(logger);
+//		}
+		
+//		template <typename T>
+//		Logger operator<<(Logger&& logger, T&& rhs) {
+//			#if ENABLE_LOGGING
+//				logger.os_ << rhs;
+//			#endif
+//			return std::move(logger);
+//		}
+		
 		template <typename T>
-		Logger operator<<(Logger&& logger, T rhs) {
-			#if ENABLE_LOGGING
-				logger.os_ << rhs;
-			#endif
+		Logger operator<<(Logger&& logger, const T& rhs) {
+		#if ENABLE_LOGGING
+			logger.os_ << rhs;
+		#endif
+			return std::move(logger);
+		}
+		
+		template <typename T>
+		Logger operator<<(Logger&& logger, const T* rhs) {
+		#if ENABLE_LOGGING
+			logger.os_ << rhs;
+		#endif
 			return std::move(logger);
 		}
 

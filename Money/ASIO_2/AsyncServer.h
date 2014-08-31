@@ -15,9 +15,12 @@ namespace toucan_db {
 		using boost::asio::ip::tcp;
 		
 		static const uint16_t kDefaultPort = 1337;
+				
 		
 		class AsyncServer {
 		public:
+			static atomic<int> sNumberOfConnectionsAccepted;
+			
 			class ConfigurationBuilder : boost::noncopyable {
 			public:
 				friend class AsyncServer;

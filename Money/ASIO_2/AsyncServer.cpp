@@ -15,7 +15,8 @@ using namespace toucan_db::logging;
 
 namespace toucan_db {
 	namespace server {
-	
+		atomic<int> AsyncServer::sNumberOfConnectionsAccepted { 0 };
+		
 		using Builder = toucan_db::server::AsyncServer::ConfigurationBuilder;
 	
 		Builder::ConfigurationBuilder(Builder&& rhs):
@@ -94,7 +95,12 @@ namespace toucan_db {
 		
 		void AsyncServer::HandleAccept(shared_ptr<TCPConnection> newConnection, const boost::system::error_code& error) {
 			if (!error) {
+				sNumberOfConnectionsAccepted++;
 				newConnection->Start();
+			} else if (error) {
+				auto e = boost::system::system_error(error);
+				Logger(RED) << "AsyncServer::HandleAccept() error: " << e.what();
+				throw e;
 			}
 			
 			StartAccept();

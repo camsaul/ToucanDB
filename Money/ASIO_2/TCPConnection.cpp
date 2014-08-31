@@ -47,8 +47,6 @@ static vector<istring> sKeys {
 	istring::literal("toucan_31"),
 };
 
-static atomic<int> sCounter;
-
 void toucan_db::SetTheCans() {
 	for (auto k : sKeys) {
 		Storage::Set(k, "rasta");
@@ -56,29 +54,42 @@ void toucan_db::SetTheCans() {
 }
 
 inline istring GetANewKey() {
-	return std::move(sKeys[sCounter++ % 32]);
+	static int sCounter = 0;
+//	static atomic<int> sCounter { 0 };
+	return std::move(sKeys[++sCounter % 32]);
 }
 
 namespace toucan_db {
+	atomic<int> TCPConnection::sNumWrites { 0 };
+	atomic<int> TCPConnection::sNumDestroyed { 0 };
+	
 	shared_ptr<TCPConnection> TCPConnection::Create(boost::asio::io_service& io_service) {
 		return shared_ptr<TCPConnection>(new TCPConnection(io_service));
 	}
 	
+	TCPConnection::~TCPConnection() {
+		sNumDestroyed++;
+	}
+	
 	void TCPConnection::Start() {
+		auto getFn = std::bind(&TCPConnection::GetValue, shared_from_this());
+//		getFn();
+		thread(getFn).detach();
+	}
+	
+	void TCPConnection::GetValue() {
 		bool found;
 		message_ = Storage::Get(key_, &found);
-		
 		boost::asio::async_write(socket_, boost::asio::buffer(message_.std_str()), boost::bind(&TCPConnection::HandleWrite, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
 	}
 	
 	void TCPConnection::HandleWrite(const boost::system::error_code& error, size_t bytesTransferred) {
-		// nothing
+		sNumWrites++;
 	}
 	
 	TCPConnection::TCPConnection(boost::asio::io_service& io_service):
 		socket_ (io_service)
 	{
 		key_ = GetANewKey();
-		Storage::Set(key_, istring::literal("rasta"));
 	}
 }

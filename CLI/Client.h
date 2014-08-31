@@ -12,14 +12,16 @@ namespace toucan_db {
 	using boost::asio::ip::tcp;
 	class Client : public enable_shared_from_this<Client>, private boost::noncopyable {
 	public:
+		static const size_t kNumIterations;
 		static atomic<int> sRequestsCount;
+		static atomic<int> sReadsCount;
 		
 		Client(string host = "172.20.10.3", int16_t port = 1337);
 		Client(Client&&);
 		
-		~Client() {
-			cout << "~Client()" << endl;
-		}
+//		~Client() {
+//			cout << "~Client()" << endl;
+//		}
 		
 		void Connect(); ///< Connect repeatedly decrementing numIterations_ until it is 0
 //		void Connect(int iterations); ///< Set numIterations_, then call regular Connect()

@@ -30,12 +30,17 @@ namespace toucan_db {
 	void TCPConnection::Start() {
 		ReadAsync([self = shared_from_this()](const char* request){
 			if (!request) return;
-			self->WriteAsync(Storage::Get(request), [=](){
-				self->Start();
-			});
+			self->WriteSync(Storage::Get(request));
+			self->Loop();
 		});
 	}
 	
+	void TCPConnection::Loop() {
+		const char* request = nullptr;
+		while ((request = Read())) {
+			WriteSync(Storage::Get(request));
+		}
+	}
 //	
 //	void TCPConnection::HandleRequest(const char* request) {
 //		bool found = false;

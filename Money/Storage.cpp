@@ -50,7 +50,7 @@ namespace toucan_db {
 	Storage::ValueType Storage::Get(KeyType key) {
 		StorageT::const_accessor a;
 		return sStorage.find(a, key) ? a->second : "";
-//		static StorageT::const_iterator itr;
+//		StorageT::const_iterator itr;
 //		return (itr = sStorage.find(key)) == sStorage.end() ? "" : itr->second;
 	}
 	

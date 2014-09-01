@@ -18,29 +18,25 @@ namespace toucan_db {
 		{}
 		
 		CamStr(const CamStr& rhs) noexcept:
-			str  (rhs.str),
-			hash_(rhs.hash_)
+			str  (rhs.str)
 		{}
 		
 		CamStr& operator=(const CamStr& rhs) noexcept {
 			str   = rhs.str;
-			hash_ = rhs.hash_;
 			return *this;
 		}
 		
 		CamStr(CamStr&& rhs) noexcept :
-			str  (rhs.str),
-			hash_(rhs.hash_)
+			str  (rhs.str)
 		{}
 		
 		CamStr& operator=(CamStr&& rhs) noexcept {
 			str   = rhs.str;
-			hash_ = rhs.hash_;
 			return *this;
 		}
 		
 		inline bool operator==(const CamStr& rhs) const noexcept {
-			return Hash() == rhs.Hash();
+			return !strcmp(str, rhs.str);
 		}
 		
 		inline bool operator<(const CamStr& rhs) const noexcept {
@@ -48,13 +44,11 @@ namespace toucan_db {
 		}
 		
 		uint64 Hash() const noexcept {
-			if (!hash_) hash_ = CityHash64(str, strlen(str));
-			return hash_;
+			return CityHash64(str, strlen(str));
 		}
 		
 	private:
 		const char *str = nullptr;
-		mutable uint64 hash_ = 0;
 	};
 	
 	

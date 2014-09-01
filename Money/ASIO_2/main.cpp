@@ -8,7 +8,7 @@
 
 using namespace toucan_db::logging;
 
-const size_t toucan_db::Client::kNumIterations = 75000;
+const size_t toucan_db::Client::kNumIterations = 200000;
 
 static const size_t kNumClients = 16;
 static const size_t kNumThreadsPerServer = 2;
@@ -52,7 +52,7 @@ int main(int argc, const char * argv[])
 		}
 		
 		using namespace chrono_literals;
-		static const auto kLogInterval = 100ms;
+		static const auto kLogInterval = 50ms;
 		
 		Logger(ORANGE) << "Wait for 5 seconds for server(s) to start...";
 		this_thread::sleep_for(chrono::seconds(5));

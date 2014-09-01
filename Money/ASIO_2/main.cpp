@@ -54,8 +54,8 @@ int main(int argc, const char * argv[])
 		using namespace chrono_literals;
 		static const auto kLogInterval = 100ms;
 		
-		Logger(ORANGE) << "Wait for 3 seconds for server(s) to start...";
-		this_thread::sleep_for(chrono::seconds(3));
+		Logger(ORANGE) << "Wait for 5 seconds for server(s) to start...";
+		this_thread::sleep_for(chrono::seconds(5));
 		
 		Logger(ORANGE) << "Starting clock...";
 		auto start = Clock::now();

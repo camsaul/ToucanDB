@@ -18,37 +18,43 @@ namespace toucan_db {
 		{}
 		
 		CamStr(const CamStr& rhs) noexcept:
-			str(rhs.str)
+			str  (rhs.str),
+			hash_(rhs.hash_)
 		{}
 		
 		CamStr& operator=(const CamStr& rhs) noexcept {
-			str = rhs.str;
+			str   = rhs.str;
+			hash_ = rhs.hash_;
 			return *this;
 		}
 		
 		CamStr(CamStr&& rhs) noexcept :
-			str(rhs.str)
+			str  (rhs.str),
+			hash_(rhs.hash_)
 		{}
 		
 		CamStr& operator=(CamStr&& rhs) noexcept {
-			str = rhs.str;
+			str   = rhs.str;
+			hash_ = rhs.hash_;
 			return *this;
 		}
 		
 		inline bool operator==(const CamStr& rhs) const noexcept {
-			return !strcmp(str, rhs.str);
+			return Hash() == rhs.Hash();
 		}
 		
 		inline bool operator<(const CamStr& rhs) const noexcept {
 			return strcmp(str, rhs.str) < 0;
 		}
 		
-		inline uint64 hash() const noexcept {
-			return CityHash64(str, strlen(str));
+		uint64 Hash() const noexcept {
+			if (!hash_) hash_ = CityHash64(str, strlen(str));
+			return hash_;
 		}
 		
 	private:
 		const char *str = nullptr;
+		mutable uint64 hash_ = 0;
 	};
 	
 	
@@ -97,15 +103,5 @@ namespace toucan_db {
 		"toucan_29",
 		"toucan_30",
 		"toucan_31",
-	};
-}
-
-namespace std {
-	template <>
-	struct hash<toucan_db::CamStr> {
-		inline uint64 operator()(const toucan_db::CamStr& s) const noexcept
-		{
-			return s.hash();
-		}
 	};
 }

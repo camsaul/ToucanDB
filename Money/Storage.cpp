@@ -33,7 +33,7 @@ namespace toucan_db {
 	struct KeyTraits<CamStr> {
 		struct Hasher {
 			inline static constexpr int64_t hash(const CamStr& x ) {
-				return x.hash();
+				return x.Hash();
 			}
 			
 			inline static bool equal(const CamStr& x, const CamStr& y ) {

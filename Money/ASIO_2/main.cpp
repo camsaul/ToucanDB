@@ -6,50 +6,15 @@
 #include "Logging.h"
 #include "TCPConnection.h"
 #include "Command.h"
-#include "TString.h"
 
 using namespace toucan_db::logging;
-
-const size_t toucan_db::Client::kNumIterations = 200000;
-
-//static const size_t kNumClients = 16;
-static const size_t kNumThreadsPerServer = 2;
-
-// set up separate stacks, clients will use one or the other
-static const size_t kNumServers = 1;
-static const uint16_t kPorts[] { 1337, 1338, 1339, 1340,
-								 1341, 1342, 1343, 1344,
-								 1345, 1346, 1347, 1348,
-								 1349, 1350, 1351, 1352 };
 
 using Clock = chrono::system_clock;
 
 static vector<toucan_db::Client> sClients;
-int PortForI(int i) {
-	return kPorts[i % kNumServers];
-}
 
 int main(int argc, const char * argv[])
 {
-	{
-		toucan_db::TString s;
-		assert(s.IsInline());
-		assert(!s);
-		s.Hash();
-	}
-	{
-		toucan_db::TString s { "cool" };
-		assert(s.IsInline());
-		assert(s);
-		s.Hash();
-	}
-	{
-		toucan_db::TString s { "really long str" };
-		assert(!s.IsInline());
-		assert(s);
-		s.Hash();
-	}
-	
 	{
 		char input[] {"get toucan"};
 		char* encoded = toucan_db::Command::EncodeInput(input);
@@ -80,9 +45,7 @@ int main(int argc, const char * argv[])
 		assert(string(c.Val()) == "rasta");
 	}
 	
-	for (int i = 0; i < kNumServers; i++) {
-		toucan_db::server::AsyncServer::Start().Headless(true).NumberOfThreads(kNumThreadsPerServer).Port(PortForI(i));
-	}
+	toucan_db::server::AsyncServer::Start().Headless(true).NumberOfThreads(std::thread::hardware_concurrency()).Port(1337);
 	
 	shared_ptr<toucan_db::Client> client = nullptr;
 	thread {[&]{
@@ -93,18 +56,21 @@ int main(int argc, const char * argv[])
 	}
 
 	while (true) {
-		Logger(RED) << "toucan_db> ";
+		cout << RED << "toucan_db> ";
 		char input[128];
 		cin.getline(input, 128);
 		
 		try {
 			auto command = toucan_db::Command::EncodeInput(input);
+			if (!command) continue;
+			
 			auto start = chrono::system_clock::now();
 			auto response = client->Request(command);
 			auto end = chrono::system_clock::now() - start;
+			
 			auto ms = chrono::duration_cast<chrono::microseconds>(end).count();
 			Logger(BLUE) << "[" << ms << " µs] " << response;
-			Logger(BLUE) << round(8 * (1000.0 / ms)) << "k requests/sec";
+			Logger(BLUE) << round(std::thread::hardware_concurrency() * (1000.0 / ms)) << "k requests/sec";
 			
 		} catch (exception& e) {
 			Logger(RED) << e.what();
@@ -112,7 +78,8 @@ int main(int argc, const char * argv[])
 		}
 	}
 	
-	this_thread::sleep_for(chrono::seconds(1));
+	toucan_db::server::AsyncServer::StopAll();
+	
 	return 0;
 }
 

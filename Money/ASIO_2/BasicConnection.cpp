@@ -38,9 +38,9 @@ namespace toucan_db {
 	
 	void BasicConnection::WriteAsync(const char* msg) {
 		if (!SocketIsOpen()) return;
-//		strcpy(writeBuffer_.data(), msg);
+		strcpy(writeBuffer_.data(), msg);
 //		Socket().async_write_some(boost::asio::buffer(writeBuffer_), boost::bind(&BasicConnection::HandleWriteAsync, this, boost::asio::placeholders::error()));
-		Socket().async_send(boost::asio::buffer(msg, strlen(msg)), boost::bind(&BasicConnection::HandleWriteAsync, this, boost::asio::placeholders::error()));
+		Socket().async_send(boost::asio::buffer(writeBuffer_), boost::bind(&BasicConnection::HandleWriteAsync, this, boost::asio::placeholders::error()));
 	}
 	
 	void BasicConnection::HandleWriteAsync(const boost::system::error_code& error) {
@@ -50,7 +50,7 @@ namespace toucan_db {
 			return;
 		}
 		
-		asyncWriteCallback_();
+		if (asyncWriteCallback_) asyncWriteCallback_();
 	}
 	
 	const char* BasicConnection::Read() {

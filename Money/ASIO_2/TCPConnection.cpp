@@ -10,7 +10,6 @@
 #include "Storage.h"
 #include "Logging.h"
 #include "Command.h"
-#include "TString.h"
 
 using namespace toucan_db::logging;
 
@@ -30,7 +29,7 @@ namespace toucan_db {
 				switch (c.CommandType()) {
 					case Command::Type::GET: {
 						auto val = Storage::Get(c.Key());
-						self->WriteSync(val ? val : "[null]");
+						self->WriteSync(!val.empty() ? val.c_str() : "[null]");
 					} break;
 					case Command::Type::SET: {
 						Storage::Set(c.Key(), c.Val());
@@ -52,15 +51,4 @@ namespace toucan_db {
 			self->Start();
 		});
 	}
-	
-//	
-//	void TCPConnection::HandleRequest(const char* request) {
-//		bool found = false;
-//		auto value = Storage::Get(request, &found);
-//		assert(found);
-//		
-//		WriteAsync(value, [self = shared_from_this()](){
-//			self->Start();
-//		});
-//	}
 }

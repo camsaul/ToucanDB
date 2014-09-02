@@ -15,6 +15,8 @@ using namespace toucan_db::logging;
 
 namespace toucan_db {
 	namespace server {
+		static vector<unique_ptr<AsyncServer>> sServers {};
+		
 		using Builder = toucan_db::server::AsyncServer::ConfigurationBuilder;
 	
 		Builder::ConfigurationBuilder(Builder&& rhs):
@@ -47,9 +49,10 @@ namespace toucan_db {
 			auto startServerFn = [numThreads = numThreads_, port = port_](bool* started){
 				try {
 					Logger(BLUE) << "Starting async server on port " << port << "...";
-
-					AsyncServer server(port);
-					boost::asio::io_service* ptr = server.ioService_.get();
+					
+					sServers.emplace_back(new AsyncServer(port));
+					auto& server = *(sServers.end() - 1);
+					boost::asio::io_service* ptr = server->ioService_.get();
 					
 					// start an extra io_service thread for every thread > 1
 					for (int i = 1; i < numThreads; i++) {
@@ -61,7 +64,7 @@ namespace toucan_db {
 					}
 					
 					*started = true;
-					server.ioService_->run();
+					server->ioService_->run();
 				} catch (exception& e) {
 					Logger(BLUE) << "Caught exception: " << e.what();
 				}
@@ -82,6 +85,10 @@ namespace toucan_db {
 		
 		Builder AsyncServer::Start() {
 			return std::move(Builder());
+		}
+		
+		void AsyncServer::StopAll() {
+			sServers.clear();
 		}
 		
 		AsyncServer::AsyncServer(uint16_t port):

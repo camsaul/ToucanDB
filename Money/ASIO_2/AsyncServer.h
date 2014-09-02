@@ -38,6 +38,7 @@ namespace toucan_db {
 			};
 			
 			static AsyncServer::ConfigurationBuilder Start();
+			static void StopAll();
 		
 			AsyncServer(uint16_t port = kDefaultPort);
 			

@@ -9,11 +9,10 @@
 #pragma once
 
 namespace toucan_db {
-	class TString;
 	class Storage {
 	public:
-		using KeyType = TString;
-		using ValueType = TString;
+		using KeyType   = istring;
+		using ValueType = istring;
 		
 		static	ValueType	Get		(KeyType key);
 //		static	ValueType	Get		(KeyType key, bool* found);

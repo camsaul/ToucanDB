@@ -15,8 +15,6 @@ namespace toucan_db {
 		
 		void Start();
 		
-//		void HandleRequest(const char* request);
-		
 	private:
 		TCPConnection(boost::asio::io_service& io_service);
 	};

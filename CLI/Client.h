@@ -16,7 +16,7 @@ namespace toucan_db {
 		static const size_t kNumIterations;
 		static atomic<int> sRequestsCount;
 		
-		static shared_ptr<Client> Create(string host = "172.20.10.3", int16_t port = 1337);
+		static shared_ptr<Client> Create(string host = "10.10.30.236", int16_t port = 1337);
 		
 		const char* Request(const char* msg);
 		

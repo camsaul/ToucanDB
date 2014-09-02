@@ -9,7 +9,6 @@
 #pragma once
 
 #include <cstring>
-
 #include <boost/iostreams/filter/bzip2.hpp>
 
 namespace toucan_db {

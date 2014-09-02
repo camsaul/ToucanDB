@@ -9,8 +9,6 @@
 #include "BasicConnection.h"
 
 namespace toucan_db {
-	void SetTheCans();
-	
 	class TCPConnection : public BasicConnection, public enable_shared_from_this<TCPConnection> {
 	public:
 		static shared_ptr<TCPConnection> Create(boost::asio::io_service& io_service);

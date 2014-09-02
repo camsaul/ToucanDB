@@ -7,6 +7,7 @@
 //
 
 #include "Storage.h"
+#include "TString.h"
 
 namespace toucan_db {
 	template <typename KeyType>
@@ -15,40 +16,24 @@ namespace toucan_db {
 	};
 	
 	template<>
-	struct KeyTraits<istring> {
+	struct KeyTraits<TString> {
 		struct Hasher {
-			inline static constexpr size_t hash(const istring& x ) {
-				return x.hash();
-			}
-			
-			inline static bool equal(const istring& x, const istring& y ) {
-				return x == y;
-			}
-		};
-		
-		using StorageT = std::map<istring, Storage::ValueType>;
-	};
-	
-	template<>
-	struct KeyTraits<CamStr> {
-		struct Hasher {
-			inline static constexpr int64_t hash(const CamStr& x ) {
+			inline static constexpr int64_t hash(const TString& x ) {
 				return x.Hash();
 			}
 			
-			inline static bool equal(const CamStr& x, const CamStr& y ) {
+			inline static bool equal(const TString& x, const TString& y ) {
 				return x == y;
 			}
 		};
 		
-		using StorageT = tbb::concurrent_hash_map<CamStr, Storage::ValueType, Hasher>;
+		using StorageT = tbb::concurrent_hash_map<TString, Storage::ValueType, Hasher>;
 	};
 	
 	using StorageT = KeyTraits<Storage::KeyType>::StorageT;
 	static StorageT sStorage {};
 	
 	Storage::ValueType Storage::Get(KeyType key) {
-		assert(key);
 		StorageT::const_accessor a;
 		return sStorage.find(a, key) ? a->second : nullptr;
 //		StorageT::const_iterator itr;
@@ -56,11 +41,7 @@ namespace toucan_db {
 	}
 	
 	void Storage::Set(KeyType key, ValueType val) {
-		assert(key);
-		assert(val);
-		
 		sStorage.insert({key, val});
-		assert(!strcmp(Get(key), val));
 //		cout << hex << &sStorage << ": " << dec << "SET '" << key << "' -> " << val << endl;
 	}
 	

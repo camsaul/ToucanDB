@@ -47,9 +47,8 @@
 
 #include <tbb/concurrent_hash_map.h>
 
-#include <native/istring.h>
-
+#include <city.h>
+//#include <native/istring.h>
 
 using namespace std;
 using boost::lexical_cast;
-using native::istring;

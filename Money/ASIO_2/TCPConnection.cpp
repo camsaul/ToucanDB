@@ -10,14 +10,9 @@
 #include "Storage.h"
 #include "Logging.h"
 #include "Command.h"
+#include "TString.h"
 
 using namespace toucan_db::logging;
-
-void toucan_db::SetTheCans() {
-	for (auto k : toucan_db::sKeys) {
-		Storage::Set(k, "rasta");
-	}
-}
 
 namespace toucan_db {
 	shared_ptr<TCPConnection> TCPConnection::Create(boost::asio::io_service& io_service) {

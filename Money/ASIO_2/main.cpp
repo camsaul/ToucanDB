@@ -5,8 +5,8 @@
 #include "Client.h"
 #include "Logging.h"
 #include "TCPConnection.h"
-
 #include "Command.h"
+#include "TString.h"
 
 using namespace toucan_db::logging;
 
@@ -31,6 +31,25 @@ int PortForI(int i) {
 
 int main(int argc, const char * argv[])
 {
+	{
+		toucan_db::TString s;
+		assert(s.IsInline());
+		assert(!s);
+		s.Hash();
+	}
+	{
+		toucan_db::TString s { "cool" };
+		assert(s.IsInline());
+		assert(s);
+		s.Hash();
+	}
+	{
+		toucan_db::TString s { "really long str" };
+		assert(!s.IsInline());
+		assert(s);
+		s.Hash();
+	}
+	
 	{
 		char input[] {"get toucan"};
 		char* encoded = toucan_db::Command::EncodeInput(input);
@@ -61,8 +80,6 @@ int main(int argc, const char * argv[])
 		assert(string(c.Val()) == "rasta");
 	}
 	
-	toucan_db::SetTheCans();
-	
 	for (int i = 0; i < kNumServers; i++) {
 		toucan_db::server::AsyncServer::Start().Headless(true).NumberOfThreads(kNumThreadsPerServer).Port(PortForI(i));
 	}
@@ -86,7 +103,7 @@ int main(int argc, const char * argv[])
 			auto response = client->Request(command);
 			auto end = chrono::system_clock::now() - start;
 			auto ms = chrono::duration_cast<chrono::microseconds>(end).count();
-			Logger(BLUE) << "[" << ms << " µss] " << response;
+			Logger(BLUE) << "[" << ms << " µs] " << response;
 			Logger(BLUE) << round(8 * (1000.0 / ms)) << "k requests/sec";
 			
 		} catch (exception& e) {

@@ -14,9 +14,11 @@ namespace toucan_db {
 		using KeyType   = istring;
 		using ValueType = istring;
 		
-		static	ValueType	Get		(KeyType key);
-//		static	ValueType	Get		(KeyType key, bool* found);
-		static	void		Set		(KeyType key, ValueType val);
-		static	void		Delete	(KeyType key);
+		static	const ValueType&	Get		(const KeyType& key);
+		static	void				Set		(const KeyType& key, ValueType&& val);
+		static	void				Delete	(const KeyType& key);
+		
+	private:
+		static void RehashIfNeeded();
 	};
 }

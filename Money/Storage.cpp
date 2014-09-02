@@ -65,27 +65,31 @@ namespace toucan_db {
 	
 	static StorageT sStorage {};
 	
-	Storage::ValueType Storage::Get(KeyType key) {
+	const Storage::ValueType& Storage::Get(const KeyType& key) {
 		StorageT::const_accessor a;
 		return sStorage.find(a, key) ? a->second : kNullValue;
 	}
 	
-	void Storage::Set(KeyType key, ValueType val) {
+	void Storage::Set(const KeyType& key, ValueType&& val) {
 		StorageT::accessor a;
 		if (sStorage.find(a, key)) {
-			a->second = val;
+			a->second = std::move(val);
 		} else {
-			sStorage.insert({key, val});
-			if (!--sSetsBeforeNextRehash) {
-				sNextRehashInterval = sNextRehashInterval * 2;
-				sSetsBeforeNextRehash = (size_t)sNextRehashInterval;
-				Logger(ORANGE) << "Rehashing..." << (size_t)sSetsBeforeNextRehash;
-				sStorage.rehash();
-			}
+			sStorage.insert({key, std::move(val)});
+			RehashIfNeeded();
 		}
 	}
 	
-	void Storage::Delete(KeyType key) {
+	void Storage::RehashIfNeeded() {
+		if (!--sSetsBeforeNextRehash) {
+			sNextRehashInterval = sNextRehashInterval * 2;
+			sSetsBeforeNextRehash = (size_t)sNextRehashInterval;
+			Logger(ORANGE) << "Rehashing...";
+			sStorage.rehash();
+		}
+	}
+	
+	void Storage::Delete(const KeyType&key) {
 		sStorage.erase(key);
 	}
 }

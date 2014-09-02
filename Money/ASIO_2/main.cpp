@@ -47,23 +47,20 @@ int main(int argc, const char * argv[])
 	
 	toucan_db::server::AsyncServer::Start().Headless(true).NumberOfThreads(std::thread::hardware_concurrency()).Port(1337);
 	
-	shared_ptr<toucan_db::Client> client = nullptr;
-	thread {[&]{
-		client = toucan_db::Client::Create();
-	}}.detach();
-	while (!client) {
-		this_thread::sleep_for(chrono::milliseconds(100));
-	}
-
+	auto client = toucan_db::Client::Create();
+	
+	using namespace chrono_literals;
+	this_thread::sleep_for(300ms);
+	
 	while (true) {
 		cout << RED << "toucan_db> ";
 		char input[128];
 		cin.getline(input, 128);
-		
+
 		try {
 			auto command = toucan_db::Command::EncodeInput(input);
-			const bool isCompressed = command[0] == static_cast<char>(toucan_db::Command::Type::GET);
 			if (command.empty()) continue;
+			const bool isCompressed = command[0] == static_cast<char>(toucan_db::Command::Type::GET);
 			
 			auto start = chrono::system_clock::now();
 			string response = client->Request(command.data());

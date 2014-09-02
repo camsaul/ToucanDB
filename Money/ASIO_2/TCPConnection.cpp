@@ -9,6 +9,7 @@
 #include "TCPConnection.h"
 #include "Storage.h"
 #include "Logging.h"
+#include "Command.h"
 
 using namespace toucan_db::logging;
 
@@ -28,19 +29,35 @@ namespace toucan_db {
 	}
 	
 	void TCPConnection::Start() {
-		ReadAsync([self = shared_from_this()](const char* request){
-			if (!request) return;
-			self->WriteSync(Storage::Get(request));
-			self->Loop();
+		ReadAsync([self = shared_from_this()](char* request){
+			try {
+				auto c = Command::Decode(request);
+				switch (c.CommandType()) {
+					case Command::Type::GET: {
+						auto val = Storage::Get(c.Key());
+						self->WriteSync(val ? val : "[null]");
+					} break;
+					case Command::Type::SET: {
+						Storage::Set(c.Key(), c.Val());
+						self->WriteSync("ok");
+					} break;
+					case Command::Type::DELETE: {
+						Storage::Delete(c.Key());
+						self->WriteSync("ok");
+					} break;
+					default: {
+						throw runtime_error("Invalid command.");
+					} break;
+				}
+			} catch (exception& e) {
+				string msg = "Error: ";
+				msg += e.what();
+				self->WriteSync(msg.c_str());
+			}
+			self->Start();
 		});
 	}
 	
-	void TCPConnection::Loop() {
-		const char* request = nullptr;
-		while ((request = Read())) {
-			WriteSync(Storage::Get(request));
-		}
-	}
 //	
 //	void TCPConnection::HandleRequest(const char* request) {
 //		bool found = false;

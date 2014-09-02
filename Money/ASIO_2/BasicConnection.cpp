@@ -31,6 +31,7 @@ namespace toucan_db {
 	}
 	
 	void BasicConnection::WriteAsync(const char* msg, AsyncWriteCallback callback) {
+		assert(msg);
 		asyncWriteCallback_ = callback;
 		WriteAsync(msg);
 	}

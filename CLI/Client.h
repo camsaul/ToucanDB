@@ -18,10 +18,7 @@ namespace toucan_db {
 		
 		static shared_ptr<Client> Create(string host = "172.20.10.3", int16_t port = 1337);
 		
-		void Connect();
-		void Start();
-//		void SendRequest();
-//		void ReadResponse();
+		const char* Request(const char* msg);
 		
 	private:
 		Client(string host, int16_t port);

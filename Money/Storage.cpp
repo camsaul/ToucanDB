@@ -48,13 +48,17 @@ namespace toucan_db {
 	static StorageT sStorage {};
 	
 	Storage::ValueType Storage::Get(KeyType key) {
+		assert(key);
 		StorageT::const_accessor a;
-		return sStorage.find(a, key) ? a->second : "";
+		return sStorage.find(a, key) ? a->second : nullptr;
 //		StorageT::const_iterator itr;
 //		return (itr = sStorage.find(key)) == sStorage.end() ? "" : itr->second;
 	}
 	
 	void Storage::Set(KeyType key, ValueType val) {
+		assert(key);
+		assert(val);
+		
 		sStorage.insert({key, val});
 		assert(!strcmp(Get(key), val));
 //		cout << hex << &sStorage << ": " << dec << "SET '" << key << "' -> " << val << endl;

@@ -31,7 +31,7 @@ namespace toucan_db {
 			private:
 				ConfigurationBuilder() = default;
 				
-				bool startsServerUponDestruction_ = true; ///< Only one builder should do it 
+				bool startsServerUponDestruction_ = true; ///< Only one builder should do it
 				bool headless_ = false;
 				uint16_t numThreads_ = 1;
 				uint16_t port_ = kDefaultPort;

@@ -14,7 +14,7 @@ namespace toucan_db {
 	class BasicConnection : private boost::noncopyable {
 	public:
 		using AsyncWriteCallback = function<void()>;
-		using AsyncReadCallback = function<void(const char* data)>;
+		using AsyncReadCallback = function<void(char* data)>;
 		
 		tcp::socket& Socket()				{ return *socket_; }
 		inline bool SocketIsOpen() const	{ return socket_ && socket_->is_open(); }

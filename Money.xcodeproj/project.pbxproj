@@ -28,6 +28,8 @@
 		328CBEB819B0100800A200DF /* TCPConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB619B0100800A200DF /* TCPConnection.cpp */; };
 		328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */; };
 		328CBEBC19B014A500A200DF /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 328CBEB019B0096800A200DF /* Client.cpp */; };
+		32995ACD19B55C9A0021B1CC /* Command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32995ACC19B55C9A0021B1CC /* Command.cpp */; };
+		32995ACF19B574120021B1CC /* libarchive.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32995ACE19B574120021B1CC /* libarchive.2.dylib */; };
 		32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
 		32B3269C19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
 /* End PBXBuildFile section */
@@ -58,7 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3220D41F19A97D83006645D8 /* Money */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = Money; path = Server; sourceTree = BUILT_PRODUCTS_DIR; };
+		3220D41F19A97D83006645D8 /* Server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Server; sourceTree = BUILT_PRODUCTS_DIR; };
 		3220D42419A97D83006645D8 /* Money.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Money.1; sourceTree = "<group>"; };
 		3220D43319A9F7AA006645D8 /* Prefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Prefix.h; path = ../Money/Prefix.h; sourceTree = "<group>"; };
 		322AD55F19AF0C6000364A33 /* libtbb.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtbb.dylib; sourceTree = "<group>"; };
@@ -190,6 +192,10 @@
 		328CBEB719B0100800A200DF /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
 		328CBEB919B0101900A200DF /* SingleThreadedServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleThreadedServer.cpp; sourceTree = "<group>"; };
 		328CBEBA19B0101900A200DF /* SingleThreadedServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleThreadedServer.h; sourceTree = "<group>"; };
+		32995ACB19B536030021B1CC /* Command.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		32995ACC19B55C9A0021B1CC /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
+		32995ACE19B574120021B1CC /* libarchive.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libarchive.2.dylib; path = usr/lib/libarchive.2.dylib; sourceTree = SDKROOT; };
+		32995AD019B575180021B1CC /* archive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archive.h; sourceTree = "<group>"; };
 		32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicConnection.cpp; sourceTree = "<group>"; };
 		32B3269A19B2FAE200E9CD7A /* BasicConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicConnection.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,6 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32995ACF19B574120021B1CC /* libarchive.2.dylib in Frameworks */,
 				32383F8F19B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */,
 				32383F9119B04A48007A29C4 /* libtbbmalloc.dylib in Frameworks */,
 				322AD56019AF0C6000364A33 /* libtbb.dylib in Frameworks */,
@@ -220,6 +227,7 @@
 		3220D41619A97D83006645D8 = {
 			isa = PBXGroup;
 			children = (
+				32995ACE19B574120021B1CC /* libarchive.2.dylib */,
 				322AD55F19AF0C6000364A33 /* libtbb.dylib */,
 				32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */,
 				32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */,
@@ -233,7 +241,7 @@
 		3220D42019A97D83006645D8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3220D41F19A97D83006645D8 /* Money */,
+				3220D41F19A97D83006645D8 /* Server */,
 				3289A5CC19B006B600478798 /* CLI */,
 			);
 			name = Products;
@@ -243,6 +251,10 @@
 			isa = PBXGroup;
 			children = (
 				3289A5D619B006F600478798 /* external */,
+				323140DD19AF447600C341FF /* Storage.h */,
+				323140DC19AF447600C341FF /* Storage.cpp */,
+				32995ACB19B536030021B1CC /* Command.h */,
+				32995ACC19B55C9A0021B1CC /* Command.cpp */,
 				3231413619AFD43100C341FF /* Server */,
 			);
 			path = Money;
@@ -478,8 +490,7 @@
 				322AD58019AF0CE900364A33 /* tbb43_20140724oss */,
 				322AD56119AF0C7200364A33 /* native */,
 				3220D42419A97D83006645D8 /* Money.1 */,
-				323140DD19AF447600C341FF /* Storage.h */,
-				323140DC19AF447600C341FF /* Storage.cpp */,
+				32995AD019B575180021B1CC /* archive.h */,
 			);
 			name = external;
 			sourceTree = "<group>";
@@ -511,7 +522,7 @@
 			);
 			name = Server;
 			productName = Money;
-			productReference = 3220D41F19A97D83006645D8 /* Money */;
+			productReference = 3220D41F19A97D83006645D8 /* Server */;
 			productType = "com.apple.product-type.tool";
 		};
 		3289A5CB19B006B600478798 /* CLI */ = {
@@ -572,6 +583,7 @@
 				3232CB7719B3EC18008D9AF4 /* city.cc in Sources */,
 				32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
 				328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */,
+				32995ACD19B55C9A0021B1CC /* Command.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,11 +617,12 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";
@@ -636,7 +649,6 @@
 				);
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-std=c++1y",
@@ -667,12 +679,12 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";

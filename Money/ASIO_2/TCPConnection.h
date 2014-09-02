@@ -16,7 +16,6 @@ namespace toucan_db {
 		static shared_ptr<TCPConnection> Create(boost::asio::io_service& io_service);
 		
 		void Start();
-		void Loop();
 		
 //		void HandleRequest(const char* request);
 		

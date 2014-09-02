@@ -35,6 +35,10 @@ namespace toucan_db {
 			return *this;
 		}
 		
+		inline operator bool() const noexcept {
+			return str != nullptr;
+		}
+		
 		inline bool operator==(const CamStr& rhs) const noexcept {
 			return !strcmp(str, rhs.str);
 		}
@@ -43,11 +47,21 @@ namespace toucan_db {
 			return strcmp(str, rhs.str) < 0;
 		}
 		
-		uint64 Hash() const noexcept {
+		inline uint64 Hash() const noexcept {
 			return CityHash64(str, strlen(str));
 		}
 		
 	private:
+//		struct InlineData {
+//			uint64_t unused		   : 56;
+//			uint8_t  refCount      : 7;
+//			bool	 isInline	: 1;
+//		};
+//		union Data {
+//			InlineData inlineData;
+//			uint64_t*  data = nullptr;
+//		};
+//		Data data_;
 		const char *str = nullptr;
 	};
 	

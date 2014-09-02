@@ -46,6 +46,7 @@ namespace toucan_db {
 			void HandleAccept(shared_ptr<TCPConnection> newConnection, const boost::system::error_code& error);
 			
 		private:
+			bool hasStarted_ = false;
 			unique_ptr<boost::asio::io_service> ioService_;
 			tcp::acceptor acceptor_;
 		};

@@ -45,8 +45,7 @@ namespace toucan_db {
 		Builder::~ConfigurationBuilder() {
 			if (!startsServerUponDestruction_) return;
 			
-			
-			auto startServerFn = [numThreads = numThreads_, port = port_](bool* started){
+			auto startServerFn = [numThreads = numThreads_, port = port_](bool** started){
 				try {
 					Logger(BLUE) << "Starting async server on port " << port << "...";
 					
@@ -63,18 +62,18 @@ namespace toucan_db {
 						t.detach();
 					}
 					
-					*started = true;
+					*started = &server->hasStarted_;
 					server->ioService_->run();
 				} catch (exception& e) {
 					Logger(BLUE) << "Caught exception: " << e.what();
 				}
 			};
 			
-			bool started = false;
+			bool* started = nullptr;
 			if (headless_) {
 				auto t = thread(startServerFn, &started);
 				t.detach();
-				while (!started) {
+				while (!started || !*started) {
 					this_thread::sleep_for(chrono::milliseconds(100));
 				}
 				this_thread::sleep_for(chrono::milliseconds(100)); // to make sure ioService actually started
@@ -96,14 +95,13 @@ namespace toucan_db {
 			acceptor_	(*ioService_, tcp::endpoint(tcp::v4(), port))
 		{
 			StartAccept();
+			hasStarted_ = true;
 		}
 		
 		void AsyncServer::StartAccept() {
-			Logger(BLUE) << "create connection";
 			auto newConnection = TCPConnection::Create(acceptor_.get_io_service());
-			Logger(BLUE) << "async accept";
 			acceptor_.async_accept(newConnection->Socket(), bind(&AsyncServer::HandleAccept, this, newConnection, boost::asio::placeholders::error));
-			Logger(BLUE) << "ok";
+			Logger(BLUE) << "Server started.";
 		}
 		
 		void AsyncServer::HandleAccept(shared_ptr<TCPConnection> newConnection, const boost::system::error_code& error) {
@@ -115,7 +113,8 @@ namespace toucan_db {
 			}
 			
 			if (newConnection) thread(bind(&TCPConnection::Start, newConnection)).detach();
-			thread(bind(&AsyncServer::StartAccept, this)).detach();
+			StartAccept();
+//			thread(bind(&AsyncServer::StartAccept, this)).detach();
 		}
 	}
 }

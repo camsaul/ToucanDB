@@ -7,6 +7,9 @@
 //
 
 #include "Command.h"
+#include "Logging.h"
+
+using namespace toucan_db::logging;
 
 namespace toucan_db {
 	const map<string, Command::Type> Command::kCommandStrings {
@@ -15,9 +18,10 @@ namespace toucan_db {
 		{"delete",	Type::DELETE},
 	};
 	
-	char* Command::EncodeInput(char* raw) {
-		if (!raw) return nullptr;
+	string Command::EncodeInput(char* raw) {
+		if (!raw) return {};
 		
+		string output;
 		string type { strtok(raw, " ") };
 		
 		auto itr = kCommandStrings.find(type);
@@ -30,17 +34,35 @@ namespace toucan_db {
 		if (!key) {
 			throw runtime_error("Usage: " + type + " [key]"); // TODO: Needs to add "[value]" for SET
 		}
-		auto keyLength = strlen(key);
+		KeyLengthT keyLength = strlen(key);
 		if (!keyLength) {
 			throw runtime_error("Usage: " + type + " [key]"); // TODO: Needs to add "[value]" for SET
 		}
 		
-		raw = key - kKeyOffset;
-		raw[0] = (char)typeEnum;
+		output += static_cast<char>(typeEnum);
+		output += keyLength;
+		output += key;
+		output += ' ';
 		
-		memcpy(raw + 1, &keyLength, sizeof(KeyLengthT));
-		*(key + keyLength) = ' '; // don't null-terminate key
-		return raw;
+		auto val = strtok(nullptr, "");
+		
+		if (val) {
+			auto valLen = strlen(val);
+			string compressed;
+			google::protobuf::io::StringOutputStream o(&compressed);
+			auto co = unique_ptr<zerocc::AbstractCompressedOutputStream>(get_compressed_output_stream(&o, zerocc::LZ4, 1));
+			{
+				google::protobuf::io::CodedOutputStream c(co.get());
+				c.WriteVarint32(valLen);
+				c.WriteString(val);
+			}
+			co->Flush();
+			auto compressionPercentage = round(((100.0 * valLen) / compressed.length()) - 100.0);
+			Logger(ORANGE) << "[compressed " << compressionPercentage << "%]";
+			output += compressed;
+		}
+		
+		return output;
 	}
 	
 	Command Command::Decode(char* raw) {
@@ -62,6 +84,10 @@ namespace toucan_db {
 		}
 		
 		return std::move(c);
+	}
+	
+	const char* Command::Val() const {
+		return val_;
 	}
 	
 	ostream& operator<<(ostream& os, const Command& c) {

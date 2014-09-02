@@ -32,8 +32,8 @@ namespace toucan_db {
 		boost::asio::connect(Socket(), endpointIterator);
 	}
 	
-	const char* Client::Request(const char* msg) {
+	string Client::Request(const char* msg) {
 		WriteSync(msg);
-		return Read();
+		return std::move(string(Read()));
 	}
 }

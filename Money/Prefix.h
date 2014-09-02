@@ -24,6 +24,7 @@
 #include <memory>
 #include <sstream>
 #include <stdexcept>
+#include <strstream>
 #include <string>
 #include <thread>
 #include <tuple>
@@ -46,6 +47,11 @@
 #pragma clang diagnostic pop
 
 #include <tbb/concurrent_hash_map.h>
+
+#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include <google/protobuf/io/coded_stream.h>
+
+#include <protobuf-zerocopy-compression/compressed_stream.h>
 
 #include <city.h>
 #include <native/istring.h>

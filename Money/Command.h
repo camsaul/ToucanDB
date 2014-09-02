@@ -8,9 +8,6 @@
 
 #pragma once
 
-#include <cstring>
-#include <boost/iostreams/filter/bzip2.hpp>
-
 namespace toucan_db {
 	/// A ToucanDB command for transmission from client -> server
 	/// [1-byte Command::Type][2-byte key length][key]space[value]
@@ -26,13 +23,13 @@ namespace toucan_db {
 		};
 		
 		/// in-situ parsing of command from user input
-		static char* EncodeInput(char* raw);
+		static string EncodeInput(char* raw);
 		
 		static Command Decode(char* raw);
 		
 		Type		CommandType()	const { return type_; }
 		const char* Key()			const { return key_; }
-		const char* Val()			const { return val_; }
+		const char* Val()			const;
 		
 	private:
 		static const map<string, Type> kCommandStrings;

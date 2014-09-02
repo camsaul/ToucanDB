@@ -32,6 +32,15 @@
 		32995ACF19B574120021B1CC /* libarchive.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32995ACE19B574120021B1CC /* libarchive.2.dylib */; };
 		32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
 		32B3269C19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
+		D1B2D8F019B6480F00E442BC /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B2D8EF19B6480F00E442BC /* libz.1.2.5.dylib */; };
+		D1B2DCEE19B64BAE00E442BC /* block_wrappers.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE019B64BAE00E442BC /* block_wrappers.cc */; };
+		D1B2DCEF19B64BAE00E442BC /* block_wrappers.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE019B64BAE00E442BC /* block_wrappers.cc */; };
+		D1B2DCF019B64BAE00E442BC /* compressed_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE219B64BAE00E442BC /* compressed_stream.cc */; };
+		D1B2DCF119B64BAE00E442BC /* compressed_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE219B64BAE00E442BC /* compressed_stream.cc */; };
+		D1B2DCF219B64BAE00E442BC /* gzip_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE419B64BAE00E442BC /* gzip_stream.cc */; };
+		D1B2DCF319B64BAE00E442BC /* gzip_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE419B64BAE00E442BC /* gzip_stream.cc */; };
+		D1B2DCF419B64BAE00E442BC /* lz4.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE719B64BAE00E442BC /* lz4.cc */; };
+		D1B2DCF519B64BAE00E442BC /* lz4.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE719B64BAE00E442BC /* lz4.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -198,6 +207,15 @@
 		32995AD019B575180021B1CC /* archive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archive.h; sourceTree = "<group>"; };
 		32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicConnection.cpp; sourceTree = "<group>"; };
 		32B3269A19B2FAE200E9CD7A /* BasicConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicConnection.h; sourceTree = "<group>"; };
+		D1B2D8EF19B6480F00E442BC /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		D1B2DCE019B64BAE00E442BC /* block_wrappers.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = block_wrappers.cc; sourceTree = "<group>"; };
+		D1B2DCE119B64BAE00E442BC /* block_wrappers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block_wrappers.h; sourceTree = "<group>"; };
+		D1B2DCE219B64BAE00E442BC /* compressed_stream.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compressed_stream.cc; sourceTree = "<group>"; };
+		D1B2DCE319B64BAE00E442BC /* compressed_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compressed_stream.h; sourceTree = "<group>"; };
+		D1B2DCE419B64BAE00E442BC /* gzip_stream.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gzip_stream.cc; sourceTree = "<group>"; };
+		D1B2DCE519B64BAE00E442BC /* gzip_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gzip_stream.h; sourceTree = "<group>"; };
+		D1B2DCE719B64BAE00E442BC /* lz4.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lz4.cc; sourceTree = "<group>"; };
+		D1B2DCE819B64BAE00E442BC /* lz4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1B2D8F019B6480F00E442BC /* libz.1.2.5.dylib in Frameworks */,
 				32995ACF19B574120021B1CC /* libarchive.2.dylib in Frameworks */,
 				32383F8F19B04A48007A29C4 /* libtbbmalloc_proxy.dylib in Frameworks */,
 				32383F9119B04A48007A29C4 /* libtbbmalloc.dylib in Frameworks */,
@@ -227,6 +246,7 @@
 		3220D41619A97D83006645D8 = {
 			isa = PBXGroup;
 			children = (
+				D1B2D8EF19B6480F00E442BC /* libz.1.2.5.dylib */,
 				32995ACE19B574120021B1CC /* libarchive.2.dylib */,
 				322AD55F19AF0C6000364A33 /* libtbb.dylib */,
 				32383F8D19B04A48007A29C4 /* libtbbmalloc_proxy.dylib */,
@@ -484,6 +504,7 @@
 		3289A5D619B006F600478798 /* external */ = {
 			isa = PBXGroup;
 			children = (
+				D1B2DCDE19B64BAE00E442BC /* protobuf-zerocopy-compression */,
 				3232CB7419B3EC18008D9AF4 /* city.cc */,
 				3232CB7519B3EC18008D9AF4 /* city.h */,
 				3232CB7619B3EC18008D9AF4 /* citycrc.h */,
@@ -503,6 +524,21 @@
 				3289A5D819B0073600478798 /* Logging.cpp */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D1B2DCDE19B64BAE00E442BC /* protobuf-zerocopy-compression */ = {
+			isa = PBXGroup;
+			children = (
+				D1B2DCE019B64BAE00E442BC /* block_wrappers.cc */,
+				D1B2DCE119B64BAE00E442BC /* block_wrappers.h */,
+				D1B2DCE219B64BAE00E442BC /* compressed_stream.cc */,
+				D1B2DCE319B64BAE00E442BC /* compressed_stream.h */,
+				D1B2DCE419B64BAE00E442BC /* gzip_stream.cc */,
+				D1B2DCE519B64BAE00E442BC /* gzip_stream.h */,
+				D1B2DCE719B64BAE00E442BC /* lz4.cc */,
+				D1B2DCE819B64BAE00E442BC /* lz4.h */,
+			);
+			path = "protobuf-zerocopy-compression";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -574,13 +610,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1B2DCF419B64BAE00E442BC /* lz4.cc in Sources */,
 				323140DE19AF447600C341FF /* Storage.cpp in Sources */,
 				328CBEB819B0100800A200DF /* TCPConnection.cpp in Sources */,
+				D1B2DCEE19B64BAE00E442BC /* block_wrappers.cc in Sources */,
 				328CBEB519B00FFE00A200DF /* AsyncServer.cpp in Sources */,
 				3289A5DA19B0073600478798 /* Logging.cpp in Sources */,
 				3231413819AFD43C00C341FF /* main.cpp in Sources */,
 				328CBEBC19B014A500A200DF /* Client.cpp in Sources */,
+				D1B2DCF219B64BAE00E442BC /* gzip_stream.cc in Sources */,
 				3232CB7719B3EC18008D9AF4 /* city.cc in Sources */,
+				D1B2DCF019B64BAE00E442BC /* compressed_stream.cc in Sources */,
 				32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
 				328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */,
 				32995ACD19B55C9A0021B1CC /* Command.cpp in Sources */,
@@ -593,9 +633,13 @@
 			files = (
 				3289A5CF19B006B600478798 /* main.cpp in Sources */,
 				3289A5DB19B0077E00478798 /* Logging.cpp in Sources */,
+				D1B2DCF119B64BAE00E442BC /* compressed_stream.cc in Sources */,
 				32B3269C19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
+				D1B2DCF519B64BAE00E442BC /* lz4.cc in Sources */,
+				D1B2DCEF19B64BAE00E442BC /* block_wrappers.cc in Sources */,
 				328CBEB219B0096800A200DF /* Client.cpp in Sources */,
 				3232CB7819B3EC18008D9AF4 /* city.cc in Sources */,
+				D1B2DCF319B64BAE00E442BC /* gzip_stream.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +683,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/Cellar/boost/1.55.0/include,
 					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money",
 					"$(SRCROOT)/Money/native/include/",
 				);
 				LIBRARY_SEARCH_PATHS = (
@@ -658,6 +703,8 @@
 					"/usr/local/lib/libboost_filesystem-mt.dylib",
 					"/usr/local/lib/libboost_system-mt.dylib",
 					"/usr/local/lib/libboost_thread-mt.dylib",
+					"/usr/local/lib/libboost_iostreams-mt.dylib",
+					"/usr/local/Cellar/protobuf/2.5.0/lib/libprotobuf-lite.dylib",
 				);
 				SDKROOT = macosx;
 			};
@@ -699,6 +746,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/Cellar/boost/1.55.0/include,
 					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money",
 					"$(SRCROOT)/Money/native/include/",
 				);
 				LIBRARY_SEARCH_PATHS = (
@@ -718,6 +766,8 @@
 					"/usr/local/lib/libboost_filesystem-mt.dylib",
 					"/usr/local/lib/libboost_system-mt.dylib",
 					"/usr/local/lib/libboost_thread-mt.dylib",
+					"/usr/local/lib/libboost_iostreams-mt.dylib",
+					"/usr/local/Cellar/protobuf/2.5.0/lib/libprotobuf-lite.dylib",
 				);
 				SDKROOT = macosx;
 			};
@@ -726,6 +776,15 @@
 		3220D42919A97D83006645D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.55.0/include,
+					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money",
+					"$(SRCROOT)/Money/native/include/",
+					/usr/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -737,6 +796,15 @@
 		3220D42A19A97D83006645D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/boost/1.55.0/include,
+					"$(SRCROOT)/Money/tbb43_20140724oss/include/",
+					"$(SRCROOT)/Money",
+					"$(SRCROOT)/Money/native/include/",
+					/usr/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

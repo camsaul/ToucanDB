@@ -15,7 +15,7 @@ using namespace toucan_db::logging;
 
 namespace toucan_db {
 	namespace server {
-		static vector<unique_ptr<AsyncServer>> sServers {};
+		static vector<shared_ptr<AsyncServer>> sServers {};
 		
 		using Builder = toucan_db::server::AsyncServer::ConfigurationBuilder;
 	
@@ -49,15 +49,15 @@ namespace toucan_db {
 				try {
 					Logger(BLUE) << "Starting async server on port " << port << "...";
 					
-					sServers.emplace_back(new AsyncServer(port));
-					auto& server = *(sServers.end() - 1);
-					boost::asio::io_service* ptr = server->ioService_.get();
+					auto server = make_shared<AsyncServer>(port);
+					sServers.emplace_back(server);
 					
 					// start an extra io_service thread for every thread > 1
 					for (int i = 1; i < numThreads; i++) {
 						Logger(BLUE) << "port " << port << ": starting additional io_service thread #" << i;
-						thread t ([ioService=ptr]{
-							ioService->run();
+						thread t ([=]{
+							assert(server->ioService_);
+							server->ioService_->run();
 						});
 						t.detach();
 					}

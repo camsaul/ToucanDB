@@ -19,28 +19,26 @@ namespace toucan_db {
 		}
 	}
 	
-	void BasicConnection::WriteSync(const char* msg) {
+	void BasicConnection::WriteSync(const string& msg) {
 		if (!SocketIsOpen()) return;
 
-		strcpy(writeBuffer_.data(), msg);
-		Socket().send(boost::asio::buffer(writeBuffer_), 0, error_);
+		Logger(YELLOW) << "MSG LEN: " << msg.length();
+		Socket().send(boost::asio::buffer(msg), 0, error_);
 		if (!error_) return;
 		
 		if (error_ == boost::asio::error::eof)	Disconnect();
 		else									Logger(RED) << "BasicConnection::WriteSync() Error: " << boost::system::system_error(error_).what();
 	}
 	
-	void BasicConnection::WriteAsync(const char* msg, AsyncWriteCallback callback) {
-		assert(msg);
+	void BasicConnection::WriteAsync(const string& msg, AsyncWriteCallback callback) {
+		assert(!msg.empty());
 		asyncWriteCallback_ = callback;
 		WriteAsync(msg);
 	}
 	
-	void BasicConnection::WriteAsync(const char* msg) {
+	void BasicConnection::WriteAsync(const string& msg) {
 		if (!SocketIsOpen()) return;
-		strcpy(writeBuffer_.data(), msg);
-//		Socket().async_write_some(boost::asio::buffer(writeBuffer_), boost::bind(&BasicConnection::HandleWriteAsync, this, boost::asio::placeholders::error()));
-		Socket().async_send(boost::asio::buffer(writeBuffer_), boost::bind(&BasicConnection::HandleWriteAsync, this, boost::asio::placeholders::error()));
+		Socket().async_send(boost::asio::buffer(msg), boost::bind(&BasicConnection::HandleWriteAsync, this, boost::asio::placeholders::error()));
 	}
 	
 	void BasicConnection::HandleWriteAsync(const boost::system::error_code& error) {
@@ -53,11 +51,14 @@ namespace toucan_db {
 		if (asyncWriteCallback_) asyncWriteCallback_();
 	}
 	
-	const char* BasicConnection::Read() {
+	string BasicConnection::Read() {
 		if (!SocketIsOpen()) return nullptr;
 
-		Socket().receive(boost::asio::buffer(readBuffer_), 0, error_);
-		if (!error_) return readBuffer_.data();
+		vector<char> readBuffer = vector<char>(256);
+		Socket().receive(boost::asio::buffer(readBuffer), 0, error_);
+		readBuffer.push_back('\0');
+		Logger(YELLOW) << readBuffer.data();
+		if (!error_) return readBuffer.size() > 1 ? "" : readBuffer.data();
 		
 		if (error_ == boost::asio::error::eof)	Disconnect();
 		else									Logger(RED) << "BasicConnection::Read() Error: " << boost::system::system_error(error_).what();
@@ -69,8 +70,7 @@ namespace toucan_db {
 		if (!SocketIsOpen()) return;
 		
 		asyncReadCallback_ = callback;
-		
-		Socket().async_receive(boost::asio::buffer(readBuffer_), boost::bind(&BasicConnection::HandleReadAsync, this, boost::asio::placeholders::error()));
+		Socket().async_receive(boost::asio::buffer(asyncReadBuffer_), boost::bind(&BasicConnection::HandleReadAsync, this, boost::asio::placeholders::error()));
 	}
 	
 	void BasicConnection::HandleReadAsync(const boost::system::error_code& error) {
@@ -83,6 +83,10 @@ namespace toucan_db {
 			return;
 		}
 		
-		asyncReadCallback_(readBuffer_.data());
+		if (asyncReadBuffer_.size()) {
+			string data = asyncReadBuffer_.data();
+			asyncReadBuffer_.clear();
+			asyncReadCallback_(std::move(data));
+		}
 	}
 }

@@ -41,6 +41,7 @@
 		D1B2DCF319B64BAE00E442BC /* gzip_stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE419B64BAE00E442BC /* gzip_stream.cc */; };
 		D1B2DCF419B64BAE00E442BC /* lz4.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE719B64BAE00E442BC /* lz4.cc */; };
 		D1B2DCF519B64BAE00E442BC /* lz4.cc in Sources */ = {isa = PBXBuildFile; fileRef = D1B2DCE719B64BAE00E442BC /* lz4.cc */; };
+		D1BDDC8E19B687A8003CFEE9 /* Compression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BDDC8C19B687A8003CFEE9 /* Compression.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -216,6 +217,8 @@
 		D1B2DCE519B64BAE00E442BC /* gzip_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gzip_stream.h; sourceTree = "<group>"; };
 		D1B2DCE719B64BAE00E442BC /* lz4.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lz4.cc; sourceTree = "<group>"; };
 		D1B2DCE819B64BAE00E442BC /* lz4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4.h; sourceTree = "<group>"; };
+		D1BDDC8C19B687A8003CFEE9 /* Compression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Compression.cpp; sourceTree = "<group>"; };
+		D1BDDC8D19B687A8003CFEE9 /* Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compression.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +274,8 @@
 			isa = PBXGroup;
 			children = (
 				3289A5D619B006F600478798 /* external */,
+				D1BDDC8D19B687A8003CFEE9 /* Compression.h */,
+				D1BDDC8C19B687A8003CFEE9 /* Compression.cpp */,
 				323140DD19AF447600C341FF /* Storage.h */,
 				323140DC19AF447600C341FF /* Storage.cpp */,
 				32995ACB19B536030021B1CC /* Command.h */,
@@ -611,6 +616,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1B2DCF419B64BAE00E442BC /* lz4.cc in Sources */,
+				D1BDDC8E19B687A8003CFEE9 /* Compression.cpp in Sources */,
 				323140DE19AF447600C341FF /* Storage.cpp in Sources */,
 				328CBEB819B0100800A200DF /* TCPConnection.cpp in Sources */,
 				D1B2DCEE19B64BAE00E442BC /* block_wrappers.cc in Sources */,
@@ -661,14 +667,15 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEAD_CODE_STRIPPING = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_FAST_MATH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
@@ -692,8 +699,9 @@
 					"$(PROJECT_DIR)/Money/tbb43_20140724oss/lib/libc++",
 					"$(PROJECT_DIR)/Money/tbb43_20140724oss/lib",
 				);
-				LLVM_LTO = YES;
+				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-std=c++1y",
@@ -749,6 +757,7 @@
 					"$(SRCROOT)/Money",
 					"$(SRCROOT)/Money/native/include/",
 				);
+				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

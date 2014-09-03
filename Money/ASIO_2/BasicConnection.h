@@ -14,7 +14,7 @@ namespace toucan_db {
 	class BasicConnection : private boost::noncopyable {
 	public:
 		using AsyncWriteCallback = function<void()>;
-		using AsyncReadCallback = function<void(char* data)>;
+		using AsyncReadCallback = function<void(string&& data)>;
 		
 		tcp::socket& Socket()				{ return *socket_; }
 		inline bool SocketIsOpen() const	{ return socket_ && socket_->is_open(); }
@@ -24,17 +24,18 @@ namespace toucan_db {
 		void SetSocket(boost::asio::io_service& io_service) { socket_ = make_unique<tcp::socket>(io_service); }
 		void SetAsyncWriteCallback(AsyncWriteCallback callback) { asyncWriteCallback_ = callback; assert(callback); }
 				
-		void WriteSync(const char* msg);
-		void WriteAsync(const char* msg, AsyncWriteCallback callback);
+		void WriteSync(const string& msg);
+		void WriteAsync(const string& msg, AsyncWriteCallback callback);
 		
-		void WriteAsync(const char* msg); // assuming you've already set the callback
+		void WriteAsync(const string& msg); // assuming you've already set the callback
 		
-		const char* Read();
+		string Read();
 		void ReadAsync(AsyncReadCallback callback);
 	private:
 		unique_ptr<tcp::socket> socket_ = nullptr;
-		array<char, 512> readBuffer_;
-		array<char, 512> writeBuffer_;
+
+		vector<char> asyncReadBuffer_;
+		
 		AsyncWriteCallback asyncWriteCallback_;
 		AsyncReadCallback asyncReadCallback_;
 		

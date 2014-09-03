@@ -10,6 +10,7 @@
 #include "Storage.h"
 #include "Logging.h"
 #include "Command.h"
+#include "Compression.h"
 
 using namespace toucan_db::logging;
 
@@ -23,13 +24,13 @@ namespace toucan_db {
 	}
 	
 	void TCPConnection::Start() {
-		ReadAsync([self = shared_from_this()](char* request){
+		ReadAsync([self = shared_from_this()](string&& request){
 			try {
-				auto c = Command::Decode(request);
+				auto c = Command::Decode(std::move(request));
 				switch (c.CommandType()) {
 					case Command::Type::GET: {
 						auto val = Storage::Get(c.Key());
-						self->WriteSync(!val.empty() ? val.c_str() : "[null]");
+						self->WriteSync(!val.empty() ? val.std_str() : "\0");
 					} break;
 					case Command::Type::SET: {
 						Storage::Set(c.Key(), c.Val());

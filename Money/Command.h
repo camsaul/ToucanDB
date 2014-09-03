@@ -22,21 +22,21 @@ namespace toucan_db {
 			DELETE	= 'd'
 		};
 		
-		/// in-situ parsing of command from user input
-		static string EncodeInput(char* raw);
+		static Command FromInput(string& input);
+		static Command Decode	(string&& request);
 		
-		static Command Decode(char* raw);
+		string Encode() const;
 		
-		Type		CommandType()	const { return type_; }
-		const char* Key()			const { return key_; }
-		const char* Val()			const;
+		Type			CommandType()	const { return type_; }
+		const string&	Key()			const { return key_;  }
+		const string&	Val()			const { return val_;  }
 		
 	private:
 		static const map<string, Type> kCommandStrings;
 		
 		Type type_;
-		char* key_;
-		char* val_ = nullptr;
+		string key_;
+		string val_;
 		
 		Command() = default;
 	};

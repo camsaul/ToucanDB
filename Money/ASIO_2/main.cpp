@@ -8,15 +8,37 @@
 #include "Command.h"
 #include "Compression.h"
 
+#include "BitFlipUtils.h"
+
 using namespace toucan_db::logging;
+using namespace toucan_db::bit_flip;
 
 using Clock = chrono::system_clock;
 
 static vector<toucan_db::Client> sClients;
 
+
 int main(int argc, const char * argv[])
 {
 	std::ios_base::sync_with_stdio(false);
+
+	cout << BLUE;
+	for (int i = 63; i >= 0; i-= 8) {
+		cout << setw(9) << left << dec << i;
+	}
+	cout << endl;
+	
+	for (int i = 0; i < 300; i += 3) {
+		cout << DumpBinary<ssize_t>(i) << endl;
+	}
+	
+	srand(time(NULL));
+	for (int i = 1; i < 100; i++) {
+		auto ptr = UniqueCPtr<char>(rand() % 1024);
+		assert(ptr);
+		cout << ptr << endl;
+	}
+	
 	
 	{
 		string input = "get toucan";

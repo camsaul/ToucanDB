@@ -675,7 +675,7 @@
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Money/Prefix.h";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
@@ -705,6 +705,7 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-std=c++1y",
+					"-fslp-vectorize-aggressive",
 				);
 				OTHER_LDFLAGS = (
 					"/usr/local/lib/libboost_date_time-mt.dylib",
@@ -769,6 +770,7 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-std=c++1y",
+					"-fslp-vectorize-aggressive",
 				);
 				OTHER_LDFLAGS = (
 					"/usr/local/lib/libboost_date_time-mt.dylib",

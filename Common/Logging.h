@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <strstream>
+
 #define ENABLE_LOGGING 1
 
 namespace toucan_db {
@@ -26,12 +28,6 @@ namespace toucan_db {
 		
 		class Logger {
 		public:
-//			template <typename T, typename, typename TRef>
-//			friend Logger operator<<(Logger&& logger, const TRef rhs);
-			
-//			template <typename T>
-//			friend Logger operator<<(Logger&& logger, T&&rhs);
-			
 			template <typename T>
 			friend Logger operator<<(Logger&& logger, const T& rhs);
 			
@@ -45,34 +41,16 @@ namespace toucan_db {
 			~Logger();
 			
 		private:
-			void Lock();
-			
-			unique_lock<mutex> lock_;
+			std::unique_ptr<ostringstream> buffer_ = make_unique<ostringstream>();
 			ostream& os_ = std::cout;
 			bool isLast_ = true;
 		#endif
 		};
 		
-//		template <typename T, typename = typename enable_if<is_object<T>::value>::type, typename TRef = typename add_lvalue_reference<T>::type>
-//		Logger operator<<(Logger&& logger, const TRef rhs) {
-//			#if ENABLE_LOGGING
-//				logger.os_ << rhs;
-//			#endif
-//			return std::move(logger);
-//		}
-		
-//		template <typename T>
-//		Logger operator<<(Logger&& logger, T&& rhs) {
-//			#if ENABLE_LOGGING
-//				logger.os_ << rhs;
-//			#endif
-//			return std::move(logger);
-//		}
-		
 		template <typename T>
 		Logger operator<<(Logger&& logger, const T& rhs) {
 		#if ENABLE_LOGGING
-			logger.os_ << rhs;
+			*logger.buffer_ << rhs;
 		#endif
 			return std::move(logger);
 		}
@@ -80,7 +58,7 @@ namespace toucan_db {
 		template <typename T>
 		Logger operator<<(Logger&& logger, const T* rhs) {
 		#if ENABLE_LOGGING
-			logger.os_ << rhs;
+			*logger.buffer_ << rhs;
 		#endif
 			return std::move(logger);
 		}

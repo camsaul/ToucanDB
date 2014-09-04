@@ -34,7 +34,8 @@ namespace toucan_db {
 	private:
 		unique_ptr<tcp::socket> socket_ = nullptr;
 
-		vector<char> asyncReadBuffer_;
+//		array<char, 256> writeBuffer_;
+		array<char, 256> readBuffer_;
 		
 		AsyncWriteCallback asyncWriteCallback_;
 		AsyncReadCallback asyncReadCallback_;

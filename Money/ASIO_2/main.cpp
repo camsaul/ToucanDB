@@ -16,6 +16,8 @@ static vector<toucan_db::Client> sClients;
 
 int main(int argc, const char * argv[])
 {
+	std::ios_base::sync_with_stdio(false);
+	
 	{
 		string input = "get toucan";
 		auto cmd = toucan_db::Command::FromInput(input);

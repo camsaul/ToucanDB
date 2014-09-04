@@ -35,8 +35,7 @@ namespace toucan_db {
 	#if ENABLE_LOGGING
 		: os_ ( os )
 		{
-			Lock();
-			os_ << color;
+			*buffer_ << color;
 		}
 	#else
 		{}
@@ -44,9 +43,9 @@ namespace toucan_db {
 		
 		Logger::Logger(Logger&& rhs)
 	#if ENABLE_LOGGING
-		: os_ (rhs.os_)
+		: os_     (rhs.os_),
+		  buffer_ (std::move(rhs.buffer_))
 		{
-			lock_.swap(rhs.lock_);
 			if (this != &rhs) {
 				rhs.isLast_ = false;
 			}
@@ -58,14 +57,10 @@ namespace toucan_db {
 	#if ENABLE_LOGGING
 		Logger::~Logger() {
 			if (isLast_) {
-				os_ << CLEAR_ALL;
-				os_ << endl;
+				*buffer_ << CLEAR_ALL << endl;
+				lock_guard<mutex> { sOutputMutex };
+				os_ << buffer_->str();
 			}
-		}
-		
-		void Logger::Lock() {
-			if (lock_.owns_lock()) return;
-			lock_ = unique_lock<mutex>(sOutputMutex);
 		}
 	#endif
 	}

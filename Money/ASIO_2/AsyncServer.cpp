@@ -57,13 +57,26 @@ namespace toucan_db {
 						Logger(BLUE) << "port " << port << ": starting additional io_service thread #" << i;
 						thread t ([=]{
 							assert(server->ioService_);
-							server->ioService_->run();
+							while (true) {
+								try {
+									server->ioService_->run();
+								} catch (exception& e) {
+									Logger(RED) << "AsyncServer thread caught exception: " << e.what();
+								}
+							}
 						});
 						t.detach();
 					}
 					
 					*started = &server->hasStarted_;
-					server->ioService_->run();
+					
+					while (true) {
+						try {
+							server->ioService_->run();
+						} catch (exception& e) {
+							Logger(RED) << "Server: main thread caught exception: " << e.what();
+						}
+					}
 				} catch (exception& e) {
 					Logger(BLUE) << "Caught exception: " << e.what();
 				}

@@ -17,14 +17,14 @@ namespace toucan_db {
 #pragma mark - IsRedBit()
 		/// Is this bit unused for storage by pointers?
 		auto IsRedBit = [](auto i) -> bool {
-			return i >= 48 || i < 3;
+			return i >= 48_p || i < 3_p;
 		};
 		
 #pragma mark - BitAt<PtrT, IdxT>
 		/// Get whether the bit at a specific index is true / false
 		template <typename PtrT, typename IntT = size_t>
 		constexpr bool BitAt(PtrT ptr, IntT i) {
-			return static_cast<size_t>(ptr) & ((size_t)1 << static_cast<size_t>(i));
+			return static_cast<size_t>(ptr) & (1_p << static_cast<size_t>(i));
 		}
 		
 #pragma mark - DumpBinary<T>
@@ -76,7 +76,7 @@ namespace toucan_db {
 		struct UniqueCPtr {
 			
 			static_assert(DefaultSize >= sizeof(T), "Requested size must be greated than sizeof(T)!");
-			static_assert(DefaultSize % sizeof(T) == 0, "Requested size must be a multiple of sizeof(T)!");
+			static_assert(DefaultSize % sizeof(T) == 0_p, "Requested size must be a multiple of sizeof(T)!");
 			static_assert(is_pod<T>::value, "T must be POD!");
 			
 			constexpr UniqueCPtr(nullptr_t):

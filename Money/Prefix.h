@@ -59,3 +59,10 @@
 using namespace std;
 using boost::lexical_cast;
 using native::istring;
+
+namespace toucan_db {
+	static const string ƒ = "cool";
+	/// We wil use suffix _64 for size_t literals since it's so important to the app
+	constexpr size_t operator ""_p(unsigned long long num) { return (size_t)num; }
+	#define x64 (size_t)
+}

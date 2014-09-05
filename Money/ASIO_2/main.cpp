@@ -9,6 +9,7 @@
 #include "Compression.h"
 
 #include "BitFlipUtils.h"
+#include "TaggedPtr.h"
 
 using namespace toucan_db::logging;
 using namespace toucan_db::bit_flip;
@@ -29,7 +30,7 @@ int main(int argc, const char * argv[])
 	cout << endl;
 	
 	for (int i = 0; i < 300; i += 3) {
-		cout << DumpBinary<ssize_t>(i) << endl;
+		cout << DumpBinary<size_t>(i) << endl;
 	}
 	
 	srand(time(NULL));
@@ -38,6 +39,13 @@ int main(int argc, const char * argv[])
 		assert(ptr);
 		cout << ptr << endl;
 	}
+	
+	auto ptr = TaggedPtr(1);
+	assert(ptr.GetLower() == 1);
+	assert(TaggedPtr(2).GetLower() == 2);
+	assert(TaggedPtr(15).GetLower() == 7);
+	assert(TaggedPtr(15).GetUntagged() == 8);
+	cout << DumpBinary<size_t>(TaggedPtr(9999).GetTagged()) << endl;
 	
 	
 	{

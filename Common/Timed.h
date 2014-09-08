@@ -9,14 +9,8 @@
 #pragma once
 
 namespace toucan_db {
-//	template <typename IntervalT = std::chrono::microseconds>
-	class Timed {
-	public:
-		Timed();
-		~Timed();
-	private:
-		decltype(chrono::system_clock::now()) start_;
-	};
+//	void Time(function<void()>);
 	
-	#define TIMED_BLOCK { auto timer__ = Timed();
+	void Time(size_t numReps, function<void()>);
+	static const auto Timed1Million = bind(&Time, 1000000_p, placeholders::_1);
 }

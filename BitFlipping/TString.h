@@ -17,7 +17,7 @@ namespace toucan_db {
 		TString() = default;
 		TString(const char* str);
 		
-		size_t Length() const { return IsLongString() ? data_.longStr.Length() : data_.shortStr.Length(); }
+		__attribute__((always_inline)) size_t Length() const { return IsLongString() ? data_.longStr.Length() : data_.shortStr.Length(); }
 		
 		friend ostream& operator<<(ostream& os, const TString& str);
 		

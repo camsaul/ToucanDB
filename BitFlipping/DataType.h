@@ -11,8 +11,8 @@
 namespace toucan_db {
 	enum class DataType : size_t {
 		NUL			= 0b000,
-		SHORT_STR	= 0b001,
-		LONG_STR	= 0b010,
+		LONG_STR	= 0b001,
+		SHORT_STR	= 0b010,
 		INT			= 0b011, ///< Or boolean (?)
 		DOUBLE		= 0b100,
 		SHORT_ARRAY	= 0b101,
@@ -20,45 +20,43 @@ namespace toucan_db {
 		DICT		= 0b111
 	};
 	
-	struct TypeInfo {
-		DataType value : 3;
-		size_t : 61; // everything else
-	};
-	
-	template <DataType Type, class DataStruct>
+	template <DataType TypeTag, class DataStruct>
 	class Value {
 		static_assert(sizeof(DataStruct) == 8, "DataStruct must be 8 bytes!");
 	public:
 		Value() = default;
+		
+		DataType Type() const {
+			return static_cast<DataType>(data_.raw & 0b111);
+		}
 				
 	protected:
 		Value(size_t raw):
 			data_(raw)
 		{
-			assert((raw & 0b111) == static_cast<size_t>(Type));
+			assert(Type() == TypeTag);
 		}
 		
 		template<typename... ConstructorArgs>
 		Value(ConstructorArgs... args):
 			data_(args...)
 		{
-			assert((data_.raw & 0b111) == static_cast<size_t>(Type));
+			assert(Type() == TypeTag);
 		}
 
 		union Data {
-			TypeInfo type;
 			DataStruct d;
 			size_t raw;
 			
 			Data():
-				raw (static_cast<size_t>(Type))
+				raw (static_cast<size_t>(TypeTag))
 			{}
 			
 			template<typename... ConstructorArgs>
 			Data(ConstructorArgs... args):
 				d(args...)
 			{
-				raw |= static_cast<size_t>(Type);
+				raw |= static_cast<size_t>(TypeTag);
 			}
 			
 		} data_ = {};
@@ -106,9 +104,9 @@ namespace toucan_db {
 		UpperTagStruct	upperTag; // 16 bits
 	};
 	
-	template <DataType Type, typename T, typename StructT>
-	class TaggedPtrVal : public Value<Type, TaggedPtr2<T, StructT>> {
-	using ValueT = Value<Type, TaggedPtr2<T, StructT>>;
+	template <DataType TypeTag, typename T, typename StructT>
+	class TaggedPtrVal : public Value<TypeTag, TaggedPtr2<T, StructT>> {
+	using ValueT = Value<TypeTag, TaggedPtr2<T, StructT>>;
 	
 	protected:
 		template <typename... ConstructorArgs>

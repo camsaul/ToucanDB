@@ -20,22 +20,23 @@ namespace toucan_db {
 	} __attribute__((packed));
 	static_assert(sizeof(LongStringUpperTag) == 2, "LongStringUpperTag should be 2 bytes!");
 	
-	class LongString : public TaggedPtrVal<DataType::LONG_STR, char, LongStringUpperTag> {
+	class TString;
+	
+	class LongString : public TaggedPtrVal<DataType::LONG_STR, const char, LongStringUpperTag> {
+		friend class TString;
 	public:
-		LongString(char* str):
+		LongString(const char* str):
 			LongString(str, strlen(str))
 		{}
 		
-		LongString(char* str, size_t len):
+		LongString(const char* str, size_t len):
 			TaggedPtrVal(len, str)
 		{
-			assert(data_.type.value == DataType::LONG_STR);
+			assert(Type() == DataType::LONG_STR);
 			assert(Ptr() == str);
 		}
 		
-		size_t Length() const {
-			return Tag().len;
-		}
+		size_t Length() const { return Tag().len; }
 		
 		friend ostream& operator<<(ostream& os, const LongString& str);
 	};

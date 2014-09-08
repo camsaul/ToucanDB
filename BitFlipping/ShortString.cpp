@@ -24,6 +24,10 @@ namespace toucan_db {
 		assert((data_.raw & 0b111) == static_cast<size_t>(DataType::SHORT_STR));
 	}
 	
+//	__attribute__((always_inline)) size_t ShortString::Length() const {
+//		return data_.d.size;
+//	}
+	
 	ostream& operator<<(ostream& os, const ShortString& str) {
 		os << str.data_.d.str;
 		return os;

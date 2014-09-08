@@ -13,4 +13,9 @@ namespace toucan_db {
 		os << str.Ptr();
 		return os;
 	}
+	
+//	__attribute__((always_inline)) size_t LongString::Length() const {
+//		return Tag().len;
+//	}
+
 }

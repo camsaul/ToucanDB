@@ -27,8 +27,9 @@ int main(int argc, const char * argv[])
 	std::ios_base::sync_with_stdio(false);
 	
 	static const size_t k10Million = 10_p * 1000_p * 1000_p;
-	for (int strSize = 2; strSize < 100000; strSize *= 10) {
+	for (int strSize = 9; strSize < 100000; strSize *= 10) {
 		char str[strSize];
+		volatile char * vstr = str;
 		auto range = 'z' - 'a';
 		for (int i = 0; i < strSize - 1; i++) {
 			str[i] = (i % range) + 'a';
@@ -38,39 +39,33 @@ int main(int argc, const char * argv[])
 		Logger(RED) << "---------------------- len = " << strSize << " ----------------------";
 		
 		Logger(RED) << "char*";
-		Timed([s = (char *)str]{
+		TIMED_BLOCK
 			int len = 0;
 			for (size_t i = 0; i < k10Million; i++) {
-				len += strlen(s);
+				len += strlen((char *)vstr);
 			}
-			ostringstream os;
-			os << s;
 			Logger(ORANGE) << len;
-		});
+		}
 		
 		Logger(RED) << "std::string";
-		Timed([cp = (char *)str]{
-			string s = cp;
+		TIMED_BLOCK
 			int len = 0;
+			string s = (char *)vstr;
 			for (size_t i = 0; i < k10Million; i++) {
 				len += s.length();
 			}
-			ostringstream os;
-			os << s;
 			Logger(ORANGE) << len;
-		});
+		}
 		
 		Logger(RED) << "TString";
-		Timed([cp = (char *)str]{
-			TString s { cp };
+		TIMED_BLOCK
+			TString s = (char *)vstr;
 			int len = 0;
 			for (size_t i = 0; i < k10Million; i++) {
 				len += s.Length();
 			}
-			ostringstream os;
-			os << s;
 			Logger(ORANGE) << len;
-		});
+		}
 	}
 
 	// strcmp test

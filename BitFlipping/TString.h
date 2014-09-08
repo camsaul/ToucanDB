@@ -15,21 +15,17 @@ namespace toucan_db {
 	class TString {
 	public:
 		TString() = default;
-		TString(char* str);
+		TString(const char* str);
 		
-		size_t Length() const {
-			return IsShortString() ? data_.shortStr.Length() : data_.longStr.Length();
-		}
+		size_t Length() const { return IsLongString() ? data_.longStr.Length() : data_.shortStr.Length(); }
 		
 		friend ostream& operator<<(ostream& os, const TString& str);
 		
 	private:
-		__attribute((noinline)) bool IsShortString() const {
-			return data_.type.value == DataType::SHORT_STR;
-		}
+		DataType Type() const;
+		bool IsLongString() const { return data_.raw & 1; }
 				
 		union Data {
-			TypeInfo type;
 			size_t raw;
 			LongString longStr;
 			ShortString shortStr;

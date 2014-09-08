@@ -12,6 +12,11 @@ namespace toucan_db {
 //	template <typename IntervalT = std::chrono::microseconds>
 	class Timed {
 	public:
-		Timed(std::function<void()> fn);
+		Timed();
+		~Timed();
+	private:
+		decltype(chrono::system_clock::now()) start_;
 	};
+	
+	#define TIMED_BLOCK { auto timer__ = Timed();
 }

@@ -18,13 +18,14 @@ namespace toucan_db {
 		char str[7];   // 56
 	};
 	
+	class TString;
+	
 	class ShortString : public Value<DataType::SHORT_STR, ShortStringData> {
+		friend class TString;
 	public:
 		ShortString(const char* str);
 		
-		size_t Length() const {
-			return data_.d.size;
-		}
+		size_t Length() const { return data_.d.size; }
 		
 		friend ostream& operator<<(ostream& os, const ShortString& str);
 	};

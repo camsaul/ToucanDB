@@ -20,9 +20,9 @@ namespace bit_flip {
 	public:
 		struct Tags {
 			size_t lowerTag				:   3;
-			size_t						:  45; ///< Unused
-			size_t upperTag				:  15;
-			size_t mostSignificantBit	:   1; ///< Uppermost 16 bits must be all '0' or all '1' so hold onto the correct value so we can replace later.
+			size_t						:  44; ///< Unused
+			size_t mostSignificantBit	:   1;
+			size_t upperTag				:  16;
 		};
 		
 		inline constexpr TaggedPtr(size_t original):

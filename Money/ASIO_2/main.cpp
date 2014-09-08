@@ -10,7 +10,11 @@
 
 #include "BitFlipUtils.h"
 #include "TaggedPtr.h"
+#include "Timed.h"
+#include "ShortString.h"
+#include "LongString.h"
 
+using namespace toucan_db;
 using namespace toucan_db::logging;
 using namespace toucan_db::bit_flip;
 
@@ -22,6 +26,48 @@ static vector<toucan_db::Client> sClients;
 int main(int argc, const char * argv[])
 {
 	std::ios_base::sync_with_stdio(false);
+	
+	
+//	const char * const kPigeon = "TOUCAN_RASTA_2015";
+	
+	// strlen test
+	// short
+	Timed([]{
+		const char* kToucan = "TOUCAN_";
+		int len = 0;
+		for (int i = 0; i < 1000000; i++) {
+			len += strlen(kToucan);
+		}
+		Logger(ORANGE) << len;
+	});
+	Timed([]{
+		ShortString s { "TOUCAN_" };
+		int len = 0;
+		for (int i = 0; i < 1000000; i++) {
+			len += s.Length();
+		}
+		Logger(ORANGE) << len;
+	});
+	
+	// long
+	Timed([]{
+		const char* kToucan = "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_";
+		int len = 0;
+		for (int i = 0; i < 1000000; i++) {
+			len += strlen(kToucan);
+		}
+		Logger(ORANGE) << len;
+	});
+	Timed([]{
+		LongString s { "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_" };
+		int len = 0;
+		for (int i = 0; i < 1000000; i++) {
+			len += s.Length();
+		}
+		Logger(ORANGE) << len;
+	});
+	// strcmp test
+	
 
 	cout << BLUE;
 	for (int i = 63; i >= 0; i-= 8) {

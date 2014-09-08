@@ -36,6 +36,7 @@
 		32995ACF19B574120021B1CC /* libarchive.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32995ACE19B574120021B1CC /* libarchive.2.dylib */; };
 		32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
 		32B3269C19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */; };
+		32FF294419BD7039000645C3 /* TString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32FF294219BD7039000645C3 /* TString.cpp */; };
 		D1512FCA19B9113800E5ECD9 /* BitFlipUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1512FC819B9113800E5ECD9 /* BitFlipUtils.cpp */; };
 		D1512FCB19B9113800E5ECD9 /* BitFlipUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1512FC819B9113800E5ECD9 /* BitFlipUtils.cpp */; };
 		D1512FCE19B92E8700E5ECD9 /* TaggedPtr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1512FCD19B92E8700E5ECD9 /* TaggedPtr.cpp */; };
@@ -224,6 +225,8 @@
 		32995AD019B575180021B1CC /* archive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archive.h; sourceTree = "<group>"; };
 		32B3269919B2FAE200E9CD7A /* BasicConnection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicConnection.cpp; sourceTree = "<group>"; };
 		32B3269A19B2FAE200E9CD7A /* BasicConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicConnection.h; sourceTree = "<group>"; };
+		32FF294219BD7039000645C3 /* TString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TString.cpp; sourceTree = "<group>"; };
+		32FF294319BD7039000645C3 /* TString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TString.h; sourceTree = "<group>"; };
 		D1512FC819B9113800E5ECD9 /* BitFlipUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitFlipUtils.cpp; sourceTree = "<group>"; };
 		D1512FC919B9113800E5ECD9 /* BitFlipUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitFlipUtils.h; sourceTree = "<group>"; };
 		D1512FCC19B9132800E5ECD9 /* TaggedPtr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaggedPtr.h; sourceTree = "<group>"; };
@@ -525,6 +528,8 @@
 				3288CE5919BD4E0300BAFEDC /* ShortString.cpp */,
 				3288CE6019BD55C300BAFEDC /* LongString.h */,
 				3288CE5F19BD55C300BAFEDC /* LongString.cpp */,
+				32FF294319BD7039000645C3 /* TString.h */,
+				32FF294219BD7039000645C3 /* TString.cpp */,
 			);
 			name = DataTypes;
 			sourceTree = "<group>";
@@ -674,6 +679,7 @@
 				3231413819AFD43C00C341FF /* main.cpp in Sources */,
 				328CBEBC19B014A500A200DF /* Client.cpp in Sources */,
 				D1B2DCF219B64BAE00E442BC /* gzip_stream.cc in Sources */,
+				32FF294419BD7039000645C3 /* TString.cpp in Sources */,
 				3288CE6119BD55C300BAFEDC /* LongString.cpp in Sources */,
 				3232CB7719B3EC18008D9AF4 /* city.cc in Sources */,
 				D1B2DCF019B64BAE00E442BC /* compressed_stream.cc in Sources */,

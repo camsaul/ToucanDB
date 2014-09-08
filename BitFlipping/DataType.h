@@ -20,44 +20,53 @@ namespace toucan_db {
 		DICT		= 0b111
 	};
 	
+	struct TypeInfo {
+		DataType value : 3;
+		size_t : 61; // everything else
+	};
+	
 	template <DataType Type, class DataStruct>
 	class Value {
 		static_assert(sizeof(DataStruct) == 8, "DataStruct must be 8 bytes!");
 	public:
 		Value() = default;
-		
+				
+	protected:
 		Value(size_t raw):
 			data_(raw)
-		{}
-		
-//		Value(DataStruct d):
-//			data_(d)
-//		{}
+		{
+			assert((raw & 0b111) == static_cast<size_t>(Type));
+		}
 		
 		template<typename... ConstructorArgs>
 		Value(ConstructorArgs... args):
 			data_(args...)
-		{}
-		
-	protected:
+		{
+			assert((data_.raw & 0b111) == static_cast<size_t>(Type));
+		}
+
 		union Data {
+			TypeInfo type;
 			DataStruct d;
 			size_t raw;
 			
-			Data(size_t r):
-				raw(r)
+			Data():
+				raw (static_cast<size_t>(Type))
 			{}
 			
 			template<typename... ConstructorArgs>
 			Data(ConstructorArgs... args):
 				d(args...)
-			{}
+			{
+				raw |= static_cast<size_t>(Type);
+			}
 			
-		} data_ = (static_cast<size_t>(Type));
+		} data_ = {};
 	};
 	
 	static const size_t kUpperTagMask		= 0xFFFF000000000000;
 	static const size_t kLowerTagMask		= 0b0111;
+	static const size_t kStripUpperTagMask	= ~kUpperTagMask;
 	static const size_t kPtrMask			= ~(kUpperTagMask|kLowerTagMask); ///< Get just the pointer. Still need to fix top two bytes
 	static const size_t kSignificantBitMask = 0x0000800000000000; // get the most significant bit
 	
@@ -75,15 +84,16 @@ namespace toucan_db {
 		{}
 				
 		TaggedPtr2(UpperTagStruct t, T* p):
-			tag(t),
-			ptr(reinterpret_cast<size_t>(p) & kPtrMask)
+			upperTag(t),
+			ptr((reinterpret_cast<size_t>(p) & kPtrMask) >> 3)
 		{}
 		
-		const UpperTagStruct& Tag() const { return tag; }
-		UpperTagStruct& Tag() { return tag; }
+		const UpperTagStruct& Tag() const { return upperTag; }
+		UpperTagStruct& Tag()			  { return upperTag; }
 		
 		const T* Ptr() const {
-			size_t p = ptr & kPtrMask;
+			size_t p = ptr << 3;
+			p &= kPtrMask;
 			if (kSignificantBitMask & ptr) {
 				p |= kUpperTagMask;
 			}
@@ -91,8 +101,9 @@ namespace toucan_db {
 		}
 		
 	private:
-		UpperTagStruct	tag; // 16 bits
-		size_t			ptr : 48;
+		size_t			lowerTag : 3;
+		size_t			ptr		 : 45;
+		UpperTagStruct	upperTag; // 16 bits
 	};
 	
 	template <DataType Type, typename T, typename StructT>

@@ -23,8 +23,15 @@ namespace toucan_db {
 	class LongString : public TaggedPtrVal<DataType::LONG_STR, char, LongStringUpperTag> {
 	public:
 		LongString(char* str):
-			TaggedPtrVal(strlen(str), str)
+			LongString(str, strlen(str))
 		{}
+		
+		LongString(char* str, size_t len):
+			TaggedPtrVal(len, str)
+		{
+			assert(data_.type.value == DataType::LONG_STR);
+			assert(Ptr() == str);
+		}
 		
 		size_t Length() const {
 			return Tag().len;

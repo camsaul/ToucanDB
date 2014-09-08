@@ -11,8 +11,7 @@
 #include "BitFlipUtils.h"
 #include "TaggedPtr.h"
 #include "Timed.h"
-#include "ShortString.h"
-#include "LongString.h"
+#include "TString.h"
 
 using namespace toucan_db;
 using namespace toucan_db::logging;
@@ -28,7 +27,7 @@ int main(int argc, const char * argv[])
 	std::ios_base::sync_with_stdio(false);
 	
 	static const size_t k10Million = 10_p * 1000_p * 1000_p;
-	for (int strSize = 5; strSize < 100000; strSize *= 10) {
+	for (int strSize = 2; strSize < 100000; strSize *= 10) {
 		char str[strSize];
 		auto range = 'z' - 'a';
 		for (int i = 0; i < strSize - 1; i++) {
@@ -39,7 +38,7 @@ int main(int argc, const char * argv[])
 		Logger(RED) << "---------------------- len = " << strSize << " ----------------------";
 		
 		Logger(RED) << "char*";
-		Timed([s = str]{
+		Timed([s = (char *)str]{
 			int len = 0;
 			for (size_t i = 0; i < k10Million; i++) {
 				len += strlen(s);
@@ -50,7 +49,7 @@ int main(int argc, const char * argv[])
 		});
 		
 		Logger(RED) << "std::string";
-		Timed([cp = str]{
+		Timed([cp = (char *)str]{
 			string s = cp;
 			int len = 0;
 			for (size_t i = 0; i < k10Million; i++) {
@@ -61,32 +60,17 @@ int main(int argc, const char * argv[])
 			Logger(ORANGE) << len;
 		});
 		
-		if (strSize == 5) {
-			Logger(RED) << "ShortStr";
-			Timed([cp = str]{
-				ShortString s { cp };
-				int len = 0;
-				for (size_t i = 0; i < k10Million; i++) {
-					len += s.Length();
-				}
-//				ostringstream os;
-//				os << s;
-//				Logger(ORANGE) << len;
-			});
-			
-		} else {
-			Logger(RED) << "LongStr";
-			Timed([cp = str]{
-				LongString s { cp };
-				int len = 0;
-				for (size_t i = 0; i < k10Million; i++) {
-					len += s.Length();
-				}
-				ostringstream os;
-				os << s;
-				Logger(ORANGE) << len;
-			});
-		}
+		Logger(RED) << "TString";
+		Timed([cp = (char *)str]{
+			TString s { cp };
+			int len = 0;
+			for (size_t i = 0; i < k10Million; i++) {
+				len += s.Length();
+			}
+			ostringstream os;
+			os << s;
+			Logger(ORANGE) << len;
+		});
 	}
 
 	// strcmp test

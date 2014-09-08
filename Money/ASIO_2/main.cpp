@@ -27,48 +27,71 @@ int main(int argc, const char * argv[])
 {
 	std::ios_base::sync_with_stdio(false);
 	
-	
-//	const char * const kPigeon = "TOUCAN_RASTA_2015";
-	
 	static const size_t k10Million = 10_p * 1000_p * 1000_p;
-	// strlen test
-	// short
-	Timed([]{
-		char s[] = "TOUCAN_";
-		int len = 0;
-		for (size_t i = 0; i < k10Million; i++) {
-			len += strlen(s);
+	for (int strSize = 5; strSize < 100000; strSize *= 10) {
+		char str[strSize];
+		auto range = 'z' - 'a';
+		for (int i = 0; i < strSize - 1; i++) {
+			str[i] = (i % range) + 'a';
 		}
-//		Logger(ORANGE) << s << " -> " << len;
-	});
-	Timed([]{
-		ShortString s { "TOUCAN_" };
-		int len = 0;
-		for (size_t i = 0; i < k10Million; i++) {
-			len += s.Length();
+		str[strSize - 1] = 0;
+		
+		Logger(RED) << "---------------------- len = " << strSize << " ----------------------";
+		
+		Logger(RED) << "char*";
+		Timed([s = str]{
+			int len = 0;
+			for (size_t i = 0; i < k10Million; i++) {
+				len += strlen(s);
+			}
+			ostringstream os;
+			os << s;
+			Logger(ORANGE) << len;
+		});
+		
+		Logger(RED) << "std::string";
+		Timed([cp = str]{
+			string s = cp;
+			int len = 0;
+			for (size_t i = 0; i < k10Million; i++) {
+				len += s.length();
+			}
+			ostringstream os;
+			os << s;
+			Logger(ORANGE) << len;
+		});
+		
+		if (strSize == 5) {
+			Logger(RED) << "ShortStr";
+			Timed([cp = str]{
+				ShortString s { cp };
+				int len = 0;
+				for (size_t i = 0; i < k10Million; i++) {
+					len += s.Length();
+				}
+//				ostringstream os;
+//				os << s;
+//				Logger(ORANGE) << len;
+			});
+			
+		} else {
+			Logger(RED) << "LongStr";
+			Timed([cp = str]{
+				LongString s { cp };
+				int len = 0;
+				for (size_t i = 0; i < k10Million; i++) {
+					len += s.Length();
+				}
+				ostringstream os;
+				os << s;
+				Logger(ORANGE) << len;
+			});
 		}
-//		Logger(ORANGE) << s << " -> " << len;
-	});
-	
-	// long
-	Timed([]{
-		char s[] = "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_";
-		int len = 0;
-		for (size_t i = 0; i < k10Million; i++) {
-			len += strlen(s);
-		}
-		Logger(ORANGE) << s << " -> " << len;
-	});
-	Timed([]{
-		char cs[] = "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_";
-		LongString s { cs };
-		int len = 0;
-		for (size_t i = 0; i < k10Million; i++) {
-			len += s.Length();
-		}
-		Logger(ORANGE) << s << " -> " << len;
-	});
+	}
+
 	// strcmp test
+	
+	exit(0);
 	
 
 	cout << BLUE;

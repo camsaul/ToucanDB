@@ -38,6 +38,10 @@ namespace toucan_db {
 		
 		size_t Length() const { return Tag().len; }
 		
+		bool operator==(const LongString& rhs) const {
+			return strcmp(Ptr(), rhs.Ptr()) == 0;
+		}
+		
 		friend ostream& operator<<(ostream& os, const LongString& str);
 	};
 	

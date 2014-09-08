@@ -19,6 +19,15 @@ namespace toucan_db {
 		
 		__attribute__((always_inline)) size_t Length() const { return IsLongString() ? data_.longStr.Length() : data_.shortStr.Length(); }
 		
+		bool operator==(const TString& rhs) const {
+			if (IsLongString()) {
+				if (!rhs.IsLongString()) return false;
+				
+				return data_.longStr == rhs.data_.longStr;
+			}
+			return data_.shortStr == data_.shortStr;
+		}
+		
 		friend ostream& operator<<(ostream& os, const TString& str);
 		
 	private:

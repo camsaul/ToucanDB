@@ -13,6 +13,6 @@ namespace toucan_db {
 }
 
 void SetUp(size_t len);
-char* GetCString();
-string* GetString();
-toucan_db::TString* GetTString();
+char* GetCString(size_t trash);
+string* GetString(size_t trash);
+toucan_db::TString* GetTString(size_t trash);

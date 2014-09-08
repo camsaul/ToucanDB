@@ -27,6 +27,10 @@ namespace toucan_db {
 		
 		size_t Length() const { return data_.d.size; }
 		
+		bool operator==(const ShortString& rhs) const {
+			return data_.raw == rhs.data_.raw;
+		}
+		
 		friend ostream& operator<<(ostream& os, const ShortString& str);
 	};
 

@@ -28,14 +28,14 @@ void SetUp(size_t len) {
 	sTString = sCString;
 }
 
-char* GetCString() {
+char* GetCString(size_t trash) {
 	return sCString;
 }
 
-string* GetString() {
+string* GetString(size_t trash) {
 	return &sString;
 }
 
-TString* GetTString() {
+TString* GetTString(size_t trash) {
 	return &sTString;
 }

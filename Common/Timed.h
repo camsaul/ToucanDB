@@ -12,5 +12,6 @@ namespace toucan_db {
 //	void Time(function<void()>);
 	
 	void Time(size_t numReps, function<void()>);
-	static const auto Timed1Million = bind(&Time, 1000000_p, placeholders::_1);
+	void Time2(size_t numReps, function<void(size_t repNumber)>);
+	static const auto Timed1Million = bind(&Time2, 1000000_p, placeholders::_1);
 }

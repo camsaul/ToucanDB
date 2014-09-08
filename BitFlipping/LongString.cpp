@@ -19,7 +19,6 @@ namespace toucan_db {
 //	{}
 	
 	LongString::LongString(const char* str, size_t len)
-//		TaggedPtrVal((len / 8) + 1, str)
 	{
 		assert(Type() == DataType::LONG_STR);
 		
@@ -27,10 +26,24 @@ namespace toucan_db {
 		if (len % 8) numBlocks++;
 		Tag().len = numBlocks;
 		SetPtr(new LongStringData[numBlocks]);
+		cout << "LongString() -> " << hex << Ptr() << dec << endl;
 		
 		memset((void *)LastBlock(), 0, 8); // zero out last block
 		
 		memcpy((void *)Ptr(), str, len);
+	}
+	
+	LongString::~LongString() {
+		cout << "~LongString() " << hex << Ptr() << dec << endl;
+		delete[] Ptr();
+	}
+	
+	LongString& LongString::operator=(LongString&& rhs) {
+		if (this != &rhs) {
+			Data().raw = rhs.Data().raw;
+			rhs.Data().raw = 0;
+		}
+		return *this;
 	}
 	
 	const LongStringData* LongString::LastBlock() const {

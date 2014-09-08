@@ -37,10 +37,10 @@ int main(int argc, const char * argv[])
 		Timed1Million([&](size_t i){ assert(strlen(GetCString(i)) == strSize - 1); });
 		
 		Logger(RED) << "std::string";
-		Timed1Million([&](size_t i){ assert(GetString(i)->length() == strSize - 1); });
+		Timed1Million([&](size_t i){ assert(GetString(i).length() == strSize - 1); });
 		
 		Logger(RED) << "TString";
-		Timed1Million([&](size_t i){ assert(GetTString(i)->Length() == strSize - 1); });
+		Timed1Million([&](size_t i){ assert(GetTString(i).Length() == strSize - 1); });
 	}
 
 	// strcmp test
@@ -53,10 +53,10 @@ int main(int argc, const char * argv[])
 		Timed1Million([&](size_t i){ assert(!strcmp(GetCString(i), GetCString(i/2))); });
 		
 		Logger(RED) << "std::string";
-		Timed1Million([&](size_t i){ assert(*GetString(i) == *GetString(i/2)); });
+		Timed1Million([&](size_t i){ assert(GetString(i) == GetString(i/2)); });
 		
 		Logger(RED) << "TString";
-		Timed1Million([&](size_t i){ assert(*GetTString(i) == *GetTString(i/2)); });
+		Timed1Million([&](size_t i){ assert(GetTString(i) == GetTString(i/2)); });
 	}
 	
 	exit(0);

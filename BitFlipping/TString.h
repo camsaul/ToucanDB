@@ -17,6 +17,12 @@ namespace toucan_db {
 		TString() = default;
 		TString(const char* str);
 		
+		TString(const TString&) = delete;
+		TString(TString&& rhs);
+		
+		TString& operator==(const TString&) = delete;
+		TString& operator==(TString&& rhs);
+		
 		__attribute__((always_inline)) size_t Length() const { return IsLongString() ? data_.longStr.Length() : data_.shortStr.Length(); }
 		
 		bool operator==(const TString& rhs) const {
@@ -39,9 +45,11 @@ namespace toucan_db {
 			LongString longStr;
 			ShortString shortStr;
 			
-			Data():
-				raw(static_cast<size_t>(DataType::SHORT_STR))
-			{}
+			Data();
+			Data(const Data&) = delete;
+			Data(Data&& rhs);
+			
+			~Data();
 			
 		} data_;
 	};

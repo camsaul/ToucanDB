@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "DataType.h"
+#include "TaggedPtrValue.h"
 
 namespace toucan_db {
 	struct LongStringUpperTag {
@@ -27,8 +27,12 @@ namespace toucan_db {
 	
 	class LongString : public TaggedPtrVal<DataType::LONG_STR, LongStringData, LongStringUpperTag> {
 	public:
-//		LongString(const char* str);
 		LongString(const char* str, size_t len);
+		LongString(const LongString&) = delete;
+		LongString(LongString&& rhs) = default;
+		~LongString();
+		
+		LongString& operator=(LongString&& rhs);
 		
 		size_t Length() const { return ((NumBlocks() - 1) * 8) + LastBlockLength(); }
 		

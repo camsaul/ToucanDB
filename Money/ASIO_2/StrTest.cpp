@@ -13,7 +13,7 @@ using namespace toucan_db;
 
 static char* sCString = nullptr;
 static string sString;
-static TString sTString;
+static unique_ptr<TString> sTString;
 
 void SetUp(size_t len) {
 	free(sCString);
@@ -25,17 +25,17 @@ void SetUp(size_t len) {
 	sCString[len - 1] = 0;
 	
 	sString = sCString;
-	sTString = sCString;
+	sTString = make_unique<TString>(sCString);
 }
 
 char* GetCString(size_t trash) {
 	return sCString;
 }
 
-string* GetString(size_t trash) {
-	return &sString;
+string& GetString(size_t trash) {
+	return sString;
 }
 
-TString* GetTString(size_t trash) {
-	return &sTString;
+const TString& GetTString(size_t trash) {
+	return *sTString;
 }

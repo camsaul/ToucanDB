@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "DataType.h"
+#include "Value.h"
 
 namespace toucan_db {
 	struct ShortStringData {

@@ -13,27 +13,48 @@ namespace toucan_db {
 		auto len = str ? strlen(str) : 0;
 		if (len <= 7) {
 			cout << "(short str)" << endl;
-			data_.shortStr = str;
+			data_.shortStr = ShortString { str };
 			assert(Type() == DataType::SHORT_STR);
 		} else {
 			cout << "(long str)" << endl;
-			data_.longStr = { str, len };
+			data_.longStr = LongString{ str, len };
 			assert(Type() == DataType::LONG_STR);
 		}
 	}
 	
-//	size_t TString::Length() const {
-//		return IsLongString() ? data_.longStr.Tag().len : data_.shortStr.data_.d.size;
-//		return IsLongString() ? data_.longStr.Length() : data_.shortStr.Length();
-//	}
+	TString::TString(TString&& rhs):
+		data_(std::move(rhs.data_))
+	{}
+	
+	TString& TString::operator==(TString&& rhs) {
+		if (this != &rhs) {
+			data_.raw = rhs.data_.raw;
+			rhs.data_.raw = 0;
+		}
+		return *this;
+	}
 	
 	DataType TString::Type() const {
 		return static_cast<DataType>(data_.raw & 0b111);
 	}
 	
-//	bool TString::IsLongString() const {
-//		return data_.raw & 1;
-//	}
+	TString::Data::Data():
+		raw(static_cast<size_t>(DataType::SHORT_STR))
+	{}
+	
+	TString::Data::Data(Data&& rhs):
+		raw(rhs.raw)
+	{
+		if (this != &rhs) {
+			rhs.raw = 0;
+		}
+	}
+	
+	TString::Data::~Data() {
+		if (raw & 1) {
+			delete &longStr;
+		}
+	}
 
 	ostream& operator<<(ostream& os, const TString& str) {
 		if (str.IsLongString()) {

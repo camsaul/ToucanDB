@@ -21,7 +21,6 @@
 		32383F9419B04A5D007A29C4 /* libtbbmalloc.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 32383F8E19B04A48007A29C4 /* libtbbmalloc.dylib */; };
 		3288CE5719BD4B5200BAFEDC /* Timed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3288CE5519BD4B5200BAFEDC /* Timed.cpp */; };
 		3288CE5B19BD4E0300BAFEDC /* ShortString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3288CE5919BD4E0300BAFEDC /* ShortString.cpp */; };
-		3288CE5E19BD4E1900BAFEDC /* DataType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3288CE5C19BD4E1900BAFEDC /* DataType.cpp */; };
 		3288CE6119BD55C300BAFEDC /* LongString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3288CE5F19BD55C300BAFEDC /* LongString.cpp */; };
 		3289A5CF19B006B600478798 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3289A5CE19B006B600478798 /* main.cpp */; };
 		3289A5D119B006B600478798 /* CLI.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3289A5D019B006B600478798 /* CLI.1 */; };
@@ -203,7 +202,6 @@
 		3288CE5619BD4B5200BAFEDC /* Timed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timed.h; sourceTree = "<group>"; };
 		3288CE5919BD4E0300BAFEDC /* ShortString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShortString.cpp; sourceTree = "<group>"; };
 		3288CE5A19BD4E0300BAFEDC /* ShortString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortString.h; sourceTree = "<group>"; };
-		3288CE5C19BD4E1900BAFEDC /* DataType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataType.cpp; sourceTree = "<group>"; };
 		3288CE5D19BD4E1900BAFEDC /* DataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataType.h; sourceTree = "<group>"; };
 		3288CE5F19BD55C300BAFEDC /* LongString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LongString.cpp; sourceTree = "<group>"; };
 		3288CE6019BD55C300BAFEDC /* LongString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongString.h; sourceTree = "<group>"; };
@@ -230,6 +228,9 @@
 		32FF294319BD7039000645C3 /* TString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TString.h; sourceTree = "<group>"; };
 		32FF294519BD9441000645C3 /* StrTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StrTest.cpp; sourceTree = "<group>"; };
 		32FF294619BD9441000645C3 /* StrTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrTest.h; sourceTree = "<group>"; };
+		32FF294819BDAC18000645C3 /* Value.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Value.h; sourceTree = "<group>"; };
+		32FF294919BDAC25000645C3 /* TaggedPtr2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaggedPtr2.h; sourceTree = "<group>"; };
+		32FF294A19BDAC4B000645C3 /* TaggedPtrValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaggedPtrValue.h; sourceTree = "<group>"; };
 		D1512FC819B9113800E5ECD9 /* BitFlipUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitFlipUtils.cpp; sourceTree = "<group>"; };
 		D1512FC919B9113800E5ECD9 /* BitFlipUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitFlipUtils.h; sourceTree = "<group>"; };
 		D1512FCC19B9132800E5ECD9 /* TaggedPtr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaggedPtr.h; sourceTree = "<group>"; };
@@ -528,7 +529,9 @@
 			isa = PBXGroup;
 			children = (
 				3288CE5D19BD4E1900BAFEDC /* DataType.h */,
-				3288CE5C19BD4E1900BAFEDC /* DataType.cpp */,
+				32FF294819BDAC18000645C3 /* Value.h */,
+				32FF294919BDAC25000645C3 /* TaggedPtr2.h */,
+				32FF294A19BDAC4B000645C3 /* TaggedPtrValue.h */,
 				3288CE5A19BD4E0300BAFEDC /* ShortString.h */,
 				3288CE5919BD4E0300BAFEDC /* ShortString.cpp */,
 				3288CE6019BD55C300BAFEDC /* LongString.h */,
@@ -693,7 +696,6 @@
 				32B3269B19B2FAE200E9CD7A /* BasicConnection.cpp in Sources */,
 				3288CE5719BD4B5200BAFEDC /* Timed.cpp in Sources */,
 				3288CE5B19BD4E0300BAFEDC /* ShortString.cpp in Sources */,
-				3288CE5E19BD4E1900BAFEDC /* DataType.cpp in Sources */,
 				328CBEBB19B0101900A200DF /* SingleThreadedServer.cpp in Sources */,
 				32995ACD19B55C9A0021B1CC /* Command.cpp in Sources */,
 			);

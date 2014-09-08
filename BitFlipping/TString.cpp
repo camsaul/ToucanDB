@@ -17,19 +17,18 @@ namespace toucan_db {
 			assert(Type() == DataType::SHORT_STR);
 		} else {
 			cout << "(long str)" << endl;
-			data_.longStr = LongString{ str, len };
+			data_.longStr = { str, len };
 			assert(Type() == DataType::LONG_STR);
 		}
 	}
 	
-	TString::TString(TString&& rhs):
-		data_(std::move(rhs.data_))
-	{}
-	
-	TString& TString::operator==(TString&& rhs) {
+	TString& TString::operator=(TString&& rhs) {
 		if (this != &rhs) {
 			data_.raw = rhs.data_.raw;
+			assert(Type() == rhs.Type());
 			rhs.data_.raw = 0;
+		} else {
+			assert(Type() == rhs.Type());
 		}
 		return *this;
 	}
@@ -50,11 +49,7 @@ namespace toucan_db {
 		}
 	}
 	
-	TString::Data::~Data() {
-		if (raw & 1) {
-			delete &longStr;
-		}
-	}
+	TString::Data::~Data() {}
 
 	ostream& operator<<(ostream& os, const TString& str) {
 		if (str.IsLongString()) {

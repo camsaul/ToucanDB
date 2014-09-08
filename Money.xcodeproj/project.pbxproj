@@ -535,12 +535,12 @@
 				32FF294819BDAC18000645C3 /* Value.h */,
 				32FF294919BDAC25000645C3 /* TaggedPtr2.h */,
 				32FF294A19BDAC4B000645C3 /* TaggedPtrValue.h */,
+				32FF294319BD7039000645C3 /* TString.h */,
+				32FF294219BD7039000645C3 /* TString.cpp */,
 				3288CE5A19BD4E0300BAFEDC /* ShortString.h */,
 				3288CE5919BD4E0300BAFEDC /* ShortString.cpp */,
 				3288CE6019BD55C300BAFEDC /* LongString.h */,
 				3288CE5F19BD55C300BAFEDC /* LongString.cpp */,
-				32FF294319BD7039000645C3 /* TString.h */,
-				32FF294219BD7039000645C3 /* TString.cpp */,
 			);
 			name = DataTypes;
 			sourceTree = "<group>";

@@ -33,7 +33,7 @@ namespace toucan_db {
 			fn(i);
 		}
 		auto time = chrono::system_clock::now() - start;
-		auto ms = chrono::duration_cast<chrono::microseconds>(time);
-		Logger(BLUE) << "Time: " << ms.count() << "µs";
+		auto ms = chrono::duration_cast<chrono::milliseconds>(time);
+		Logger(BLUE) << "Time: " << ms.count() << "ms";
 	}
 }

@@ -33,6 +33,17 @@ namespace toucan_db {
 			}
 		}
 		
+		TaggedPtrVal& operator=(const TaggedPtrVal&) = delete;
+		
+		TaggedPtrVal& operator=(TaggedPtrVal&& rhs) {
+			if (this != &rhs) {
+				Data().raw = rhs.Data().raw;
+				rhs.Data().raw = 0;
+			}
+			assert(ValueT::Type() == TypeTag);
+			return *this;
+		}
+		
 		~TaggedPtrVal() {} // subclass needs to take care of deleting
 		
 		DataStructT& Data()				{ return ValueT::data_; }

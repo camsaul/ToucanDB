@@ -14,7 +14,7 @@ using namespace toucan_db;
 namespace str_test {
 	static char* sCString = nullptr;
 	static string sString;
-	static unique_ptr<TString> sTString;
+	static TString sTString;
 
 	void SetUp(size_t len) {
 		free(sCString);
@@ -26,7 +26,9 @@ namespace str_test {
 		sCString[len - 1] = 0;
 		
 		sString = sCString;
-		sTString = make_unique<TString>(sCString);
+		sTString = TString(sCString);
+		assert(sTString.Length() == len - 1);
+		if (len > 7) assert(sTString.IsLongString());
 	}
 
 	char* GetCString(size_t trash) {
@@ -38,6 +40,6 @@ namespace str_test {
 	}
 
 	const TString& GetTString(size_t trash) {
-		return *sTString;
+		return sTString;
 	}
 }

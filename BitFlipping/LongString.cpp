@@ -34,15 +34,13 @@ namespace toucan_db {
 	}
 	
 	LongString::~LongString() {
-//		cout << "~LongString() " << hex << Ptr() << dec << endl;
+		cout << "~LongString() " << hex << Ptr() << dec << endl;
 		delete[] Ptr();
 	}
 	
 	LongString& LongString::operator=(LongString&& rhs) {
-		if (this != &rhs) {
-			Data().raw = rhs.Data().raw;
-			rhs.Data().raw = 0;
-		}
+		TaggedPtrVal::operator=(static_cast<TaggedPtrVal&&>(rhs));
+		assert(Type() == DataType::LONG_STR);
 		return *this;
 	}
 	

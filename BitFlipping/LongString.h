@@ -20,10 +20,7 @@ namespace toucan_db {
 	} __attribute__((packed));
 	static_assert(sizeof(LongStringUpperTag) == 2, "LongStringUpperTag should be 2 bytes!");
 	
-	class TString;
-	
 	class LongString : public TaggedPtrVal<DataType::LONG_STR, const char, LongStringUpperTag> {
-		friend class TString;
 	public:
 		LongString(const char* str):
 			LongString(str, strlen(str))

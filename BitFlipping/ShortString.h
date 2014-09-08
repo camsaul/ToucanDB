@@ -18,10 +18,7 @@ namespace toucan_db {
 		char str[7];   // 56
 	};
 	
-	class TString;
-	
 	class ShortString : public Value<DataType::SHORT_STR, ShortStringData> {
-		friend class TString;
 	public:
 		ShortString(const char* str);
 		

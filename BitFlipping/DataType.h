@@ -73,29 +73,35 @@ namespace toucan_db {
 		static_assert(sizeof(T*) == 8, "T* must be 4 bytes!");
 		static_assert(sizeof(UpperTagStruct) == 2, "Upper tag must be exactly 2 bytes!");
 	public:
-		TaggedPtr2():
-			ptr(0)
-		{}
-		
-		TaggedPtr2(T* p):
-			TaggedPtr2({}, p)
-		{}
-				
-		TaggedPtr2(UpperTagStruct t, T* p):
-			upperTag(t),
-			ptr((reinterpret_cast<size_t>(p) & kPtrMask) >> 3)
-		{}
+		TaggedPtr2() = default;
+//
+//		TaggedPtr2(UpperTagStruct t, T* p):
+//			upperTag(t)
+//		{
+//			SetPtr(p);
+//		}
+//		
+//		TaggedPtr2(UpperTagStruct t):
+//			upperTag(t)
+//		{}
 		
 		const UpperTagStruct& Tag() const { return upperTag; }
 		UpperTagStruct& Tag()			  { return upperTag; }
 		
-		const T* Ptr() const {
+		const T* GetPtr() const {
 			size_t p = ptr << 3;
 			p &= kPtrMask;
 			if (kSignificantBitMask & ptr) {
 				p |= kUpperTagMask;
 			}
 			return reinterpret_cast<T*>(p);
+		}
+		
+		const T* Ptr() const { return GetPtr(); }
+		T* Ptr()			 { return const_cast<T*>(GetPtr()); }
+		
+		void SetPtr(T* p) {
+			ptr = (reinterpret_cast<size_t>(p) & kPtrMask) >> 3;
 		}
 		
 	private:
@@ -118,5 +124,7 @@ namespace toucan_db {
 		const StructT& Tag() const	{ return ValueT::data_.d.Tag(); }
 		
 		const T* Ptr() const		{ return ValueT::data_.d.Ptr(); }
+		T* Ptr()					{ return ValueT::data_.d.Ptr(); }
+		void SetPtr(T* p)			{ ValueT::data_.d.SetPtr(p); }
 	};
 }

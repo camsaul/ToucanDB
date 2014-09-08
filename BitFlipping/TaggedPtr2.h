@@ -23,6 +23,7 @@ namespace toucan_db {
 		TaggedPtr2() = default;
 		
 		TaggedPtr2(const TaggedPtr2&) = delete;
+		
 		TaggedPtr2(TaggedPtr2&& rhs):
 			lowerTag(rhs.lowerTag),
 			ptr(rhs.ptr),
@@ -33,7 +34,7 @@ namespace toucan_db {
 			}
 		}
 		
-		~TaggedPtr2() {}
+		~TaggedPtr2() {} // subclass needs to take care of deleting
 		
 		const UpperTagStruct& Tag() const { return upperTag; }
 		UpperTagStruct& Tag()			  { return upperTag; }

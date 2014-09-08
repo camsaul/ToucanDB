@@ -8,11 +8,6 @@
 
 #pragma once
 
-namespace toucan_db {
-	class TString;
+namespace str_test {
+	void Run();
 }
-
-void SetUp(size_t len);
-char* GetCString(size_t trash);
-string& GetString(size_t trash);
-const toucan_db::TString& GetTString(size_t trash);

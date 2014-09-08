@@ -26,7 +26,7 @@ namespace toucan_db {
 		if (len % 8) numBlocks++;
 		Tag().len = numBlocks;
 		SetPtr(new LongStringData[numBlocks]);
-		cout << "LongString() -> " << hex << Ptr() << dec << endl;
+//		cout << "LongString() -> " << hex << Ptr() << dec << endl;
 		
 		memset((void *)LastBlock(), 0, 8); // zero out last block
 		
@@ -34,7 +34,7 @@ namespace toucan_db {
 	}
 	
 	LongString::~LongString() {
-		cout << "~LongString() " << hex << Ptr() << dec << endl;
+//		cout << "~LongString() " << hex << Ptr() << dec << endl;
 		delete[] Ptr();
 	}
 	

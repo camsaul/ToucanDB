@@ -11,31 +11,33 @@
 
 using namespace toucan_db;
 
-static char* sCString = nullptr;
-static string sString;
-static unique_ptr<TString> sTString;
+namespace str_test {
+	static char* sCString = nullptr;
+	static string sString;
+	static unique_ptr<TString> sTString;
 
-void SetUp(size_t len) {
-	free(sCString);
-	sCString = new char[len];
-	auto range = 'z' - 'a'; // fill with a-z over and over
-	for (int i = 0; i < len - 1; i++) {
-		sCString[i] = (i % range) + 'a';
+	void SetUp(size_t len) {
+		free(sCString);
+		sCString = new char[len];
+		auto range = 'z' - 'a'; // fill with a-z over and over
+		for (int i = 0; i < len - 1; i++) {
+			sCString[i] = (i % range) + 'a';
+		}
+		sCString[len - 1] = 0;
+		
+		sString = sCString;
+		sTString = make_unique<TString>(sCString);
 	}
-	sCString[len - 1] = 0;
-	
-	sString = sCString;
-	sTString = make_unique<TString>(sCString);
-}
 
-char* GetCString(size_t trash) {
-	return sCString;
-}
+	char* GetCString(size_t trash) {
+		return sCString;
+	}
 
-string& GetString(size_t trash) {
-	return sString;
-}
+	string& GetString(size_t trash) {
+		return sString;
+	}
 
-const TString& GetTString(size_t trash) {
-	return *sTString;
+	const TString& GetTString(size_t trash) {
+		return *sTString;
+	}
 }

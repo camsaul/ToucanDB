@@ -10,8 +10,6 @@
 
 #include "BitFlipUtils.h"
 #include "TaggedPtr.h"
-#include "Timed.h"
-#include "TString.h"
 
 #include "StrTest.h"
 
@@ -28,37 +26,7 @@ int main(int argc, const char * argv[])
 {
 	std::ios_base::sync_with_stdio(false);
 	
-	for (int strSize = 2; strSize < 100000; strSize *= 10) {
-		Logger(RED) << "---------------------- len = " << strSize << " ----------------------";
-		
-		SetUp(strSize);
-		
-		Logger(RED) << "char*";
-		Timed1Million([&](size_t i){ assert(strlen(GetCString(i)) == strSize - 1); });
-		
-		Logger(RED) << "std::string";
-		Timed1Million([&](size_t i){ assert(GetString(i).length() == strSize - 1); });
-		
-		Logger(RED) << "TString";
-		Timed1Million([&](size_t i){ assert(GetTString(i).Length() == strSize - 1); });
-	}
-
-	// strcmp test
-	for (int strSize = 2; strSize < 100000; strSize *= 10) {
-		Logger(RED) << "---------------------- len = " << strSize << " ----------------------";
-		
-		SetUp(strSize);
-		
-		Logger(RED) << "char*";
-		Timed1Million([&](size_t i){ assert(!strcmp(GetCString(i), GetCString(i/2))); });
-		
-		Logger(RED) << "std::string";
-		Timed1Million([&](size_t i){ assert(GetString(i) == GetString(i/2)); });
-		
-		Logger(RED) << "TString";
-		Timed1Million([&](size_t i){ assert(GetTString(i) == GetTString(i/2)); });
-	}
-	
+	str_test::Run();
 	exit(0);
 	
 

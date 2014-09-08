@@ -30,41 +30,43 @@ int main(int argc, const char * argv[])
 	
 //	const char * const kPigeon = "TOUCAN_RASTA_2015";
 	
+	static const size_t k10Million = 10_p * 1000_p * 1000_p;
 	// strlen test
 	// short
 	Timed([]{
-		const char* kToucan = "TOUCAN_";
+		char s[] = "TOUCAN_";
 		int len = 0;
-		for (int i = 0; i < 1000000; i++) {
-			len += strlen(kToucan);
+		for (size_t i = 0; i < k10Million; i++) {
+			len += strlen(s);
 		}
-		Logger(ORANGE) << len;
+//		Logger(ORANGE) << s << " -> " << len;
 	});
 	Timed([]{
 		ShortString s { "TOUCAN_" };
 		int len = 0;
-		for (int i = 0; i < 1000000; i++) {
+		for (size_t i = 0; i < k10Million; i++) {
 			len += s.Length();
 		}
-		Logger(ORANGE) << len;
+//		Logger(ORANGE) << s << " -> " << len;
 	});
 	
 	// long
 	Timed([]{
-		const char* kToucan = "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_";
+		char s[] = "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_";
 		int len = 0;
-		for (int i = 0; i < 1000000; i++) {
-			len += strlen(kToucan);
+		for (size_t i = 0; i < k10Million; i++) {
+			len += strlen(s);
 		}
-		Logger(ORANGE) << len;
+		Logger(ORANGE) << s << " -> " << len;
 	});
 	Timed([]{
-		LongString s { "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_" };
+		char cs[] = "TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_TOUCAN_";
+		LongString s { cs };
 		int len = 0;
-		for (int i = 0; i < 1000000; i++) {
+		for (size_t i = 0; i < k10Million; i++) {
 			len += s.Length();
 		}
-		Logger(ORANGE) << len;
+		Logger(ORANGE) << s << " -> " << len;
 	});
 	// strcmp test
 	

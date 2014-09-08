@@ -7,3 +7,10 @@
 //
 
 #include "LongString.h"
+
+namespace toucan_db {
+	ostream& operator<<(ostream& os, const LongString& str) {
+		os << str.Ptr();
+		return os;
+	}
+}

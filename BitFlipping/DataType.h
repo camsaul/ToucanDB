@@ -56,8 +56,10 @@ namespace toucan_db {
 		} data_ = (static_cast<size_t>(Type));
 	};
 	
-	static const size_t kTagMask = 0xFFFF000000000000;
-	static const size_t kPtrMask = ~kTagMask;
+	static const size_t kUpperTagMask		= 0xFFFF000000000000;
+	static const size_t kLowerTagMask		= 0b0111;
+	static const size_t kPtrMask			= ~(kUpperTagMask|kLowerTagMask); ///< Get just the pointer. Still need to fix top two bytes
+	static const size_t kSignificantBitMask = 0x0000800000000000; // get the most significant bit
 	
 	template <typename T, class UpperTagStruct>
 	class TaggedPtr2 {
@@ -80,15 +82,32 @@ namespace toucan_db {
 		const UpperTagStruct& Tag() const { return tag; }
 		UpperTagStruct& Tag() { return tag; }
 		
+		const T* Ptr() const {
+			size_t p = ptr & kPtrMask;
+			if (kSignificantBitMask & ptr) {
+				p |= kUpperTagMask;
+			}
+			return reinterpret_cast<T*>(p);
+		}
+		
 	private:
 		UpperTagStruct	tag; // 16 bits
 		size_t			ptr : 48;
 	};
 	
-//	template <DataType Type, typename T, typename StructT>
-//	class TaggedPtrVal : public Value<Type, TaggedPtr2<T, StructT>> {
-//	
-//	protected:
-//		UpperTagStruct& Tag() { return data_.d.Tag(); }
-//	};
+	template <DataType Type, typename T, typename StructT>
+	class TaggedPtrVal : public Value<Type, TaggedPtr2<T, StructT>> {
+	using ValueT = Value<Type, TaggedPtr2<T, StructT>>;
+	
+	protected:
+		template <typename... ConstructorArgs>
+		TaggedPtrVal(ConstructorArgs... args):
+			ValueT(args...)
+		{}
+	
+		StructT& Tag()				{ return ValueT::data_.d.Tag(); }
+		const StructT& Tag() const	{ return ValueT::data_.d.Tag(); }
+		
+		const T* Ptr() const		{ return ValueT::data_.d.Ptr(); }
+	};
 }

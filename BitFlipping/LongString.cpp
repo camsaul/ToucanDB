@@ -22,13 +22,12 @@ namespace toucan_db {
 	{
 		assert(Type() == DataType::LONG_STR);
 		
-		auto numBlocks = len / 8;
-		if (len % 8) numBlocks++;
+		auto numBlocks = len / kLongStringDataSize;
+		if (len % kLongStringDataSize) numBlocks++;
 		Tag().len = numBlocks;
 		SetPtr(new LongStringData[numBlocks]);
-//		cout << "LongString() -> " << hex << Ptr() << dec << endl;
 		
-		memset((void *)LastBlock(), 0, 8); // zero out last block
+		memset((void *)LastBlock(), 0, kLongStringDataSize); // zero out last block
 		
 		memcpy((void *)Ptr(), str, len);
 	}

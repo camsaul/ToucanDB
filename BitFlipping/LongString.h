@@ -20,10 +20,13 @@ namespace toucan_db {
 	} __attribute__((packed));
 	static_assert(sizeof(LongStringUpperTag) == 2, "LongStringUpperTag should be 2 bytes!");
 	
+
+	/// TODO - Rewrite the operator== code to use SSE
+	static const size_t kLongStringDataSize = 16; // 128-bit
 	struct LongStringData {
-		char data[8];
+		char data[kLongStringDataSize];
 	};
-	static_assert(sizeof(LongStringData) == 8, "LongStringData should be 8 bytes!");
+	static_assert(sizeof(LongStringData) == kLongStringDataSize, "LongStringData is wrong number of bytes!");
 	
 	class LongString : public TaggedPtrVal<DataType::LONG_STR, LongStringData, LongStringUpperTag> {
 	public:
@@ -32,11 +35,11 @@ namespace toucan_db {
 		
 		LongString& operator=(LongString&& rhs);
 		
-		size_t Length() const { return ((NumBlocks() - 1) * 8) + LastBlockLength(); }
+		size_t Length() const { return ((NumBlocks() - 1) * kLongStringDataSize) + LastBlockLength(); }
 		
 		bool operator==(const LongString& rhs) const {
 			const bool equalLengths = Tag().len == rhs.Tag().len;
-			return equalLengths ? (memcmp(Ptr(), rhs.Ptr(), Tag().len) == 0) : false;
+			return equalLengths ? (memcmp(Ptr(), rhs.Ptr(), Tag().len * kLongStringDataSize) == 0) : false;
 		}
 		
 		friend ostream& operator<<(ostream& os, const LongString& str);
